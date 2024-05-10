@@ -1,0 +1,14 @@
+body,html {
+    background-color: #C4C4C4;
+    height: 100%;
+    margin : 0px;
+    padding : 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-box {
+    
+}
