@@ -42,7 +42,7 @@ public class ProjectController {
     }
 
 
-
+// project 조회 부분
 //    @Operation(summary = "프로젝트 조회", description =
 //            "프로젝트를 조회합니다."
 //    )
