@@ -23,7 +23,7 @@ public class Project extends BaseEntity {
     private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -34,13 +34,10 @@ public class Project extends BaseEntity {
 //        if (this.user != null) {
 //            this.user.getQuestionList().remove(this);
 //        }
-
         this.user = user;
-
 //        // 양방향 관계를 설정
 //        if (user != null) {
 //            user.getQuestionList().add(this);
 //        }
     }
-
 }
