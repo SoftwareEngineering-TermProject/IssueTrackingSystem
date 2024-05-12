@@ -27,7 +27,7 @@ public class ProjectController {
     private final ProjectCommandService projectCommandService;
     private final ProjectQueryService projectQueryService;
 
-    @Operation(summary = "프로젝트 생성", description =
+    @Operation(summary = "프로젝트 생성", description =      // userId 받아와서 projectId 찾는 부분 구현 필요
             "Project를 생성합니다."
     )
     @PostMapping("/")
@@ -42,7 +42,7 @@ public class ProjectController {
     }
 
 
-// project 조회 부분
+// project 조회 부분 
 //    @Operation(summary = "프로젝트 조회", description =
 //            "프로젝트를 조회합니다."
 //    )
