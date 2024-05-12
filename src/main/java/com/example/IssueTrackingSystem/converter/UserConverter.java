@@ -1,10 +1,8 @@
 package com.example.IssueTrackingSystem.converter;
 
-import com.example.IssueTrackingSystem.domain.User;
+import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.web.dto.UserRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.UserResponseDTO;
-
-import java.time.LocalDateTime;
 
 public class UserConverter {
 

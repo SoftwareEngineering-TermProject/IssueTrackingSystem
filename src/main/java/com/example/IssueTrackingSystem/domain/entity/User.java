@@ -1,4 +1,4 @@
-package com.example.IssueTrackingSystem.domain;
+package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
 import com.example.IssueTrackingSystem.domain.enums.UserRole;
