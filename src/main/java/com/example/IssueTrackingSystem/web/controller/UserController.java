@@ -3,7 +3,7 @@ package com.example.IssueTrackingSystem.web.controller;
 import com.example.IssueTrackingSystem.apiPayload.ApiResponse;
 import com.example.IssueTrackingSystem.apiPayload.code.status.SuccessStatus;
 import com.example.IssueTrackingSystem.converter.UserConverter;
-import com.example.IssueTrackingSystem.domain.User;
+import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.service.UserService.UserCommandService;
 import com.example.IssueTrackingSystem.service.UserService.UserQueryService;
 import com.example.IssueTrackingSystem.web.dto.UserRequestDTO;

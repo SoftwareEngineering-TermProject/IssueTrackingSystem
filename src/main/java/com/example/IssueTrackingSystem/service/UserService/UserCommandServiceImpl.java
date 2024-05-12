@@ -1,7 +1,7 @@
 package com.example.IssueTrackingSystem.service.UserService;
 
 import com.example.IssueTrackingSystem.converter.UserConverter;
-import com.example.IssueTrackingSystem.domain.User;
+import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.repository.UserRepository;
 import com.example.IssueTrackingSystem.web.dto.UserRequestDTO;
 import lombok.RequiredArgsConstructor;

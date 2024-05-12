@@ -1,8 +1,6 @@
-package com.example.IssueTrackingSystem.domain;
+package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
-import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
-import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -15,21 +13,17 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Issue extends BaseEntity {
+public class Project extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long issueId;
+    private Long projectId;
 
     @Column(nullable = false, length = 20)
     private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String description;
-
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'DEFAULT'")
-    private IssueStatus issueStatus;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -48,4 +42,5 @@ public class Issue extends BaseEntity {
 //            user.getQuestionList().add(this);
 //        }
     }
+
 }
