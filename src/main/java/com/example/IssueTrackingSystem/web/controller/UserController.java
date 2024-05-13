@@ -28,7 +28,7 @@ public class UserController {
     @Operation(summary = "회원가입", description =
             "User를 생성합니다."
     )
-    @PostMapping("/")
+    @PostMapping("/sign_up")
     public ApiResponse<UserResponseDTO.CreateUserResultDTO> signUp(
             @RequestBody UserRequestDTO.CreateUserRequestDTO request
             ) {
