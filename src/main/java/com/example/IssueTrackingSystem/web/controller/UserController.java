@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping("/sign_in")
     public ApiResponse<UserResponseDTO.SignInResultDTO> signIn(
             @RequestBody UserRequestDTO.SignInRequestDTO request
-    ) {
+            ) {
         User findUser = userQueryService.signIn(request);
         return ApiResponse.onSuccess(
                 SuccessStatus.User_OK,
