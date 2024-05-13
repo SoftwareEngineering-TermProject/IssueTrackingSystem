@@ -32,9 +32,10 @@ public class ProjectController {
     )
     @PostMapping("/")
     public ApiResponse<ProjectResponseDTO.CreateProjectResultDTO> projectCreate(   //signUp 바꿔야됨
+            @RequestParam Long userId,
             @RequestBody ProjectRequestDTO.CreateProjectRequestDTO request
             ) {
-        Project newProject = projectCommandService.createProject(request);
+        Project newProject = projectCommandService.createProject(userId, request);
         return ApiResponse.onSuccess(
                 SuccessStatus.Project_OK,
                 ProjectConverter.toCreateResultDTO(newProject)

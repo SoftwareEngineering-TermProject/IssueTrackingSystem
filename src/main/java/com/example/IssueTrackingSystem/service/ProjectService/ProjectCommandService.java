@@ -4,5 +4,5 @@ import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.web.dto.ProjectRequestDTO;
 
 public interface ProjectCommandService {
-    Project createProject(ProjectRequestDTO.CreateProjectRequestDTO request);
+    Project createProject(Long userId, ProjectRequestDTO.CreateProjectRequestDTO request);
 }
