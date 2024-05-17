@@ -29,10 +29,18 @@ public class ProjectRequestDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class UpdateProjectDTO {
-        // private String title;
         private String title;
         private String description;
     }
+
+//    @Getter
+//    @Builder
+//    @AllArgsConstructor
+//    @NoArgsConstructor
+//    public static class deleteProjectDTO {
+//        private String title;
+//        private String description;
+//    }
 
 }
 

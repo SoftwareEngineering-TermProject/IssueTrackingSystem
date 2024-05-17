@@ -38,4 +38,10 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
 
         return updateProject;
     }
+
+    @Override
+    public void deleteProject(Long projectId) {
+        Project deleteProject = projectRepository.findById(projectId).get();
+        projectRepository.delete(deleteProject);
+    }
 }
