@@ -17,6 +17,19 @@ public class ProjectResponseDTO {
         String description;
     }
 
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProjectDTO {
+        Long projectId;
+        String title;
+        String description;
+        // 이슈 상태?
+        // 코멘트?
+    }
+
     @Getter
     @Builder
     @NoArgsConstructor

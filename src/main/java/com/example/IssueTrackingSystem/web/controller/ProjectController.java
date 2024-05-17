@@ -78,6 +78,28 @@ public class ProjectController {
         );
     }
 
+    // 특정 프로젝트 조회
+    @GetMapping("/{projectId}")
+    @Operation(
+            summary = "특정 프로젝트 조회 API"
+            , description = "프로젝트를 삭제합니다. Path variable로 조회할 projectId를 입력하세요"
+    )
+    public ApiResponse<ProjectResponseDTO.ProjectDTO> findProject(
+            @PathVariable Long projectId
+    ) {
+        Object request;
+        Project findProject = projectQueryService.findById(projectId);
+        return  ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectConverter.toProjectDTO(
+                        findProject
+                        //projectQueryService. //countExpertCountByQuestion ???
+                )
+        );
+    }
+
+    // 전체 프로젝트 페이징 조회 (검색 가능)
+
 
 
 // project 조회 부분 
