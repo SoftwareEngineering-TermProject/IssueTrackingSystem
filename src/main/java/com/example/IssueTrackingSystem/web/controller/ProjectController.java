@@ -3,12 +3,11 @@ package com.example.IssueTrackingSystem.web.controller;
 import com.example.IssueTrackingSystem.apiPayload.ApiResponse;
 import com.example.IssueTrackingSystem.apiPayload.code.status.SuccessStatus;
 import com.example.IssueTrackingSystem.converter.ProjectConverter;
-import com.example.IssueTrackingSystem.converter.UserConverter;
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.service.ProjectService.ProjectCommandService;
 import com.example.IssueTrackingSystem.service.ProjectService.ProjectQueryService;
-import com.example.IssueTrackingSystem.web.dto.ProjectRequestDTO;
-import com.example.IssueTrackingSystem.web.dto.ProjectResponseDTO;
+import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +26,13 @@ public class ProjectController {
     private final ProjectCommandService projectCommandService;
     private final ProjectQueryService projectQueryService;
 
-    @Operation(summary = "프로젝트 생성", description =      // userId 받아와서 projectId 찾는 부분 구현 필요
+
+    // 프로젝트 생성
+    @PostMapping("/")
+    @Operation(summary = "프로젝트 생성", description =
             "Project를 생성합니다."
     )
-    @PostMapping("/")
-    public ApiResponse<ProjectResponseDTO.CreateProjectResultDTO> projectCreate(   //signUp 바꿔야됨
+    public ApiResponse<ProjectResponseDTO.CreateProjectResultDTO> projectCreate(
             @RequestParam Long userId,
             @RequestBody ProjectRequestDTO.CreateProjectRequestDTO request
             ) {
@@ -39,6 +40,25 @@ public class ProjectController {
         return ApiResponse.onSuccess(
                 SuccessStatus.Project_OK,
                 ProjectConverter.toCreateResultDTO(newProject)
+        );
+    }
+
+
+    // 프로젝트 수정
+    @PatchMapping("/{projectId}")
+    @Operation(
+            summary = "프로젝트 수정 API"
+            , description = "프로젝트를 수정합니다. Path variable로 projectId를 입력 받고, RequestBody에 프로젝트 제목 title과 수정할 프로젝트 description를 입력하세요"
+    )
+    public ApiResponse<ProjectResponseDTO.UpdateProjectResultDTO> updateProject(
+            @RequestBody ProjectRequestDTO.UpdateProjectDTO request,
+            @PathVariable Long projectId
+    ) {
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectConverter.UpdateProjectResultDTO(
+                        projectCommandService.updateProject(projectId, request)
+                )
         );
     }
 

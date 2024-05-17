@@ -1,4 +1,4 @@
-package com.example.IssueTrackingSystem.web.dto;
+package com.example.IssueTrackingSystem.web.dto.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

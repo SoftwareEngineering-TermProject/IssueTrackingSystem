@@ -1,4 +1,4 @@
-package com.example.IssueTrackingSystem.web.dto;
+package com.example.IssueTrackingSystem.web.dto.Project;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +24,15 @@ public class ProjectRequestDTO {
         private long projectId;
     }
 
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UpdateProjectDTO {
+        // private String title;
+        private String title;
+        private String description;
+    }
+
 }
 
-
-// RequestBody는 했는데, Request Param은 어케함

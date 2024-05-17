@@ -3,7 +3,7 @@ package com.example.IssueTrackingSystem.service.UserService;
 import com.example.IssueTrackingSystem.converter.UserConverter;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.repository.UserRepository;
-import com.example.IssueTrackingSystem.web.dto.UserRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.User.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

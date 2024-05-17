@@ -1,4 +1,4 @@
-package com.example.IssueTrackingSystem.web.dto;
+package com.example.IssueTrackingSystem.web.dto.User;
 
 import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import lombok.AllArgsConstructor;
