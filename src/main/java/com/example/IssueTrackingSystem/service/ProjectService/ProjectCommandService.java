@@ -7,4 +7,6 @@ public interface ProjectCommandService {
     Project createProject(Long userId, ProjectRequestDTO.CreateProjectRequestDTO request);
 
     Project updateProject(Long projectId, ProjectRequestDTO.UpdateProjectDTO request);
+
+    void deleteProject(Long projectId);
 }

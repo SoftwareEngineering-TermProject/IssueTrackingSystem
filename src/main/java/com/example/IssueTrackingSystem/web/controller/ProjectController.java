@@ -62,6 +62,23 @@ public class ProjectController {
         );
     }
 
+    // 프로젝트 삭제
+    @DeleteMapping("/{projectId}")
+    @Operation(
+            summary = "프로젝트 삭제 API"
+            , description = "프로젝트를 삭제합니다. Path variable로 삭제할 projectId를 입력하세요"
+    )
+    public ApiResponse<?> deleteProject(
+            @PathVariable Long projectId) {
+
+        projectCommandService.deleteProject(projectId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                null
+        );
+    }
+
+
 
 // project 조회 부분 
 //    @Operation(summary = "프로젝트 조회", description =
