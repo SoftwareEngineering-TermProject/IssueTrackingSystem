@@ -1,8 +1,8 @@
 package com.example.IssueTrackingSystem.converter;
 
 import com.example.IssueTrackingSystem.domain.entity.User;
-import com.example.IssueTrackingSystem.web.dto.UserRequestDTO;
-import com.example.IssueTrackingSystem.web.dto.UserResponseDTO;
+import com.example.IssueTrackingSystem.web.dto.User.UserRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 
 public class UserConverter {
 

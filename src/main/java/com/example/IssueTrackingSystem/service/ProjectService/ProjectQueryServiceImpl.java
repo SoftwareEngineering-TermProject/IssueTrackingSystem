@@ -2,7 +2,7 @@ package com.example.IssueTrackingSystem.service.ProjectService;
 
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
-import com.example.IssueTrackingSystem.web.dto.ProjectRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

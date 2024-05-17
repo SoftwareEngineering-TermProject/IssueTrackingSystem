@@ -5,7 +5,7 @@ import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
 import com.example.IssueTrackingSystem.repository.UserRepository;
-import com.example.IssueTrackingSystem.web.dto.ProjectRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,5 +29,13 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
         Project savedProject = projectRepository.save(newProject);
 
         return savedProject;
+    }
+
+    @Override
+    public Project updateProject(Long projectId, ProjectRequestDTO.UpdateProjectDTO request) {
+        Project updateProject = projectRepository.findById(projectId).get();
+        updateProject.update(request);
+
+        return updateProject;
     }
 }

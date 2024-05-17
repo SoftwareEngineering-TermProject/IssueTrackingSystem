@@ -1,6 +1,7 @@
 package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
+import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -39,5 +40,10 @@ public class Project extends BaseEntity {
 //        if (user != null) {
 //            user.getQuestionList().add(this);
 //        }
+    }
+
+    public void update(ProjectRequestDTO.UpdateProjectDTO request) {
+        this.title = request.getTitle();
+        this.description = request.getDescription();
     }
 }
