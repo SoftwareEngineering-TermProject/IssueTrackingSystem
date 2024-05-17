@@ -24,4 +24,9 @@ public class ProjectQueryServiceImpl implements ProjectQueryService{
         Optional<Project> findProject = projectRepository.findById(request.getProjectId());
         return null;
     }
+
+    public Project findById(Long projectId) {
+        Project project = projectRepository.findById(projectId).get();
+        return projectRepository.save(project);
+    }
 }

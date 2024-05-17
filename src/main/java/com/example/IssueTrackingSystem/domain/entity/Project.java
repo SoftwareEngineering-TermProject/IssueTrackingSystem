@@ -1,11 +1,15 @@
 package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectHashTag;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +33,10 @@ public class Project extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<ProjectHashTag> projectHashTagList = new ArrayList<>();
 
     public void setUser(User user) {
 //        // 기존에 이미 등록되어 있던 관계를 제거
