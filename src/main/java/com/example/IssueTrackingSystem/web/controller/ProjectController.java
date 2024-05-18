@@ -9,10 +9,16 @@ import com.example.IssueTrackingSystem.service.ProjectService.ProjectQueryServic
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -82,7 +88,7 @@ public class ProjectController {
     @GetMapping("/{projectId}")
     @Operation(
             summary = "특정 프로젝트 조회 API"
-            , description = "프로젝트를 삭제합니다. Path variable로 조회할 projectId를 입력하세요"
+            , description = "특정 프로젝트를 조회합니다. Path variable로 조회할 projectId를 입력하세요"
     )
     public ApiResponse<ProjectResponseDTO.ProjectDTO> findProject(
             @PathVariable Long projectId
@@ -99,10 +105,31 @@ public class ProjectController {
     }
 
     // 전체 프로젝트 페이징 조회 (검색 가능)
+    @GetMapping
+    @Operation(
+            summary = "전체 프로젝트 페이징 조회 API"
+            , description = "전체 프로젝트를 조회합니다. RequestParam으로 페이징 조회를 위한 page와 size를 입력하세요. 검색을 원할 경우에는 search를 입력하세요."
+    )
+    public ApiResponse<ProjectResponseDTO.ProjectPreviewListDTO> findProjectByPaging(
+            @RequestParam @Min(0) Integer page,
+            @RequestParam @Min(1) @Max(10) Integer size,
+            // Search
+            @RequestParam(required = false) Optional<String> search
+    ) {
+        Page<Project> projects = projectQueryService.findAllBySearch(page, size, search);
+
+        //List<Integer> userCounts = projectQueryService.fin
+
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectConverter.toProjectPreviewDTOList(
+                        projects
+                )
+        );
+    }
 
 
-
-// project 조회 부분 
+//    // project 조회 부분
 //    @Operation(summary = "프로젝트 조회", description =
 //            "프로젝트를 조회합니다."
 //    )

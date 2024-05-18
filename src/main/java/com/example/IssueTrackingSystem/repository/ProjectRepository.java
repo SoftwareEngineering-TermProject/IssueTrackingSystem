@@ -17,4 +17,6 @@ import java.util.function.Function;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
+    Page<Project> findAllByOrderByCreatedAtDescProjectIdDesc(Pageable pageable);
+    Page<Project> findAllByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrderByCreatedAtDescProjectIdDesc(String title, String description, Pageable pageable);
 }
