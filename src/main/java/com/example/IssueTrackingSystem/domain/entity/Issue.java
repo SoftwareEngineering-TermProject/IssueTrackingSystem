@@ -27,7 +27,7 @@ public class Issue extends BaseEntity {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'DEFAULT'")
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'NEW'")
     private IssueStatus issueStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
