@@ -2,6 +2,7 @@ package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
 import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
+import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -46,5 +47,10 @@ public class Issue extends BaseEntity {
 //        if (user != null) {
 //            user.getQuestionList().add(this);
 //        }
+    }
+
+    public void updateIssue(IssueRequestDTO.UpdateIssueDTO request) {
+        this.title = request.getTitle();
+        this.description = request.getDescription();
     }
 }

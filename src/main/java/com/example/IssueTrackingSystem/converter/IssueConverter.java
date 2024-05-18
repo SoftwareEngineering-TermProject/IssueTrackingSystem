@@ -21,4 +21,12 @@ public class IssueConverter {
                 .createdAt(issue.getCreatedAt())
                 .build();
     }
+
+    public static IssueResponseDTO.UpdateResultDTO toUpdateResultDTO(Issue issue){
+        return IssueResponseDTO.UpdateResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .title(issue.getTitle())
+                .description(issue.getDescription())
+                .build();
+    }
 }

@@ -14,4 +14,13 @@ public class IssueRequestDTO {
         private String title;
         private String description;
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UpdateIssueDTO {
+        private String title;
+        private String description;
+    }
 }

@@ -16,4 +16,14 @@ public class IssueResponseDTO {
         Long issueId;
         LocalDateTime createdAt;
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UpdateResultDTO {
+        private Long issueId;
+        private String title;
+        private String description;
+    }
 }

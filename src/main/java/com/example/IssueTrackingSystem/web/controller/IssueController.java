@@ -27,9 +27,9 @@ public class IssueController {
 
     private final IssueCommandService issueCommandService;
 
-    // 프로젝트 생성
+    // 이슈 생성
     @PostMapping("/")
-    @Operation(summary = "이슈 생성", description =
+    @Operation(summary = "이슈 생성 API", description =
             "Issue를 생성합니다."
     )
     public ApiResponse<IssueResponseDTO.CreateIssueResultDTO> createIssue(
@@ -40,6 +40,43 @@ public class IssueController {
         return ApiResponse.onSuccess(
                 SuccessStatus.Issue_OK,
                 IssueConverter.toCreateIssueResultDTO(newIssue)
+        );
+    }
+
+    // 이슈 수정
+    @PatchMapping("/{issueId}")
+    @Operation(
+            summary = "이슈 수정 API"
+            , description = "이슈를 수정합니다. Path variable로 issueId를 입력 받고, RequestBody에 수정할 이슈 title과 description를 입력하세요"
+    )
+    public ApiResponse<IssueResponseDTO.UpdateResultDTO> updateIssue(
+            @PathVariable Long issueId,
+            @RequestParam Long userId,
+            @RequestBody IssueRequestDTO.UpdateIssueDTO request
+    ) {
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toUpdateResultDTO(
+                        issueCommandService.updateIssue(issueId, userId, request)
+                )
+        );
+    }
+
+    // 이슈 삭제
+    @DeleteMapping("/{issueId}")
+    @Operation(
+            summary = "이슈 삭제 API"
+            , description = "이슈를 삭제합니다. Path variable로 삭제할 userId를 입력하세요"
+    )
+    public ApiResponse<?> deleteIssue(
+            @PathVariable Long issueId,
+            @RequestParam Long userId
+    ) {
+
+        issueCommandService.deleteIssue(issueId, userId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                null
         );
     }
 }
