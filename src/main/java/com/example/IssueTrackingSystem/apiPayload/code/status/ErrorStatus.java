@@ -28,7 +28,9 @@ public enum ErrorStatus implements BaseErrorCode {
     PROJECT_NOT_EXIST_BY_USER(HttpStatus.NOT_FOUND, "QUESTION_2006", "해당 유저가 작성한 질문은 존재 하지 않습니다."),
 
     // 이슈 관련 에러 3000
-    ISSUE_NOT_FOUND(HttpStatus.NOT_FOUND, "ANSWER_3001", "찾고있는 답변이 없습니다."),
+    ISSUE_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3001", "이슈 생성 권한이 없습니다."),
+    ISSUE_UPDATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3002", "이슈 수정 권한이 없습니다."),
+    ISSUE_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3003", "이슈 삭제 권한이 없습니다."),
     ISSUE_ID_NULL(HttpStatus.BAD_REQUEST, "USER_3002", "답변 아이디는 필수 입니다.");
 
     private final HttpStatus httpStatus;

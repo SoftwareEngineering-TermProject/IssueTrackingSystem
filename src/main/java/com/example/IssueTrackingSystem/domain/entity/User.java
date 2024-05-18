@@ -7,6 +7,9 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -32,5 +35,9 @@ public class User extends BaseEntity {
 
     @Column(nullable = false, length = 20)
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Issue> questionList = new ArrayList<>();
 
 }
