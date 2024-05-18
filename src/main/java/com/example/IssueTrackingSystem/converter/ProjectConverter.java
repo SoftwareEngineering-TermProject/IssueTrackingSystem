@@ -4,6 +4,7 @@ import com.example.IssueTrackingSystem.domain.entity.Hashtag;
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -34,6 +35,21 @@ public class ProjectConverter {
                 .projectId(project.getProjectId())
                 .title(project.getTitle())
                 .description(project.getDescription())
+                .build();
+    }
+
+
+    public static ProjectResponseDTO.ProjectPreviewListDTO toProjectPreviewDTOList(
+            Page<Project> projects
+            //, List<Integer> userCountList
+    ) {
+        // List<ProjectResponseDTO.ProjectPreviewDTO> projectPreviewDTOList = IntStream.range(0, expertCountList.size())
+        return ProjectResponseDTO.ProjectPreviewListDTO.builder()
+                .listSize(projects.getContent().size())
+                .totalPage(projects.getTotalPages())
+                .totalElements(projects.getTotalElements())
+                .isFirst(projects.isFirst())
+                .isLast(projects.isLast())
                 .build();
     }
 
