@@ -11,6 +11,7 @@ public class IssueRequestDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class CreateIssueRequestDTO {
+        private Long projectId;
         private String title;
         private String description;
     }
