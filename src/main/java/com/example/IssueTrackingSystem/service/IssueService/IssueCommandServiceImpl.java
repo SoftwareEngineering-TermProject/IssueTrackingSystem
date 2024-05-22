@@ -4,8 +4,10 @@ import com.example.IssueTrackingSystem.apiPayload.code.status.ErrorStatus;
 import com.example.IssueTrackingSystem.apiPayload.exception.handler.IssueHandler;
 import com.example.IssueTrackingSystem.converter.IssueConverter;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
+import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.repository.IssueRepository;
+import com.example.IssueTrackingSystem.repository.ProjectRepository;
 import com.example.IssueTrackingSystem.repository.UserRepository;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,10 @@ public class IssueCommandServiceImpl implements IssueCommandService{
 
     private final UserRepository userRepository;
     private final IssueRepository issueRepository;
+    private final ProjectRepository projectRepository;
     public Issue createIssue(Long userId, IssueRequestDTO.CreateIssueRequestDTO request){
         User getUser = userRepository.findById(userId).get();
+        Project getProject = projectRepository.findById(request.getProjectId()).get();
 
         // admin과 tester만 이슈생성 가능
         if(getUser.getUserRole() != ADMIN && getUser.getUserRole() != TESTER){
@@ -34,6 +38,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
 
         Issue newIssue = IssueConverter.toIssue(request);
         newIssue.setUser(getUser);
+        newIssue.setProject(getProject);
 
         Issue savedIssue = issueRepository.save(newIssue);
 

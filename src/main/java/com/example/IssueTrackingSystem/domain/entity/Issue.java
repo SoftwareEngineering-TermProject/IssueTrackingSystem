@@ -35,6 +35,10 @@ public class Issue extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     public void setUser(User user) {
 //        // 기존에 이미 등록되어 있던 관계를 제거
 //        if (this.user != null) {
@@ -47,6 +51,10 @@ public class Issue extends BaseEntity {
 //        if (user != null) {
 //            user.getQuestionList().add(this);
 //        }
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public void updateIssue(IssueRequestDTO.UpdateIssueDTO request) {
