@@ -6,7 +6,7 @@ import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 public interface ProjectCommandService {
     Project createProject(Long userId, ProjectRequestDTO.CreateProjectRequestDTO request);
 
-    Project updateProject(Long projectId, ProjectRequestDTO.UpdateProjectDTO request);
+    Project updateProject(Long userId, Long projectId, ProjectRequestDTO.UpdateProjectDTO request);
 
-    void deleteProject(Long projectId);
+    void deleteProject(Long userId, Long projectId);
 }
