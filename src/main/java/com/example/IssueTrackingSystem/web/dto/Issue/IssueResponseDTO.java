@@ -1,11 +1,14 @@
 package com.example.IssueTrackingSystem.web.dto.Issue;
 
+import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
+import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class IssueResponseDTO {
     @Getter
@@ -25,5 +28,24 @@ public class IssueResponseDTO {
         private Long issueId;
         private String title;
         private String description;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class IssuePreviewDTO {
+        UserResponseDTO.UserPreviewInIssueDTO user;
+        Long issueId;
+        String title;
+        IssueStatus issueStatus;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class IssuePreviewListDTO {
+        List<IssuePreviewDTO> issues;
     }
 }

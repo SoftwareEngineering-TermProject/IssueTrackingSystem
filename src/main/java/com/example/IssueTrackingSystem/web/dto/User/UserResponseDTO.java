@@ -22,4 +22,13 @@ public class UserResponseDTO {
     public static class SignInResultDTO {
         Long userId;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserPreviewInIssueDTO {
+        Long userId;
+        String userName;
+    }
 }
