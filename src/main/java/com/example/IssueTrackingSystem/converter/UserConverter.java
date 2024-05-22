@@ -34,4 +34,11 @@ public class UserConverter {
                 .userId(user.getUserId())
                 .build();
     }
+
+    public static UserResponseDTO.UserPreviewInIssueDTO toUserPreviewInIssueDTO(User user){
+        return UserResponseDTO.UserPreviewInIssueDTO.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .build();
+    }
 }

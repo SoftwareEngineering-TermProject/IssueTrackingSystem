@@ -85,8 +85,8 @@ public class IssueController {
         );
     }
 
-    // 이슈 리스트 출력
-    @DeleteMapping("/{issueId}")
+    // 이슈 리스트 검색
+    @GetMapping("/")
     @Operation(
             summary = "전체 이슈 조회 API"
             , description = "전체 이슈를 조회합니다."
@@ -98,7 +98,7 @@ public class IssueController {
         List<Issue> Issues = issueQueryService.findAllBySearch(search);
         return ApiResponse.onSuccess(
                 SuccessStatus.Issue_OK,
-                null
+                IssueConverter.toIssuePreviewListDTO(Issues)
         );
     }
 }

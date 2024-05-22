@@ -16,8 +16,16 @@ import java.util.Optional;
 @Slf4j
 public class IssueQueryServiceImpl implements  IssueQueryService{
     private final IssueRepository issueRepository;
-    public List<Issue> findAllBySearch(Optional<String> search) {
-        return issueRepository.findAllByTitleContainingIgnoreCaseByCreatedAtDesc();
+    public List<Issue> findAllBySearch(Optional<String> optSearch) {
+        // 만약 검색어가 존재한다면
+        if (optSearch.isPresent()) {
+            String search = optSearch.get();
+            // title, content에 검색어를 포함하는 (대소문자관계없이) 질문들을 최신순으로 페이징 조회
+            return issueRepository.findAllByTitleContainingIgnoreCaseOrderByCreatedAtDesc(search);
+        }
+        // 검색어가 존재하지 않는다면
+        // 최신순으로 페이징 조회
+        return issueRepository.findAllByOrderByCreatedAtDesc();
     }
 
 }

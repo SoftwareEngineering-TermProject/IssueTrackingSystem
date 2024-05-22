@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IssueQueryService {
-    List<Issue> findAllBySearch(Optional<String> search);
+    List<Issue> findAllBySearch(Optional<String> optSearch);
 }
