@@ -1,10 +1,16 @@
 package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
+import com.example.IssueTrackingSystem.domain.entity.mapping.CommentHashTag;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectHashTag;
+import com.example.IssueTrackingSystem.web.dto.Comment.CommentRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +34,10 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "issue_id")
     private Issue issue;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<CommentHashTag> commentHashTagList = new ArrayList<>();
 
     public void setUser(User user) {
 //        // 기존에 이미 등록되어 있던 관계를 제거
@@ -56,4 +66,9 @@ public class Comment extends BaseEntity {
 //            user.getQuestionList().add(this);
 //        }
     }
+
+    public void update(CommentRequestDTO.UpdateCommentDTO request) {
+        this.comment = request.getContent();;
+    }
+
 }

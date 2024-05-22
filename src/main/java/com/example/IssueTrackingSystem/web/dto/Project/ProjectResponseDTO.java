@@ -58,7 +58,7 @@ public class ProjectResponseDTO {
         Integer totalPage;
         Long totalElements;
         boolean isFirst;
-        boolean isLast;
+        boolean isLast;    // projectId : Title
     }
 
     @Getter
