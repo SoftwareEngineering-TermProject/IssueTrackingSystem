@@ -41,26 +41,38 @@ public class IssueCommandServiceImpl implements IssueCommandService{
     }
 
     public Issue updateIssue(Long issueId, Long userId, IssueRequestDTO.UpdateIssueDTO request){
-        // admin과 tester만 이슈 업데이트 가능
+        Issue updateIssue = issueRepository.findById(issueId).get();
+
+        // admin과 특정 이슈 생성한 tester만 특정 이슈 업데이트 가능
         User getUser = userRepository.findById(userId).get();
-        if(getUser.getUserRole() != ADMIN && getUser.getUserRole() != TESTER){
+        if(getUser.getUserRole() == ADMIN){
+            updateIssue.updateIssue(request);
+            return updateIssue;
+        }
+        else if(userId != updateIssue.getUser().getUserId()){
             throw new IssueHandler(ErrorStatus.ISSUE_UPDATE_UNAUTHORIZED);
         }
-
-        Issue updateIssue = issueRepository.findById(issueId).get();
-        updateIssue.updateIssue(request);
-
-        return updateIssue;
+        else {
+            updateIssue.updateIssue(request);
+            return updateIssue;
+        }
     }
 
     public void deleteIssue(Long issueId, Long userId){
-        // admin과 tester만 이슈 삭제 가능
-        User getUser = userRepository.findById(userId).get();
-        if(getUser.getUserRole() != ADMIN && getUser.getUserRole() != TESTER){
-            throw new IssueHandler(ErrorStatus.ISSUE_DELETE_UNAUTHORIZED);
-        }
-
         Issue deleteIssue = issueRepository.findById(issueId).get();
-        issueRepository.delete(deleteIssue);
+
+        // admin과 특정 이슈 삭제한 tester만 특정 이슈 삭제 가능
+        User getUser = userRepository.findById(userId).get();
+        if(getUser.getUserRole() == ADMIN){
+            issueRepository.delete(deleteIssue);
+            return;
+        }
+        else if(userId != deleteIssue.getUser().getUserId()){
+            throw new IssueHandler(ErrorStatus.ISSUE_UPDATE_UNAUTHORIZED);
+        }
+        else {
+            issueRepository.delete(deleteIssue);
+            return;
+        }
     }
 }
