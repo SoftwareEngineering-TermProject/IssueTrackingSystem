@@ -57,13 +57,14 @@ public class ProjectController {
             , description = "프로젝트를 수정합니다. Path variable로 projectId를 입력 받고, RequestBody에 프로젝트 제목 title과 수정할 프로젝트 description를 입력하세요"
     )
     public ApiResponse<ProjectResponseDTO.UpdateProjectResultDTO> updateProject(
+            @RequestParam Long userId,
             @RequestBody ProjectRequestDTO.UpdateProjectDTO request,
             @PathVariable Long projectId
     ) {
         return ApiResponse.onSuccess(
                 SuccessStatus.Project_OK,
                 ProjectConverter.UpdateProjectResultDTO(
-                        projectCommandService.updateProject(projectId, request)
+                        projectCommandService.updateProject(userId, projectId, request)
                 )
         );
     }
@@ -75,9 +76,10 @@ public class ProjectController {
             , description = "프로젝트를 삭제합니다. Path variable로 삭제할 projectId를 입력하세요"
     )
     public ApiResponse<?> deleteProject(
+            @RequestParam Long userId,
             @PathVariable Long projectId) {
 
-        projectCommandService.deleteProject(projectId);
+        projectCommandService.deleteProject(userId, projectId);
         return ApiResponse.onSuccess(
                 SuccessStatus.Project_OK,
                 null
