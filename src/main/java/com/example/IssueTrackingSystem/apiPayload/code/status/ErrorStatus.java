@@ -23,6 +23,9 @@ public enum ErrorStatus implements BaseErrorCode {
     USER_ID_NULL(HttpStatus.BAD_REQUEST, "USER_1004", "사용자 아이디는 필수 입니다."),
 
     // 프로젝트 관려 에러 2000
+    PROJECT_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2001", "프로젝트 생성 권한이 없습니다."),
+    PROJECT_UPDATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2002", "프로젝트 수정 권한이 없습니다."),
+    PROJECT_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2003", "프로젝트 삭제 권한이 없습니다."),
     PROJECT_NOT_FOUND(HttpStatus.NOT_FOUND, "QUESTION_2001", "찾고있는 질문글이 없습니다."),
     PROJECT_ID_NULL(HttpStatus.BAD_REQUEST, "USER_2002", "질문 아이디는 필수 입니다."),
     PROJECT_NOT_EXIST_BY_USER(HttpStatus.NOT_FOUND, "QUESTION_2006", "해당 유저가 작성한 질문은 존재 하지 않습니다."),
