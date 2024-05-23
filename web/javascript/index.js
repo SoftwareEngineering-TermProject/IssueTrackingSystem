@@ -36,9 +36,3 @@ form.addEventListener('submit', (event) => {
         }
     };
 });
-
-login_btn.addEventListener('click', (event) => {
-    
-});
-
-//send request & get response
