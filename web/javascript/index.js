@@ -4,8 +4,6 @@ const user_name = document.getElementById("username");
 const pass_word = document.getElementById("password");
 const warn = document.getElementById("warn");
 
-const url = "http://localhost:8080/";
-
 form.addEventListener('submit', (event) => {
     event.preventDefault(); // 폼의 기본 제출 동작을 막음
     

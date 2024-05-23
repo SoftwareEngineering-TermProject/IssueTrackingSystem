@@ -1,67 +1,105 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/issue.css">
-    <link rel="stylesheet" href="./style/detailed_issue.css">
-    <title>SE term project - All Issues</title>
-</head>
-<body>
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-          <div id='header'>
-            <h2>Issue title</h2>
-            <div class="close-modal">X</div>
-          </div>
-          <button>Edit</button>
-          <div id="issue-date">00-00-00</div>
-          <div id="issue-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-          <form>
-              <div>Reporter<select></select></div>
-              <div>Fixer<select></select></div>
-              <div>Assignee<select></select></div>
-              <div>Priority<select><option>blocker</option><option>critical</option><option>major</option><option>minor</option><option>tirivial</option></select></div>
-              <div>Status<select><option>new</option><option>assigned</option><option>resolved</option><option>closed</option><option>reopened</option></select></div>
-          </form>
-          
-          
-      </div>
-    </div>
-
-
-    <div id="upper-bar">
-      <div id="upper-bar-title"><h1>Project1 - Trouble Ticket System</h1></div>
-      <div id="upper-bar-info">
-        <button id='create-project-btn'>+ new issue</button>
-        <button id='create-project-btn'>+ add member</button>
-        <form>
-          <input />
-          <button>search</button>
-        </form>
-      </div>
-    </div>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Issue title</th>
-          <th>Reporter</th>
-          <th>Fixer</th>
-          <th>Assignee</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody id='tbody'>
-        
-      </tbody>
-    </table>
-</body>
-
-<script src="./javascript/issue.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style/issue.css">
+        <link rel="stylesheet" href="./style/detailed_issue.css">
+        <link rel="stylesheet" href="./style/modal.css">
+        <title>SE term project - All Issues</title>
+    </head>
+    <body>
+        <div id="create-modal" class="modal">
+            <div class="modal-content">
+                <h2>New Issue</h2>
+                <form id="create-form">
+                    <label>Issue title</label>
+                    <input class="modal-input" id="input-title">
+                    <label>Description</label>
+                    <textarea class="modal-input" id="input-description"></textarea>
+                    <button id="create-btn">Create</button>
+                </form>
+                <button id="close-btn">Cancel</button>
+            </div>
+        </div>
+        <div id="detail-wrapper" class="detail">
+            <div class="detail-content">
+                <div id="header">
+                    <h2 id="detail-title">Issue title</h2>
+                    <div class="close-detail">X</div>
+                </div>
+                <button>Edit</button>
+                <div id="detail-date">00-00-00</div>
+                <div id="detail-description">
+                    Lorem ipsum dolor sit amet,
+                </div>
+                <form>
+                    <div>
+                        Reporter
+                        <select></select>
+                    </div>
+                    <div>
+                        Fixer
+                        <select></select>
+                    </div>
+                    <div>
+                        Assignee
+                        <select></select>
+                    </div>
+                    <div>
+                        Priority
+                        <select>
+                            <option>blocker</option>
+                            <option>critical</option>
+                            <option>major</option>
+                            <option>minor</option>
+                            <option>tirivial</option>
+                        </select>
+                    </div>
+                    <div>
+                        Status
+                        <select>
+                            <option>new</option>
+                            <option>assigned</option>
+                            <option>resolved</option>
+                            <option>closed</option>
+                            <option>reopened</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="upper-bar">
+            <div id="upper-bar-title">
+                <h1>Project1 - Trouble Ticket System</h1>
+            </div>
+            <div id="upper-bar-info">
+                <button id="modal-btn">+ new issue</button>
+                <button id="add-member-btn">+ add member</button>
+                <form>
+                    <input>
+                    <button>search</button>
+                </form>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Issue title</th>
+                    <th>Reporter</th>
+                    <th>Fixer</th>
+                    <th>Assignee</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </body>
+    <script src="./javascript/config.js"></script>
+    <script src="./javascript/issue.js"></script>
+    <script src="./javascript/issue_detail.js"></script>
+    <script src="./javascript/issue_create.js"></script>
 </html>

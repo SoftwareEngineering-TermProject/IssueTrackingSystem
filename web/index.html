@@ -10,7 +10,7 @@
 <body>
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <h2>New Project</h2>
+            <h2>New Account</h2>
             <form id="create-form">
                 <label>Name</label>
                 <input class="modal-input" id="input-name" />
@@ -23,20 +23,20 @@
                 <button id="close-btn" class="close">Cancel</button>
         </div>
     </div>
-
     <div><h1>SE term project</h1></div>
     <div><h3>Trouble Ticket System</h3></div>
     <div id="login-box">
         <form id="login-form">
-            <div><input id="username" /> </div>
-            <div><input id="password" /> </div>
+            <div class="login-input"><label>ID</label> <input id="username" /> </div>
+            <div class="login-input"><label>PW</label> <input id="password" /> </div>
             <div id="warn">Failed to login. Please check ID/Password.</div>
             <button id="login-btn">LOG IN</button>
         </form>
             <button id="modal-btn">SIGN UP</button>
-    </div>    
-</body>
+    </div>
 
+</body>
+<script src="./javascript/config.js"></script>
 <script src="./javascript/index.js"></script>
 <script src="./javascript/index_signup.js"></script>
 </html>

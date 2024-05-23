@@ -1,49 +1,52 @@
-var modalBtn = document.getElementById("create-project-btn");
-var modal = document.getElementById("myModal");
-var closeBtn = document.getElementsByClassName("close")[0];
-var projectBoxes = document.getElementsByClassName("project-box");
-
-// 모달 열기 버튼 클릭 시
-modalBtn.onclick = function() {
-  modal.style.display = "block";
-};
-
-// 모달 닫기 버튼 클릭 시
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-};
-
-// 사용자가 모달 외부를 클릭하여 닫을 수 있도록
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-for(let e of projectBoxes) {
-  e.onclick = function() { window.location.href = './issue.html';};
-};
+const all_project = document.getElementById("all-projects");
 
 //load project list
 const projectRequest = new XMLHttpRequest();
-projectRequest.open('GET', url + `projects/?userId=${userId}`);
+projectRequest.open('GET', url + `projects`);
 projectRequest.setRequestHeader("Content-Type", "application/json");
 
-var body = JSON.stringify({
-    title : title.value,
-    description : description.value
-});
-projectRequest.send(body);
+projectRequest.send();
 projectRequest.onload = () => {
-    login_btn.disabled = false;
     if( projectRequest.status === 200 ) {
-        console.log(projectRequest.response);
-        const response = JSON.parse(projectRequest.response);
-        console.log(response);   
-        
-        window.location.href = window.location.href;
+        const result = JSON.parse(projectRequest.response).result;
+        const projects = result.projects;
+        console.log(projects);
+        projects.forEach(element => {
+          addProject(element);
+        });
     } else {
-        alert("프로젝트 생성에 실패하였습니다.");
+        alert("프로젝트 목록을 받아오지 못했습니다.");
         console.error("Error", projectRequest.status, projectRequest.statusText);
     }
 };
+
+/*
+<div class="project-box" id="project-2">
+  <div class="project-title">League of legend</div>
+  <div class="project-info">
+    <div class="info-role">tester</div>
+    <div class="info-participant">👤10</div>
+  </div>
+</div>
+*/
+
+function addProject(project) {
+  console.log(project.title);
+  const box = document.createElement("div");
+  box.className = "project-box";
+  box.id = "project-" +  project.projectId;
+  
+  const title = document.createElement("div");
+  title.className = "project-title";
+  title.innerText = project.title;
+
+  //link box
+  box.onclick = function() { 
+    console.log("clicked" + project.projectId)
+    localStorage.setItem("projectId", project.projectId);
+    window.location.href = './issue.html';
+  };
+
+  box.appendChild(title);
+  all_project.appendChild(box);
+}

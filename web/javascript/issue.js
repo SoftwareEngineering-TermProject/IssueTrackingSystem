@@ -1,19 +1,26 @@
 const tbody = document.getElementById('tbody');
-var id = 0;
+const all_issues = document.getElementById("");
+var issues = null;
 
-const issues = [
-    {'id': 0,'title': 'draw picture', 'reporter': 'dev1', 'fixer': 'dev2', 'assignee': 'dev2', 'priority':'major', 'status':'closed', 'date':'24-04-30'},
-    {'id': 1,'title': 'synchronization error', 'reporter': 'pl1', 'fixer': '', 'assignee': '', 'priority':'critical', 'status':'new', 'date':'24-05-03'},
-    {'id': 2,'title': 'invalid link', 'reporter': 'dev1', 'fixer': '', 'assignee': 'dev3', 'priority':'trivial', 'status':'assigned', 'date':'24-05-05'},
-    {'id': 3, 'title': 'synchronization error', 'reporter': 'pl1', 'fixer': '', 'assignee': '', 'priority': 'critical', 'status': 'new', 'date': '24-05-03'},
-    {'id': 4, 'title': 'login failure', 'reporter': 'pl2', 'fixer': '', 'assignee': '', 'priority': 'high', 'status': 'open', 'date': '24-05-04'},
-    {'id': 5, 'title': 'data corruption', 'reporter': 'pl1', 'fixer': '', 'assignee': '', 'priority': 'critical', 'status': 'assigned', 'date': '24-05-05'},
-    {'id': 6, 'title': 'missing files', 'reporter': 'dev1', 'fixer': '', 'assignee': '', 'priority': 'medium', 'status': 'new', 'date': '24-05-06'},
-    {'id': 7, 'title': 'server downtime', 'reporter': 'pl1', 'fixer': '', 'assignee': '', 'priority': 'critical', 'status': 'investigating', 'date': '24-05-07'},
-    {'id': 8, 'title': 'email disruption', 'reporter': 'pl1', 'fixer': '', 'assignee': '', 'priority': 'high', 'status': 'new', 'date': '24-05-08'},
-    {'id': 9, 'title': 'network instability', 'reporter': 'pl1', 'fixer': '', 'assignee': '', 'priority': 'high', 'status': 'open', 'date': '24-05-09'},
-    {'id': 10, 'title': 'printer error', 'reporter': 'pl2', 'fixer': '', 'assignee': 'dev1', 'priority': 'medium', 'status': 'assigned', 'date': '24-05-10'},
-];
+// load all issues
+const issueRequest = new XMLHttpRequest();
+issueRequest.open('GET', url + `issues/`);
+issueRequest.setRequestHeader("Content-Type", "application/json");
+
+issueRequest.send();
+issueRequest.onload = () => {
+    if( issueRequest.status === 200 ) {
+        const result = JSON.parse(issueRequest.response).result;
+        issues = result.issues;
+        console.log(issues);
+        issues.forEach(element => {
+            addIssue(element);
+        });
+    } else {
+        alert("이슈 목록을 받아오지 못했습니다.");
+        console.error("Error", issueRequest.status, issueRequest.statusText);
+    }
+};
 
 function addIssue(issue){
     const tr = document.createElement('tr');
@@ -26,13 +33,13 @@ function addIssue(issue){
     const td_status = document.createElement('td');
     const td_date = document.createElement('td');
     
-    td_id.innerText = issue.id;
+    td_id.innerText = issue.issueId;
     td_title.innerText = issue.title;
-    td_reporter.innerText = issue.reporter;
+    td_reporter.innerText = issue.user.userName;
     td_fixer.innerText = issue.fixer;
     td_assignee.innerText = issue.assignee;
     td_priority.innerText = issue.priority;
-    td_status.innerText = issue.status;
+    td_status.innerText = issue.issueStatus;
     td_date.innerText = issue.date;
 
     tr.appendChild(td_id);
@@ -45,27 +52,5 @@ function addIssue(issue){
     tr.appendChild(td_date);
 
     tbody.appendChild(tr);
-    tr.addEventListener("click", openIssue);
+    tr.addEventListener("click", openDetail);
 }
-
-issues.map((element) => addIssue(element));
-
-//detailed issue part
-var modal = document.getElementById("myModal");
-var closeBtn = document.getElementsByClassName("close-modal")[0];
-function openIssue(event) {
-    console.log(event.target.parentElement.childNodes[0]);
-    modal.style.display = "flex";
-}
-
-//close
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-};
-
-//사용자가 모달 외부를 클릭하여 닫을 수 있도록
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
