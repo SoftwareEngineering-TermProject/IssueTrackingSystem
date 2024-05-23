@@ -17,6 +17,7 @@ public class IssueConverter {
         return Issue.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
+                .issuePriority(request.getIssuePriority())
                 .build();
     }
 
