@@ -1,5 +1,6 @@
 package com.example.IssueTrackingSystem.converter;
 
+import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.web.dto.User.UserRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
@@ -39,6 +40,13 @@ public class UserConverter {
         return UserResponseDTO.UserPreviewInIssueDTO.builder()
                 .userId(user.getUserId())
                 .userName(user.getUserName())
+                .build();
+    }
+
+    public static UserResponseDTO.UserPreviewInProjectDTO toUserPreviewInProjectDTO(Project project){
+        return UserResponseDTO.UserPreviewInProjectDTO.builder()
+                .userId(project.getUser().getUserId())
+                .userName(project.getUser().getUserName())
                 .build();
     }
 }

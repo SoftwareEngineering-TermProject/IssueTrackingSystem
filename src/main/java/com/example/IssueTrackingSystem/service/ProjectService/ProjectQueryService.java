@@ -11,7 +11,8 @@ public interface ProjectQueryService {
     Project projectFind(ProjectRequestDTO.GetProjectRequestDTO request);
     Project findById(Long projectId);
 
-    Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch);
+    List<Project> findAllBySearch(Optional<String> optSearch);
+    // Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch);
 
     //List<Integer> findUserCountByProject(Page<Project> projects);
 }

@@ -7,6 +7,8 @@ import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ProjectConverter {
 
@@ -38,20 +40,39 @@ public class ProjectConverter {
                 .build();
     }
 
-
-    public static ProjectResponseDTO.ProjectPreviewListDTO toProjectPreviewDTOList(
-            Page<Project> projects
-            //, List<Integer> userCountList
-    ) {
-        // List<ProjectResponseDTO.ProjectPreviewDTO> projectPreviewDTOList = IntStream.range(0, expertCountList.size())
-        return ProjectResponseDTO.ProjectPreviewListDTO.builder()
-                .listSize(projects.getContent().size())
-                .totalPage(projects.getTotalPages())
-                .totalElements(projects.getTotalElements())
-                .isFirst(projects.isFirst())
-                .isLast(projects.isLast())
+    public static ProjectResponseDTO.ProjectPreviewDTO toProjectPreviewDTO(Project project) {
+        return ProjectResponseDTO.ProjectPreviewDTO.builder()
+//                .user(UserConverter.toUserPreviewInProjectDTO(project.getUser().getUserId())
+                .projectId(project.getProjectId())
+                .title(project.getTitle())
+                .description(project.getDescription())
                 .build();
     }
+
+    public static ProjectResponseDTO.ProjectPreviewListDTO toProjectPreviewListDTO(
+            List<Project> projectList
+    ) {
+        List<ProjectResponseDTO.ProjectPreviewDTO> projectPreviewDTOList = IntStream.range(0, projectList.size())
+                .mapToObj(i -> toProjectPreviewDTO(projectList.get(i)))
+                .collect(Collectors.toList());
+        return ProjectResponseDTO.ProjectPreviewListDTO.builder()
+                .projects(projectPreviewDTOList)
+                .build();
+    }
+//
+//    public static ProjectResponseDTO.ProjectPreviewListDTO toProjectPreviewDTOList(
+//            Page<Project> projects
+//            //, List<Integer> userCountList
+//    ) {
+//        // List<ProjectResponseDTO.ProjectPreviewDTO> projectPreviewDTOList = IntStream.range(0, expertCountList.size())
+//        return ProjectResponseDTO.ProjectPreviewListDTO.builder()
+//                .listSize(projects.getContent().size())
+//                .totalPage(projects.getTotalPages())
+//                .totalElements(projects.getTotalElements())
+//                .isFirst(projects.isFirst())
+//                .isLast(projects.isLast())
+//                .build();
+//    }
 
     public static ProjectResponseDTO.UpdateProjectResultDTO UpdateProjectResultDTO(Project project) {
         return ProjectResponseDTO.UpdateProjectResultDTO.builder()

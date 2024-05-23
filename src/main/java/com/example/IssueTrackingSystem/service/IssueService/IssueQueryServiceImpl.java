@@ -15,7 +15,10 @@ import java.util.Optional;
 @Transactional
 @Slf4j
 public class IssueQueryServiceImpl implements  IssueQueryService{
+
     private final IssueRepository issueRepository;
+
+
     public List<Issue> findAllBySearch(Optional<String> optSearch) {
         // 만약 검색어가 존재한다면
         if (optSearch.isPresent()) {

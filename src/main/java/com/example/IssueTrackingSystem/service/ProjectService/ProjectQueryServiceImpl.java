@@ -35,28 +35,34 @@ public class ProjectQueryServiceImpl implements ProjectQueryService{
         return projectRepository.save(project);
     }
 
-    @Override
-    public Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch) {
-        PageRequest request = PageRequest.of(page, size);
 
-        // if 검색어 존재
+    public List<Project> findAllBySearch(Optional<String> optSearch) {
+        // 만약 검색어가 존재한다면
         if (optSearch.isPresent()) {
             String search = optSearch.get();
-            // title, description 검색어를 포함하는 (대소문자 상관없이) 질문들을 최신순으로 페이징 조회
-            return projectRepository
-                    .findAllByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrderByCreatedAtDescProjectIdDesc(
-                            search, search, request
-                    );
+
+            return projectRepository.findAllByTitleContainingIgnoreCaseOrderByCreatedAtDesc(search);
         }
-        // else 검색어 존재 X
-        // 최신순으로 페이징 조회
-        return projectRepository.findAllByOrderByCreatedAtDescProjectIdDesc(request);
+        // 검색어 존재 X
+        return projectRepository.findAllByOrderByCreatedAtDesc();
     }
 
 //    @Override
-//    public List<Integer> findUserCountByProject(Page<Project> projects) {
-//        return projects.stream().map(
-//                project -> commentRepository.
-//        )
+//    public Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch) {
+//        PageRequest request = PageRequest.of(page, size);
+//
+//        // if 검색어 존재
+//        if (optSearch.isPresent()) {
+//            String search = optSearch.get();
+//            // title, description 검색어를 포함하는 (대소문자 상관없이) 질문들을 최신순으로 페이징 조회
+//            return projectRepository
+//                    .findAllByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrderByCreatedAtDescProjectIdDesc(
+//                            search, search, request
+//                    );
+//        }
+//        // else 검색어 존재 X
+//        // 최신순으로 페이징 조회
+//        return projectRepository.findAllByOrderByCreatedAtDescProjectIdDesc(request);
 //    }
+
 }
