@@ -6,7 +6,10 @@ import com.example.IssueTrackingSystem.converter.IssueConverter;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectAddUser;
+import com.example.IssueTrackingSystem.domain.enums.Admin;
 import com.example.IssueTrackingSystem.repository.IssueRepository;
+import com.example.IssueTrackingSystem.repository.ProjectAddUserRepository;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
 import com.example.IssueTrackingSystem.repository.UserRepository;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
@@ -15,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.example.IssueTrackingSystem.domain.enums.UserRole.ADMIN;
 import static com.example.IssueTrackingSystem.domain.enums.UserRole.TESTER;
 
 @Service
@@ -27,12 +29,14 @@ public class IssueCommandServiceImpl implements IssueCommandService{
     private final UserRepository userRepository;
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
+    private final ProjectAddUserRepository projectAddUserRepository;
     public Issue createIssue(Long userId, IssueRequestDTO.CreateIssueRequestDTO request){
         User getUser = userRepository.findById(userId).get();
         Project getProject = projectRepository.findById(request.getProjectId()).get();
+        ProjectAddUser getProjectAddUser = projectAddUserRepository.findByUser_UserIdAndProject_ProjectId(userId, request.getProjectId());
 
         // admin과 tester만 이슈생성 가능
-        if(getUser.getUserRole() != ADMIN && getUser.getUserRole() != TESTER){
+        if(getUser.getAdmin() == Admin.FALSE && getProjectAddUser.getUserRole() != TESTER){
             throw new IssueHandler(ErrorStatus.ISSUE_CREATE_UNAUTHORIZED);
         }
 
@@ -50,7 +54,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
 
         // admin과 특정 이슈 생성한 tester만 특정 이슈 업데이트 가능
         User getUser = userRepository.findById(userId).get();
-        if(getUser.getUserRole() == ADMIN){
+        if(getUser.getAdmin() == Admin.TRUE){
             updateIssue.updateIssue(request);
             return updateIssue;
         }
@@ -68,7 +72,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
 
         // admin과 특정 이슈 삭제한 tester만 특정 이슈 삭제 가능
         User getUser = userRepository.findById(userId).get();
-        if(getUser.getUserRole() == ADMIN){
+        if(getUser.getAdmin() == Admin.TRUE){
             issueRepository.delete(deleteIssue);
             return;
         }

@@ -2,12 +2,16 @@ package com.example.IssueTrackingSystem.web.controller;
 
 import com.example.IssueTrackingSystem.apiPayload.ApiResponse;
 import com.example.IssueTrackingSystem.apiPayload.code.status.SuccessStatus;
+import com.example.IssueTrackingSystem.converter.ProjectAddUserConverter;
 import com.example.IssueTrackingSystem.converter.ProjectConverter;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectAddUser;
 import com.example.IssueTrackingSystem.service.ProjectService.ProjectCommandService;
 import com.example.IssueTrackingSystem.service.ProjectService.ProjectQueryService;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
+import com.example.IssueTrackingSystem.web.dto.ProjectAddUser.ProjectAddUserRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.ProjectAddUser.ProjectAddUserResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -144,6 +148,22 @@ public class ProjectController {
         return ApiResponse.onSuccess(
                 SuccessStatus.Project_OK,
                 ProjectConverter.toProjectPreviewListDTO(Projects)
+        );
+    }
+
+    // admin이 프로젝트에 계정 추가
+    @PostMapping("/add/{userId}")
+    @Operation(summary = "프로젝트에 계정 추가", description =
+            "Project에 계정을 추가합니다."
+    )
+    public ApiResponse<ProjectAddUserResponseDTO.AddUserResultDTO> addUser(
+            @PathVariable Long userId,
+            @RequestBody ProjectAddUserRequestDTO.AddUserDTO request
+    ) {
+        ProjectAddUser newProjectAddUser = projectCommandService.addUser(userId, request);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectAddUserConverter.toAddUserResultDTO(newProjectAddUser)
         );
     }
 
