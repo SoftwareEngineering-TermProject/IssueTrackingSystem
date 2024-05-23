@@ -39,6 +39,9 @@ public class IssueResponseDTO {
         Long issueId;
         String title;
         IssueStatus issueStatus;
+        String assignee;
+        String fixer;
+        LocalDateTime createAt;
     }
 
     @Builder

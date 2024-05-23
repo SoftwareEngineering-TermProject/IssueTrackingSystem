@@ -1,12 +1,9 @@
 package com.example.IssueTrackingSystem.converter;
 
 import com.example.IssueTrackingSystem.domain.entity.Issue;
-import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueResponseDTO;
-import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
-import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
-import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +39,9 @@ public class IssueConverter {
                 .issueId(issue.getIssueId())
                 .title(issue.getTitle())
                 .issueStatus(issue.getIssueStatus())
+                .assignee(issue.getAssignee())
+                .fixer(issue.getFixer())
+                .createAt(issue.getCreatedAt())
                 .build();
     }
 
