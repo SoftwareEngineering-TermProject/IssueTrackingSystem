@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/modal.css">
     <title>SE term project - Trouble Ticket System</title>
 </head>
 <body>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>New Project</h2>
+            <form id="create-form">
+                <label>Name</label>
+                <input class="modal-input" id="input-name" />
+                <label>ID</label>
+                <input class="modal-input" id="input-id" />
+                <label>Password</label>
+                <input class="modal-input" id="input-password">
+                <button id="signup-btn">Sign up</button>
+            </form>
+                <button id="close-btn" class="close">Cancel</button>
+        </div>
+    </div>
+
     <div><h1>SE term project</h1></div>
     <div><h3>Trouble Ticket System</h3></div>
     <div id="login-box">
@@ -16,8 +33,10 @@
             <div id="warn">Failed to login. Please check ID/Password.</div>
             <button id="login-btn">LOG IN</button>
         </form>
+            <button id="modal-btn">SIGN UP</button>
     </div>    
 </body>
 
 <script src="./javascript/index.js"></script>
+<script src="./javascript/index_signup.js"></script>
 </html>
