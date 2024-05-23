@@ -34,10 +34,10 @@ public class Issue extends BaseEntity {
     private IssueStatus issueStatus;
 
     @Column(name = "assignee_user_id")
-    private Long assigneeUserId;
+    private String assignee;
 
     @Column(name = "fixer_user_id")
-    private Long fixerUserId;
+    private String fixer;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'MAJOR'")
