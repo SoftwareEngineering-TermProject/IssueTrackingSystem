@@ -12,3 +12,8 @@ body,html {
 #login-box {
     
 }
+
+#warn {
+    color : red;
+    display: none;
+}
