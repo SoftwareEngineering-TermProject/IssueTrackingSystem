@@ -1,5 +1,6 @@
 package com.example.IssueTrackingSystem.web.dto.Project;
 
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import com.example.IssueTrackingSystem.web.dto.Hashtag.HashtagResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 import lombok.AllArgsConstructor;

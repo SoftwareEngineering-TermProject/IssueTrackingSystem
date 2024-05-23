@@ -1,5 +1,6 @@
 package com.example.IssueTrackingSystem.web.dto.Project;
 
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

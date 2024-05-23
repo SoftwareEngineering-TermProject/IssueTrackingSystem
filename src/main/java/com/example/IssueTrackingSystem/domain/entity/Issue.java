@@ -1,7 +1,9 @@
 package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,7 +23,7 @@ public class Issue extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long issueId;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 30)
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -30,6 +32,16 @@ public class Issue extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'NEW'")
     private IssueStatus issueStatus;
+
+    @Column(name = "assignee_user_id")
+    private Long assigneeUserId;
+
+    @Column(name = "fixer_user_id")
+    private Long fixerUserId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'MAJOR'")
+    private IssuePriority issuePriority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

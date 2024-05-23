@@ -10,7 +10,6 @@ public class UserConverter {
     public static User toUser(UserRequestDTO.CreateUserRequestDTO request){
         return User.builder()
                 .name(request.getName())
-                .userRole(request.getUserRole())
                 .userName(request.getUserName())
                 .password(request.getPassword())
                 .build();

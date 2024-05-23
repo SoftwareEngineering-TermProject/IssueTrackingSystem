@@ -15,7 +15,6 @@ public class UserRequestDTO {
         private String userName;
         private String password;
         private String name;
-        private UserRole userRole;
     }
 
     @Getter
