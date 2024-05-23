@@ -13,14 +13,14 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <h2>New Project</h2>
-            <form>
+            <form id="create-form">
                 <label>project name</label>
-                <input class="modal-input" />
+                <input class="modal-input" id="input-title" />
                 <label>description</label>
-                <textarea class="modal-input"></textarea>
+                <textarea class="modal-input" id="input-description"></textarea>
+                <button id="create-btn">Create</button>
             </form>
-            <button>Create</button>
-            <button class="close">Cancel</button>
+                <button class="close">Cancel</button>
         </div>
     </div>
 
@@ -55,4 +55,5 @@
 </body>
 
 <script src="./javascript/project.js"></script>
+<script src="./javascript/project_create.js"></script>
 </html>

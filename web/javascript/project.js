@@ -23,3 +23,27 @@ window.onclick = function(event) {
 for(let e of projectBoxes) {
   e.onclick = function() { window.location.href = './issue.html';};
 };
+
+//load project list
+const projectRequest = new XMLHttpRequest();
+projectRequest.open('GET', url + `projects/?userId=${userId}`);
+projectRequest.setRequestHeader("Content-Type", "application/json");
+
+var body = JSON.stringify({
+    title : title.value,
+    description : description.value
+});
+projectRequest.send(body);
+projectRequest.onload = () => {
+    login_btn.disabled = false;
+    if( projectRequest.status === 200 ) {
+        console.log(projectRequest.response);
+        const response = JSON.parse(projectRequest.response);
+        console.log(response);   
+        
+        window.location.href = window.location.href;
+    } else {
+        alert("프로젝트 생성에 실패하였습니다.");
+        console.error("Error", projectRequest.status, projectRequest.statusText);
+    }
+};
