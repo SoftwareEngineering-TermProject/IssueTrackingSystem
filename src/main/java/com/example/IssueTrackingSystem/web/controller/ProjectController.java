@@ -106,45 +106,45 @@ public class ProjectController {
         );
     }
 
-    // 전체 프로젝트 페이징 조회 (검색 가능)
-    @GetMapping
-    @Operation(
-            summary = "전체 프로젝트 페이징 조회 API"
-            , description = "전체 프로젝트를 조회합니다. RequestParam으로 페이징 조회를 위한 page와 size를 입력하세요. 검색을 원할 경우에는 search를 입력하세요."
-    )
-    public ApiResponse<ProjectResponseDTO.ProjectPreviewListDTO> findProjectByPaging(
-            @RequestParam @Min(0) Integer page,
-            @RequestParam @Min(1) @Max(10) Integer size,
-            // Search
-            @RequestParam(required = false) Optional<String> search
-    ) {
-        Page<Project> projects = projectQueryService.findAllBySearch(page, size, search);
-
-        //List<Integer> userCounts = projectQueryService.fin
-
-        return ApiResponse.onSuccess(
-                SuccessStatus.Project_OK,
-                ProjectConverter.toProjectPreviewDTOList(
-                        projects
-                )
-        );
-    }
-
-
-//    // project 조회 부분
-//    @Operation(summary = "프로젝트 조회", description =
-//            "프로젝트를 조회합니다."
+//    // 전체 프로젝트 페이징 조회 (검색 가능)
+//    @GetMapping
+//    @Operation(
+//            summary = "전체 프로젝트 페이징 조회 API"
+//            , description = "전체 프로젝트를 조회합니다. RequestParam으로 페이징 조회를 위한 page와 size를 입력하세요. 검색을 원할 경우에는 search를 입력하세요."
 //    )
-//    @PostMapping("/{projectId}")
-//    public ApiResponse<ProjectResponseDTO.GetProjectResultDTO> projectFind(
-//            @RequestBody ProjectRequestDTO.GetProjectRequestDTO request
-//            ) {
-//        Project findProject = projectQueryService.projectFind(request);
+//    public ApiResponse<ProjectResponseDTO.ProjectPreviewListDTO> findProjectByPaging(
+//            @RequestParam @Min(0) Integer page,
+//            @RequestParam @Min(1) @Max(10) Integer size,
+//            // Search
+//            @RequestParam(required = false) Optional<String> search
+//    ) {
+//        Page<Project> projects = projectQueryService.findAllBySearch(page, size, search);
+//
+//        //List<Integer> userCounts = projectQueryService.fin
+//
 //        return ApiResponse.onSuccess(
 //                SuccessStatus.Project_OK,
-//                UserConverter.toSignInResultDTO(findProject)
+//                ProjectConverter.toProjectPreviewDTOList(
+//                        projects
+//                )
 //        );
 //    }
 
+
+    // 프로젝트 리스트 검색
+    @GetMapping
+    @Operation(
+            summary = "프로젝트 리스트 검색 API"
+            , description = "프로젝트 전체 리스트를 조회하거나 특정 프로젝트를 검색할 수 있습니다."
+    )
+    public ApiResponse<?> getProjects(
+            @RequestParam Optional<String> search
+    ) {
+        List<Project> Projects = projectQueryService.findAllBySearch(search);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectConverter.toProjectPreviewListDTO(Projects)
+        );
+    }
 
 }

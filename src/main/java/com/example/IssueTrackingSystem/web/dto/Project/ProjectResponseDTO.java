@@ -1,6 +1,7 @@
 package com.example.IssueTrackingSystem.web.dto.Project;
 
 import com.example.IssueTrackingSystem.web.dto.Hashtag.HashtagResponseDTO;
+import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,11 +39,12 @@ public class ProjectResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProjectPreviewDTO {  // 특정 프로젝트 조회
+        //UserResponseDTO.UserPreviewInProjectDTO user;
         Long projectId;
         String title;
         String description;
-        Integer projectCount;
-        List<HashtagResponseDTO.HashtagReturnDTO> hashtags;
+        //Integer projectCount;
+        //List<HashtagResponseDTO.HashtagReturnDTO> hashtags;
         // 이슈 상태?
         // 코멘트?
         // UserResponseDTO.UserPreviewInQuestionDTO user; ?
@@ -54,11 +56,11 @@ public class ProjectResponseDTO {
     @AllArgsConstructor
     public static class ProjectPreviewListDTO {  // 전체 프로젝트 리스트 조회
         List<ProjectPreviewDTO> projects;
-        Integer listSize;
-        Integer totalPage;
-        Long totalElements;
-        boolean isFirst;
-        boolean isLast;    // projectId : Title
+        //Integer listSize;
+        //Integer totalPage;
+        //Long totalElements;
+        //boolean isFirst;
+        //boolean isLast;    // projectId : Title
     }
 
     @Getter

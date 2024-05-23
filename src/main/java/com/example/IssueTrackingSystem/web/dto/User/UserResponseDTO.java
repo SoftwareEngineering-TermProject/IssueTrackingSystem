@@ -31,4 +31,13 @@ public class UserResponseDTO {
         Long userId;
         String userName;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserPreviewInProjectDTO {
+        Long userId;
+        String userName;
+    }
 }
