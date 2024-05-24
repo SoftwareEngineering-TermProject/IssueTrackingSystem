@@ -48,4 +48,11 @@ public class UserConverter {
                 .userName(project.getUser().getUserName())
                 .build();
     }
+
+    public static UserResponseDTO.UserPreviewInCommentDTO toUserPreviewInCommentDTO(User user){
+        return UserResponseDTO.UserPreviewInCommentDTO.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .build();
+    }
 }

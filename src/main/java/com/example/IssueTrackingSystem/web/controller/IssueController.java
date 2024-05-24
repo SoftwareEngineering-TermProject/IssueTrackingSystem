@@ -4,8 +4,10 @@ import com.example.IssueTrackingSystem.apiPayload.ApiResponse;
 import com.example.IssueTrackingSystem.apiPayload.code.status.SuccessStatus;
 import com.example.IssueTrackingSystem.converter.IssueConverter;
 import com.example.IssueTrackingSystem.converter.ProjectConverter;
+import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.service.CommentService.CommentQueryService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueCommandService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueQueryService;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
@@ -31,6 +33,7 @@ public class IssueController {
 
     private final IssueCommandService issueCommandService;
     private final IssueQueryService issueQueryService;
+    private final CommentQueryService commentQueryService;
 
     // 이슈 생성
     @PostMapping("/")
@@ -91,7 +94,7 @@ public class IssueController {
             summary = "전체 이슈 조회 API"
             , description = "전체 이슈를 조회합니다."
     )
-    public ApiResponse<?> getIssues(
+    public ApiResponse<IssueResponseDTO.IssuePreviewListDTO> getIssueList(
             @RequestParam Optional<String> search
     ) {
 
@@ -99,6 +102,24 @@ public class IssueController {
         return ApiResponse.onSuccess(
                 SuccessStatus.Issue_OK,
                 IssueConverter.toIssuePreviewListDTO(Issues)
+        );
+    }
+
+    // 이슈 리스트 검색
+    @GetMapping("/{issueId}")
+    @Operation(
+            summary = "특정 이슈 조회 API"
+            , description = "특정 이슈를 조회합니다."
+    )
+    public ApiResponse<IssueResponseDTO.GetIssueResultWithCommentPreviewListDTO> getIssue(
+            @PathVariable Long issueId
+    ) {
+        Issue getIssue = issueQueryService.getIssue(issueId);
+        List<Comment> commentsList = commentQueryService.getCommentsList(getIssue);
+
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toGetIssueResultWithCommentPreviewListDTO(getIssue, commentsList)
         );
     }
 }

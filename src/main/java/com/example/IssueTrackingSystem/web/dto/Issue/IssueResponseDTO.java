@@ -1,6 +1,7 @@
 package com.example.IssueTrackingSystem.web.dto.Issue;
 
 import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
+import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,5 +51,20 @@ public class IssueResponseDTO {
     @AllArgsConstructor
     public static class IssuePreviewListDTO {
         List<IssuePreviewDTO> issues;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetIssueResultWithCommentPreviewListDTO {
+        UserResponseDTO.UserPreviewInIssueDTO user;
+        Long issueId;
+        String title;
+        String description;
+        String assignee;
+        String fixer;
+        LocalDateTime createAt;
+        List<CommentResponseDTO.CommentPreviewDTO> comments;
     }
 }
