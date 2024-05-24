@@ -7,13 +7,13 @@ import com.example.IssueTrackingSystem.converter.IssueConverter;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
-import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectAddUser;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectUser;
 import com.example.IssueTrackingSystem.domain.enums.Admin;
 import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
 import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import com.example.IssueTrackingSystem.repository.IssueRepository;
-import com.example.IssueTrackingSystem.repository.ProjectAddUserRepository;
+import com.example.IssueTrackingSystem.repository.ProjectUserRepository;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
 import com.example.IssueTrackingSystem.repository.UserRepository;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
@@ -33,14 +33,14 @@ public class IssueCommandServiceImpl implements IssueCommandService{
     private final UserRepository userRepository;
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
-    private final ProjectAddUserRepository projectAddUserRepository;
+    private final ProjectUserRepository projectUserRepository;
     public Issue createIssue(Long userId, IssueRequestDTO.CreateIssueRequestDTO request){
         User getUser = userRepository.findById(userId).get();
         Project getProject = projectRepository.findById(request.getProjectId()).get();
-        ProjectAddUser getProjectAddUser = projectAddUserRepository.findByUser_UserIdAndProject_ProjectId(userId, request.getProjectId());
+        ProjectUser getProjectUser = projectUserRepository.findByUser_UserIdAndProject_ProjectId(userId, request.getProjectId());
 
         // admin과 tester만 이슈생성 가능
-        if(getUser.getAdmin() == Admin.FALSE && getProjectAddUser.getUserRole() != TESTER){
+        if(getUser.getAdmin() == Admin.FALSE && getProjectUser.getUserRole() != TESTER){
             throw new IssueHandler(ErrorStatus.ISSUE_CREATE_UNAUTHORIZED);
         }
 
@@ -91,8 +91,8 @@ public class IssueCommandServiceImpl implements IssueCommandService{
 
     public Issue addAssignee(Long userId, Long issueId, IssueRequestDTO.AssigneeRequestDTO request){
         User getUser = userRepository.findById(userId).get();
-        ProjectAddUser getProjectAddUser = projectAddUserRepository.findByUser(getUser);
-        if(getProjectAddUser.getUserRole() != UserRole.PL){
+        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
+        if(getProjectUser.getUserRole() != UserRole.PL){
             throw new IssueHandler(ErrorStatus.ISSUE_ASSIGNEE_UNAUTHORIZED);
         }
 
@@ -110,8 +110,8 @@ public class IssueCommandServiceImpl implements IssueCommandService{
 
     public Issue addFixer(Long userId, Long issueId){
         User getUser = userRepository.findById(userId).get();
-        ProjectAddUser getProjectAddUser = projectAddUserRepository.findByUser(getUser);
-        if(getProjectAddUser.getUserRole() != UserRole.DEV){
+        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
+        if(getProjectUser.getUserRole() != UserRole.DEV){
             throw new IssueHandler(ErrorStatus.ISSUE_FIXER_UNAUTHORIZED);
         }
 

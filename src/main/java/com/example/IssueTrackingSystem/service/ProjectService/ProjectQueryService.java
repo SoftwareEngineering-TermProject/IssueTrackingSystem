@@ -12,6 +12,9 @@ public interface ProjectQueryService {
     Project findById(Long projectId);
 
     List<Project> findAllBySearch(Optional<String> optSearch);
+
+
+
     // Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch);
 
     //List<Integer> findUserCountByProject(Page<Project> projects);

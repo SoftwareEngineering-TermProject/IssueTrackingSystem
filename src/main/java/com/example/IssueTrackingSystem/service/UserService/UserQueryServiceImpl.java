@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,4 +25,20 @@ public class UserQueryServiceImpl implements UserQueryService{
         }
         return null;
     }
+
+    public List<User> findAllBySearch(Optional<String> optSearch) {
+        // 만약 검색어가 존재한다면
+        if (optSearch.isPresent()) {
+            String search = optSearch.get();
+
+            return userRepository.findAllByUserNameContainingIgnoreCaseOrderByCreatedAtDesc(search);
+        }
+        // 검색어 존재 X
+        return userRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+//    @Override
+//    public List<User> findUsersByProjectId(Long projectId) {
+//        return userRepository.findUsersByProjectId(projectId);
+//    }
 }

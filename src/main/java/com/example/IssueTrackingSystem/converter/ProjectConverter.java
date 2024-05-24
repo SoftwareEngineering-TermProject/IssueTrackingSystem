@@ -4,7 +4,6 @@ import com.example.IssueTrackingSystem.domain.entity.Hashtag;
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,4 +80,6 @@ public class ProjectConverter {
                 .description(project.getDescription())
                 .build();
     }
+
+
 }

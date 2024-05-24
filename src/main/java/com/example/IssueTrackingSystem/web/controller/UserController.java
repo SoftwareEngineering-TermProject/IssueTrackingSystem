@@ -14,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -50,6 +53,23 @@ public class UserController {
         return ApiResponse.onSuccess(
                 SuccessStatus.User_OK,
                 UserConverter.toSignInResultDTO(findUser)
+        );
+    }
+
+
+    // 유저 리스트 검색
+    @GetMapping
+    @Operation(
+            summary = "유저 리스트 검색 API"
+            , description = "유저 전체 리스트를 조회하거나 특정 유저를 검색할 수 있습니다."
+    )
+    public ApiResponse<?> getUsers(
+            @RequestParam Optional<String> search
+    ) {
+        List<User> Users = userQueryService.findAllBySearch(search);
+        return ApiResponse.onSuccess(
+                SuccessStatus.User_OK,
+                UserConverter.toUserPreviewListDTO(Users)
         );
     }
 }
