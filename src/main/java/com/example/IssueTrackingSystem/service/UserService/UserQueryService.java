@@ -11,4 +11,10 @@ public interface UserQueryService {
     User signIn(UserRequestDTO.SignInRequestDTO request);
 
     List<User> findAllBySearch(Optional<String> optSearch);
+
+//    List<User> findUsersByProjectId(Long projectId);
+
+    
+
+
 }

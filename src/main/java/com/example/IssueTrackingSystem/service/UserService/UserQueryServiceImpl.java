@@ -36,4 +36,9 @@ public class UserQueryServiceImpl implements UserQueryService{
         // 검색어 존재 X
         return userRepository.findAllByOrderByCreatedAtDesc();
     }
+
+//    @Override
+//    public List<User> findUsersByProjectId(Long projectId) {
+//        return userRepository.findUsersByProjectId(projectId);
+//    }
 }

@@ -46,12 +46,12 @@ public class UserConverter {
                 .build();
     }
 
-    public static UserResponseDTO.UserPreviewInProjectDTO toUserPreviewInProjectDTO(Project project){
-        return UserResponseDTO.UserPreviewInProjectDTO.builder()
-                .userId(project.getUser().getUserId())
-                .userName(project.getUser().getUserName())
-                .build();
-    }
+//    public static UserResponseDTO.UserPreviewInProjectDTO toUserPreviewInProjectDTO(Project project){
+//        return UserResponseDTO.UserPreviewInProjectDTO.builder()
+//                .userId(project.getUser().getUserId())
+//                .userName(project.getUser().getUserName())
+//                .build();
+//    }
 
     public static UserResponseDTO.UserPreviewInCommentDTO toUserPreviewInCommentDTO(User user){
         return UserResponseDTO.UserPreviewInCommentDTO.builder()

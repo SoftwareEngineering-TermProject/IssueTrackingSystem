@@ -1,4 +1,4 @@
-package com.example.IssueTrackingSystem.web.dto.ProjectAddUser;
+package com.example.IssueTrackingSystem.web.dto.ProjectUser;
 
 import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class ProjectAddUserRequestDTO {
+public class ProjectUserRequestDTO {
     @Getter
     @Builder
     @AllArgsConstructor
