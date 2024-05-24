@@ -1,19 +1,18 @@
 package com.example.IssueTrackingSystem.service.ProjectService;
 
 import com.example.IssueTrackingSystem.apiPayload.code.status.ErrorStatus;
-import com.example.IssueTrackingSystem.apiPayload.exception.handler.IssueHandler;
 import com.example.IssueTrackingSystem.apiPayload.exception.handler.ProjectHandler;
-import com.example.IssueTrackingSystem.converter.ProjectAddUserConverter;
+import com.example.IssueTrackingSystem.converter.ProjectUserConverter;
 import com.example.IssueTrackingSystem.converter.ProjectConverter;
 import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
-import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectAddUser;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectUser;
 import com.example.IssueTrackingSystem.domain.enums.Admin;
-import com.example.IssueTrackingSystem.repository.ProjectAddUserRepository;
+import com.example.IssueTrackingSystem.repository.ProjectUserRepository;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
 import com.example.IssueTrackingSystem.repository.UserRepository;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
-import com.example.IssueTrackingSystem.web.dto.ProjectAddUser.ProjectAddUserRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.ProjectUser.ProjectUserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
 
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
-    private final ProjectAddUserRepository projectAddUserRepository;
+    private final ProjectUserRepository projectUserRepository;
     public Project createProject(Long userId, ProjectRequestDTO.CreateProjectRequestDTO request){
         // 프론트에서 받은 json으로 Project entity 생성
         Project newProject = ProjectConverter.toProject(request);
@@ -72,14 +71,14 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
     }
 
     @Override
-    public ProjectAddUser addUser(Long userId, ProjectAddUserRequestDTO.AddUserDTO request){
-        ProjectAddUser newProjectAddUser = ProjectAddUserConverter.toProjectAddUser(request);
+    public ProjectUser addUser(Long userId, ProjectUserRequestDTO.AddUserDTO request){
+        ProjectUser newProjectUser = ProjectUserConverter.toProjectUser(request);
         User getUser = userRepository.findById(userId).get();
         Project getProject = projectRepository.findById(request.getProjectId()).get();
-        newProjectAddUser.setUser(getUser);
-        newProjectAddUser.setProject(getProject);
+        newProjectUser.setUser(getUser);
+        newProjectUser.setProject(getProject);
 
-        ProjectAddUser savedProjectAddUser = projectAddUserRepository.save(newProjectAddUser);
-        return savedProjectAddUser;
+        ProjectUser savedProjectUser = projectUserRepository.save(newProjectUser);
+        return savedProjectUser;
     }
 }

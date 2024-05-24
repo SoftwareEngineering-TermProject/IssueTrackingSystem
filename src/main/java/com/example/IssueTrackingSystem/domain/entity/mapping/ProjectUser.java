@@ -15,14 +15,18 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class ProjectAddUser {
+public class ProjectUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ProjectAddUserId;
+    private Long ProjectUserId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_name")
+    private User userName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
