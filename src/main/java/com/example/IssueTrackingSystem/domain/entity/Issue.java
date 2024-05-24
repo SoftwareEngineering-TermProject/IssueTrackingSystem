@@ -73,4 +73,20 @@ public class Issue extends BaseEntity {
         this.title = request.getTitle();
         this.description = request.getDescription();
     }
+
+    public void setAssignee(String assignee){
+        this.assignee = assignee;
+    }
+
+    public void setFixer(String fixer){
+        this.fixer = fixer;
+    }
+
+    public void updateIssueStatus(IssueStatus issueStatus){
+        this.issueStatus = issueStatus;
+    }
+
+    public void updateIssuePriority(IssuePriority issuePriority){
+        this.issuePriority = issuePriority;
+    }
 }
