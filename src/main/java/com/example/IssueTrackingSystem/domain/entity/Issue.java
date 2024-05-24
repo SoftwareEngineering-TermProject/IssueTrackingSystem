@@ -69,6 +69,14 @@ public class Issue extends BaseEntity {
         this.project = project;
     }
 
+    public void deleteAssignee(){
+        this.assignee = null;
+    }
+
+    public void deleteFixer(){
+        this.fixer = null;
+    }
+
     public void updateIssue(IssueRequestDTO.UpdateIssueDTO request) {
         this.title = request.getTitle();
         this.description = request.getDescription();

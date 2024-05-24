@@ -17,5 +17,10 @@ public interface IssueCommandService {
     Issue addFixer(Long userId, Long issueId);
 
     Issue updateIssueStatus(Long issueId, IssueStatus issueStatus);
+
     Issue updateIssuePriority(Long issueId, IssuePriority issuePriority);
+
+    void deleteIssueAssignee(Long issueId, Long userId);
+
+    void deleteIssueFixer(Long issueId, Long userId);
 }
