@@ -1,5 +1,6 @@
 package com.example.IssueTrackingSystem.web.dto.User;
 
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,5 +59,14 @@ public class UserResponseDTO {
     @AllArgsConstructor
     public static class UserPreviewListDTO {
         List<UserPreviewDTO> users;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserPreviewInCommentDTO {
+        Long userId;
+        String userName;
     }
 }
