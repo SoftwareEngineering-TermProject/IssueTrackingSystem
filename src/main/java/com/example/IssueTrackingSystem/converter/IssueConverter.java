@@ -1,7 +1,9 @@
 package com.example.IssueTrackingSystem.converter;
 
+import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.User;
+import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueResponseDTO;
 
@@ -55,6 +57,27 @@ public class IssueConverter {
 
         return IssueResponseDTO.IssuePreviewListDTO.builder()
                 .issues(issuePreviewDTOList)
+                .build();
+    }
+
+    public static IssueResponseDTO.GetIssueResultWithCommentPreviewListDTO toGetIssueResultWithCommentPreviewListDTO(
+            Issue issue,
+            List<Comment> commentList
+    ) {
+
+        List<CommentResponseDTO.CommentPreviewDTO> commentPreviewDTOList = IntStream.range(0, commentList.size())
+                .mapToObj(i -> CommentConverter.toCommentPreviewDTO(commentList.get(i)))
+                .collect(Collectors.toList());
+
+        return IssueResponseDTO.GetIssueResultWithCommentPreviewListDTO.builder()
+                .user(UserConverter.toUserPreviewInIssueDTO(issue.getUser()))
+                .issueId(issue.getIssueId())
+                .title(issue.getTitle())
+                .description(issue.getDescription())
+                .assignee(issue.getAssignee())
+                .fixer(issue.getFixer())
+                .createAt(issue.getCreatedAt())
+                .comments(commentPreviewDTOList)
                 .build();
     }
 }

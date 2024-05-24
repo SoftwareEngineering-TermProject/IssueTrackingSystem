@@ -2,10 +2,14 @@ package com.example.IssueTrackingSystem.converter;
 
 import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Hashtag;
+import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.web.dto.Comment.CommentRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
+import com.example.IssueTrackingSystem.web.dto.Issue.IssueResponseDTO;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CommentConverter {
 
@@ -35,6 +39,14 @@ public class CommentConverter {
 
     public static CommentResponseDTO.UpdateCommentResultDTO UpdateCommentResultDTO(Comment comment) {
         return CommentResponseDTO.UpdateCommentResultDTO.builder()
+                .commentId(comment.getCommentId())
+                .content(comment.getComment())
+                .build();
+    }
+
+    public static CommentResponseDTO.CommentPreviewDTO toCommentPreviewDTO(Comment comment) {
+        return CommentResponseDTO.CommentPreviewDTO.builder()
+                .user(UserConverter.toUserPreviewInCommentDTO(comment.getUser()))
                 .commentId(comment.getCommentId())
                 .content(comment.getComment())
                 .build();

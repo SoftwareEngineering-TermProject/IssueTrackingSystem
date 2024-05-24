@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface IssueQueryService {
     List<Issue> findAllBySearch(Optional<String> optSearch);
+    Issue getIssue(Long issueId);
 }

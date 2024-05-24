@@ -31,4 +31,7 @@ public class IssueQueryServiceImpl implements  IssueQueryService{
         return issueRepository.findAllByOrderByCreatedAtDesc();
     }
 
+    public Issue getIssue(Long issueId){
+        return issueRepository.findById(issueId).get();
+    }
 }
