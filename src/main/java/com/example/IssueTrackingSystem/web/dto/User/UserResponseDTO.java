@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 public class UserResponseDTO {
     @Getter
     @Builder
@@ -39,5 +41,22 @@ public class UserResponseDTO {
     public static class UserPreviewInProjectDTO {
         Long userId;
         String userName;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserPreviewDTO {
+        Long userId;
+        String userName;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserPreviewListDTO {
+        List<UserPreviewDTO> users;
     }
 }

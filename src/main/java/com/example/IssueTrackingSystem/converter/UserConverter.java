@@ -5,6 +5,10 @@ import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.web.dto.User.UserRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class UserConverter {
 
     public static User toUser(UserRequestDTO.CreateUserRequestDTO request){
@@ -48,4 +52,25 @@ public class UserConverter {
                 .userName(project.getUser().getUserName())
                 .build();
     }
+
+
+    public static UserResponseDTO.UserPreviewDTO toUserPreviewDTO(User user) {
+        return UserResponseDTO.UserPreviewDTO.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .build();
+    }
+
+    public static UserResponseDTO.UserPreviewListDTO toUserPreviewListDTO(
+            List<User> userList
+    ) {
+        List<UserResponseDTO.UserPreviewDTO> userPreviewDTOList = IntStream.range(0, userList.size())
+                .mapToObj(i -> toUserPreviewDTO(userList.get(i)))
+                .collect(Collectors.toList());
+        return UserResponseDTO.UserPreviewListDTO.builder()
+                .users(userPreviewDTOList)
+                .build();
+    }
+
+
 }
