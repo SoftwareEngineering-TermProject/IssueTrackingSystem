@@ -7,6 +7,9 @@ import com.example.IssueTrackingSystem.converter.ProjectConverter;
 import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.entity.User;
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
+import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
 import com.example.IssueTrackingSystem.service.CommentService.CommentQueryService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueCommandService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueQueryService;
@@ -120,6 +123,75 @@ public class IssueController {
         return ApiResponse.onSuccess(
                 SuccessStatus.Issue_OK,
                 IssueConverter.toGetIssueResultWithCommentPreviewListDTO(getIssue, commentsList)
+        );
+    }
+
+    // 이슈 담당자 지정
+    @PostMapping("/assignee/{issueId}")
+    @Operation(summary = "이슈 담당자 지정 API", description =
+            "Issue에 담당자를 지정합니다."
+    )
+    public ApiResponse<IssueResponseDTO.AssigneeResultDTO> addAssignee(
+            @PathVariable Long issueId,
+            @RequestParam Long userId,
+            @RequestBody IssueRequestDTO.AssigneeRequestDTO request
+    ) {
+        Issue newIssue = issueCommandService.addAssignee(userId, issueId, request);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toAssigneeResultDTO(newIssue, request)
+        );
+    }
+
+    // 이슈 수정자 지정
+    @PostMapping("/fixer/{issueId}")
+    @Operation(summary = "이슈 수정자 지정 API", description =
+            "Issue에 수정자를 지정합니다."
+    )
+    public ApiResponse<IssueResponseDTO.FixerResultDTO> addFixer(
+            @PathVariable Long issueId,
+            @RequestParam Long userId
+    ) {
+        Issue newIssue = issueCommandService.addFixer(userId, issueId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toFixerResultDTO(newIssue)
+        );
+    }
+
+    // 이슈 상태 수정
+    @PatchMapping("/status/{issueId}")
+    @Operation(
+            summary = "이슈 상태 수정 API"
+            , description = "이슈 상태를 수정합니다."
+    )
+    public ApiResponse<IssueResponseDTO.IssueStatusResultDTO> updateIssue(
+            @PathVariable Long issueId,
+            @RequestParam IssueStatus issueStatus
+    ) {
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toIssueStatusResultDTO(
+                        issueCommandService.updateIssueStatus(issueId, issueStatus)
+                )
+        );
+    }
+
+    // 이슈 우선순위 수정
+    @PatchMapping("/priority/{issueId}")
+    @Operation(
+            summary = "이슈 우선순위 수정 API"
+            , description = "이슈 우선순위를 수정합니다."
+    )
+    public ApiResponse<IssueResponseDTO.IssuePriorityResultDTO> updateIssue(
+            @PathVariable Long issueId,
+            @RequestParam IssuePriority issuePriority
+    ) {
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toIssuePriorityResultDTO(
+                        issueCommandService.updateIssuePriority(issueId, issuePriority)
+                )
         );
     }
 }

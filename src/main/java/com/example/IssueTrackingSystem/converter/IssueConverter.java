@@ -80,4 +80,32 @@ public class IssueConverter {
                 .comments(commentPreviewDTOList)
                 .build();
     }
+
+    public static IssueResponseDTO.AssigneeResultDTO toAssigneeResultDTO(Issue issue, IssueRequestDTO.AssigneeRequestDTO request){
+        return IssueResponseDTO.AssigneeResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .userName(request.getUserName())
+                .build();
+    }
+
+    public static IssueResponseDTO.FixerResultDTO toFixerResultDTO(Issue issue){
+        return IssueResponseDTO.FixerResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .userName(issue.getUser().getUserName())
+                .build();
+    }
+
+    public static IssueResponseDTO.IssueStatusResultDTO toIssueStatusResultDTO(Issue issue){
+        return IssueResponseDTO.IssueStatusResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .issueStatus(issue.getIssueStatus())
+                .build();
+    }
+
+    public static IssueResponseDTO.IssuePriorityResultDTO toIssuePriorityResultDTO(Issue issue){
+        return IssueResponseDTO.IssuePriorityResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .issuePriority(issue.getIssuePriority())
+                .build();
+    }
 }

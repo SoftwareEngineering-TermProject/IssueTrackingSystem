@@ -1,5 +1,6 @@
 package com.example.IssueTrackingSystem.web.dto.Issue;
 
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
 import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
@@ -66,5 +67,41 @@ public class IssueResponseDTO {
         String fixer;
         LocalDateTime createAt;
         List<CommentResponseDTO.CommentPreviewDTO> comments;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AssigneeResultDTO {
+        private Long issueId;
+        private String userName;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class FixerResultDTO {
+        private Long issueId;
+        private String userName;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class IssueStatusResultDTO {
+        private Long issueId;
+        private IssueStatus issueStatus;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class IssuePriorityResultDTO {
+        private Long issueId;
+        private IssuePriority issuePriority;
     }
 }
