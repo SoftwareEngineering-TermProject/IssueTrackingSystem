@@ -92,16 +92,17 @@ public class IssueController {
     }
 
     // 이슈 리스트 검색
-    @GetMapping("/")
+    @GetMapping("/list/{projectId}")
     @Operation(
             summary = "전체 이슈 조회 API"
             , description = "전체 이슈를 조회합니다."
     )
     public ApiResponse<IssueResponseDTO.IssuePreviewListDTO> getIssueList(
+            @PathVariable Long projectId,
             @RequestParam Optional<String> search
     ) {
 
-        List<Issue> Issues = issueQueryService.findAllBySearch(search);
+        List<Issue> Issues = issueQueryService.findAllBySearch(search, projectId);
         return ApiResponse.onSuccess(
                 SuccessStatus.Issue_OK,
                 IssueConverter.toIssuePreviewListDTO(Issues)
