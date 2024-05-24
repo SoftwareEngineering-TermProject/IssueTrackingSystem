@@ -195,4 +195,38 @@ public class IssueController {
                 )
         );
     }
+
+    // 이슈 담당자 삭제
+    @DeleteMapping("/issues/assignee/{issueId}")
+    @Operation(
+            summary = "이슈 담당자 삭제 API"
+    )
+    public ApiResponse<?> deleteIssueAssignee(
+            @PathVariable Long issueId,
+            @RequestParam Long userId
+    ) {
+
+        issueCommandService.deleteIssueAssignee(issueId, userId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                null
+        );
+    }
+
+    // 이슈 수정자 삭제
+    @DeleteMapping("/issues/fixer/{issueId}")
+    @Operation(
+            summary = "이슈 수정자 삭제 API"
+    )
+    public ApiResponse<?> deleteIssueFixer(
+            @PathVariable Long issueId,
+            @RequestParam Long userId
+    ) {
+
+        issueCommandService.deleteIssueFixer(issueId, userId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                null
+        );
+    }
 }

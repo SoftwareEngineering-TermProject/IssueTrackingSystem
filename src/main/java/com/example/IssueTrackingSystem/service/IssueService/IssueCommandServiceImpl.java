@@ -132,4 +132,26 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         getIssue.updateIssuePriority(issuePriority);
         return getIssue;
     }
+
+    public void deleteIssueAssignee(Long issueId, Long userId){
+        User getUser = userRepository.findById(userId).get();
+        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
+        if(getProjectUser.getUserRole() != UserRole.PL){
+            throw new IssueHandler(ErrorStatus.ISSUE_DELETE_ASSIGNEE_UNAUTHORIZED);
+        }
+
+        Issue getIssue = issueRepository.findById(issueId).get();
+        getIssue.deleteAssignee();
+    }
+
+    public void deleteIssueFixer(Long issueId, Long userId){
+        User getUser = userRepository.findById(userId).get();
+        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
+        if(getProjectUser.getUserRole() != UserRole.DEV){
+            throw new IssueHandler(ErrorStatus.ISSUE_DELETE_FIXER_UNAUTHORIZED);
+        }
+
+        Issue getIssue = issueRepository.findById(issueId).get();
+        getIssue.deleteFixer();
+    }
 }
