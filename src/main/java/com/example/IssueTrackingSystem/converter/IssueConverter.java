@@ -95,16 +95,10 @@ public class IssueConverter {
                 .build();
     }
 
-    public static IssueResponseDTO.IssueStatusResultDTO toIssueStatusResultDTO(Issue issue){
-        return IssueResponseDTO.IssueStatusResultDTO.builder()
+    public static IssueResponseDTO.IssueStatusPriorityResultDTO toIssueStatusPriorityResultDTO(Issue issue){
+        return IssueResponseDTO.IssueStatusPriorityResultDTO.builder()
                 .issueId(issue.getIssueId())
                 .issueStatus(issue.getIssueStatus())
-                .build();
-    }
-
-    public static IssueResponseDTO.IssuePriorityResultDTO toIssuePriorityResultDTO(Issue issue){
-        return IssueResponseDTO.IssuePriorityResultDTO.builder()
-                .issueId(issue.getIssueId())
                 .issuePriority(issue.getIssuePriority())
                 .build();
     }

@@ -121,15 +121,15 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         return issueRepository.save(getIssue);
     }
 
-    public Issue updateIssueStatus(Long issueId, IssueStatus issueStatus){
+    public Issue updateIssueStatusPriority(Long issueId, IssueRequestDTO.IssueStatusPriorityRequestDTO request){
         Issue getIssue = issueRepository.findById(issueId).get();
-        getIssue.updateIssueStatus(issueStatus);
-        return getIssue;
-    }
+        if(request.getIssueStatus() != null){
+            getIssue.updateIssueStatus(request.getIssueStatus());
+        }
+        if(request.getIssuePriority() != null){
+            getIssue.updateIssuePriority(request.getIssuePriority());
+        }
 
-    public Issue updateIssuePriority(Long issueId, IssuePriority issuePriority){
-        Issue getIssue = issueRepository.findById(issueId).get();
-        getIssue.updateIssuePriority(issuePriority);
         return getIssue;
     }
 

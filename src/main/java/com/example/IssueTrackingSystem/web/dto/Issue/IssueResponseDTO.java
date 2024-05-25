@@ -91,17 +91,9 @@ public class IssueResponseDTO {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class IssueStatusResultDTO {
+    public static class IssueStatusPriorityResultDTO {
         private Long issueId;
         private IssueStatus issueStatus;
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class IssuePriorityResultDTO {
-        private Long issueId;
         private IssuePriority issuePriority;
     }
 }
