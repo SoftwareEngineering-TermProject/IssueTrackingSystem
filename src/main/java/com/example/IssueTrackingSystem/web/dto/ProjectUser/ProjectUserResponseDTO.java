@@ -15,8 +15,6 @@ public class ProjectUserResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProjectUserResultDTO {
-        Long projectId;
-        String title;
         Long userId;
         String userName;
         UserRole userRole;
