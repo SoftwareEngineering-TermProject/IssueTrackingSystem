@@ -1,12 +1,11 @@
 package com.example.IssueTrackingSystem.converter;
 
+import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
-import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.entity.User;
+import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueResponseDTO;
-import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
-import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
-import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +16,7 @@ public class IssueConverter {
         return Issue.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
+                .issuePriority(request.getIssuePriority())
                 .build();
     }
 
@@ -41,6 +41,9 @@ public class IssueConverter {
                 .issueId(issue.getIssueId())
                 .title(issue.getTitle())
                 .issueStatus(issue.getIssueStatus())
+                .assignee(issue.getAssignee())
+                .fixer(issue.getFixer())
+                .createAt(issue.getCreatedAt())
                 .build();
     }
 
@@ -54,6 +57,55 @@ public class IssueConverter {
 
         return IssueResponseDTO.IssuePreviewListDTO.builder()
                 .issues(issuePreviewDTOList)
+                .build();
+    }
+
+    public static IssueResponseDTO.GetIssueResultWithCommentPreviewListDTO toGetIssueResultWithCommentPreviewListDTO(
+            Issue issue,
+            List<Comment> commentList
+    ) {
+
+        List<CommentResponseDTO.CommentPreviewDTO> commentPreviewDTOList = IntStream.range(0, commentList.size())
+                .mapToObj(i -> CommentConverter.toCommentPreviewDTO(commentList.get(i)))
+                .collect(Collectors.toList());
+
+        return IssueResponseDTO.GetIssueResultWithCommentPreviewListDTO.builder()
+                .user(UserConverter.toUserPreviewInIssueDTO(issue.getUser()))
+                .issueId(issue.getIssueId())
+                .title(issue.getTitle())
+                .description(issue.getDescription())
+                .assignee(issue.getAssignee())
+                .fixer(issue.getFixer())
+                .createAt(issue.getCreatedAt())
+                .comments(commentPreviewDTOList)
+                .build();
+    }
+
+    public static IssueResponseDTO.AssigneeResultDTO toAssigneeResultDTO(Issue issue, IssueRequestDTO.AssigneeRequestDTO request){
+        return IssueResponseDTO.AssigneeResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .userName(request.getUserName())
+                .build();
+    }
+
+    public static IssueResponseDTO.FixerResultDTO toFixerResultDTO(Issue issue){
+        return IssueResponseDTO.FixerResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .userName(issue.getUser().getUserName())
+                .build();
+    }
+
+    public static IssueResponseDTO.IssueStatusResultDTO toIssueStatusResultDTO(Issue issue){
+        return IssueResponseDTO.IssueStatusResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .issueStatus(issue.getIssueStatus())
+                .build();
+    }
+
+    public static IssueResponseDTO.IssuePriorityResultDTO toIssuePriorityResultDTO(Issue issue){
+        return IssueResponseDTO.IssuePriorityResultDTO.builder()
+                .issueId(issue.getIssueId())
+                .issuePriority(issue.getIssuePriority())
                 .build();
     }
 }

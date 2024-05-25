@@ -1,5 +1,6 @@
 package com.example.IssueTrackingSystem.web.dto.Issue;
 
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class IssueRequestDTO {
         private Long projectId;
         private String title;
         private String description;
+        private IssuePriority issuePriority;
     }
 
     @Getter
@@ -23,5 +25,13 @@ public class IssueRequestDTO {
     public static class UpdateIssueDTO {
         private String title;
         private String description;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AssigneeRequestDTO {
+        private String userName;
     }
 }

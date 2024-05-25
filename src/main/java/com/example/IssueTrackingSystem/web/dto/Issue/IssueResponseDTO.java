@@ -1,6 +1,8 @@
 package com.example.IssueTrackingSystem.web.dto.Issue;
 
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import com.example.IssueTrackingSystem.domain.enums.IssueStatus;
+import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,6 +41,9 @@ public class IssueResponseDTO {
         Long issueId;
         String title;
         IssueStatus issueStatus;
+        String assignee;
+        String fixer;
+        LocalDateTime createAt;
     }
 
     @Builder
@@ -47,5 +52,56 @@ public class IssueResponseDTO {
     @AllArgsConstructor
     public static class IssuePreviewListDTO {
         List<IssuePreviewDTO> issues;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetIssueResultWithCommentPreviewListDTO {
+        UserResponseDTO.UserPreviewInIssueDTO user;
+        Long issueId;
+        String title;
+        String description;
+        String assignee;
+        String fixer;
+        LocalDateTime createAt;
+        List<CommentResponseDTO.CommentPreviewDTO> comments;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AssigneeResultDTO {
+        private Long issueId;
+        private String userName;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class FixerResultDTO {
+        private Long issueId;
+        private String userName;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class IssueStatusResultDTO {
+        private Long issueId;
+        private IssueStatus issueStatus;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class IssuePriorityResultDTO {
+        private Long issueId;
+        private IssuePriority issuePriority;
     }
 }

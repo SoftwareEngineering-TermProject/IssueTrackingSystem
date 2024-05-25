@@ -2,18 +2,20 @@ package com.example.IssueTrackingSystem.web.controller;
 
 import com.example.IssueTrackingSystem.apiPayload.ApiResponse;
 import com.example.IssueTrackingSystem.apiPayload.code.status.SuccessStatus;
+import com.example.IssueTrackingSystem.converter.ProjectUserConverter;
 import com.example.IssueTrackingSystem.converter.ProjectConverter;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectUser;
 import com.example.IssueTrackingSystem.service.ProjectService.ProjectCommandService;
 import com.example.IssueTrackingSystem.service.ProjectService.ProjectQueryService;
+import com.example.IssueTrackingSystem.service.UserService.UserQueryService;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Project.ProjectResponseDTO;
+import com.example.IssueTrackingSystem.web.dto.ProjectUser.ProjectUserRequestDTO;
+import com.example.IssueTrackingSystem.web.dto.ProjectUser.ProjectUserResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,7 @@ public class ProjectController {
 
     private final ProjectCommandService projectCommandService;
     private final ProjectQueryService projectQueryService;
+    private final UserQueryService userQueryService;
 
 
     // 프로젝트 생성
@@ -146,5 +149,22 @@ public class ProjectController {
                 ProjectConverter.toProjectPreviewListDTO(Projects)
         );
     }
+
+    // admin이 프로젝트에 계정 추가
+    @PostMapping("/add/{userId}")
+    @Operation(summary = "프로젝트에 계정 추가", description =
+            "Project에 계정을 추가합니다."
+    )
+    public ApiResponse<ProjectUserResponseDTO.ProjectUserResultDTO> addUser(
+            @PathVariable Long userId,
+            @RequestBody ProjectUserRequestDTO.AddUserDTO request
+    ) {
+        ProjectUser newProjectUser = projectCommandService.addUser(userId, request);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectUserConverter.toProjectUserResultDTO(newProjectUser)  //newProjectUser
+        );
+    }
+
 
 }

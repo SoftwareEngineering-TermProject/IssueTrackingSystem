@@ -1,11 +1,9 @@
 package com.example.IssueTrackingSystem.web.dto.Project;
 
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import com.example.IssueTrackingSystem.web.dto.Hashtag.HashtagResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.User.UserResponseDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -83,6 +81,13 @@ public class ProjectResponseDTO {
         String title;
         String description;
 
+    }
+
+    @Data
+    @Builder
+    public static class UserDTO {
+        Long userId;
+        String userName;
     }
 
 }

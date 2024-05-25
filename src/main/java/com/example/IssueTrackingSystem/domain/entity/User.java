@@ -1,6 +1,7 @@
 package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
+import com.example.IssueTrackingSystem.domain.enums.Admin;
 import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,15 +27,15 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'DEFAULT'")
-    private UserRole userRole;
-
     @Column(nullable = false, length = 20)
     private String userName;
 
     @Column(nullable = false, length = 20)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'FALSE'")
+    private Admin admin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @Builder.Default

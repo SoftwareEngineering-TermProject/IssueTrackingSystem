@@ -12,6 +12,7 @@ public class CommentRequestDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class CreateCommentRequestDTO {
+        private Long issueId;
         private String content;
     }
 

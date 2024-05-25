@@ -34,8 +34,12 @@ public enum ErrorStatus implements BaseErrorCode {
     ISSUE_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3001", "이슈 생성 권한이 없습니다."),
     ISSUE_UPDATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3002", "이슈 수정 권한이 없습니다."),
     ISSUE_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3003", "이슈 삭제 권한이 없습니다."),
+    ISSUE_ASSIGNEE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3004", "담당자 지정 권한이 없습니다."),
+    ISSUE_ASSIGNEE_NOT_FOUND(HttpStatus.BAD_REQUEST, "ISSUE_3005", "지정할 담당자가 존재하지 않습니다."),
+    ISSUE_FIXER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3006", "수정자 지정 권한이 없습니다."),
+    ISSUE_DELETE_ASSIGNEE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3007", "담당자 삭제 권한이 없습니다."),
+    ISSUE_DELETE_FIXER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3008", "수정자 삭제 권한이 없습니다."),
     ISSUE_ID_NULL(HttpStatus.BAD_REQUEST, "USER_3002", "답변 아이디는 필수 입니다.");
-
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;
