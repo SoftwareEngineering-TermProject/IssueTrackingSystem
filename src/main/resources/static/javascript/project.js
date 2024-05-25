@@ -44,7 +44,7 @@ function addProject(project) {
   box.onclick = function() { 
     console.log("clicked" + project.projectId)
     localStorage.setItem("projectId", project.projectId);
-    window.location.href = './issue.html';
+    window.location.href = './issue';
   };
 
   box.appendChild(title);

@@ -1,0 +1,19 @@
+body,html {
+    height: 100%;
+    width: 100%;
+    margin : 0px;
+    padding : 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+#warn {
+    color : red;
+    display: none;
+}
