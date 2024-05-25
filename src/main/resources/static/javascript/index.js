@@ -27,7 +27,7 @@ form.addEventListener('submit', (event) => {
             console.log(response);   
             
             localStorage.setItem("userId", response.result.userId);
-            window.location.href = './project.html';
+            window.location.href = './project';
         } else {
             warn.style.display = "block";
             console.error("Error", loginRequest.status, loginRequest.statusText);

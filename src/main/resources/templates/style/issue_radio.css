@@ -1,0 +1,20 @@
+.radio-group {
+    display: flex;
+}
+
+.radio-elem {
+    width : 120px;
+    border : 2px solid #ccc;
+    padding : 4px;
+    text-align: center;
+}
+
+.radio-elem:hover {
+    border : 2px solid #007bff;
+    padding : 4px;
+}
+
+.selected {
+    border : 2px solid #007bff;
+    font-weight: bold;
+}
