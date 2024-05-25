@@ -36,7 +36,7 @@ public class ProjectUserController {
             , description = "프로젝트에 참여한 유저를 조회할 수 있습니다."
     )
     public ApiResponse<ProjectUserResponseDTO.ProjectUserResultListDTO> findProjectUser(
-            @RequestParam Long projectId
+            @PathVariable Long projectId
     ) {
         List<ProjectUser> projectUserList = projectUserQueryService.getProjectUser(projectId);
         return ApiResponse.onSuccess(
