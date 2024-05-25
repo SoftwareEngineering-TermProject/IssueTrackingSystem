@@ -43,6 +43,7 @@ public class IssueConverter {
                 .issueStatus(issue.getIssueStatus())
                 .assignee(issue.getAssignee())
                 .fixer(issue.getFixer())
+                .issuePriority(issue.getIssuePriority())
                 .createAt(issue.getCreatedAt())
                 .build();
     }
@@ -74,8 +75,10 @@ public class IssueConverter {
                 .issueId(issue.getIssueId())
                 .title(issue.getTitle())
                 .description(issue.getDescription())
+                .issueStatus(issue.getIssueStatus())
                 .assignee(issue.getAssignee())
                 .fixer(issue.getFixer())
+                .issuePriority(issue.getIssuePriority())
                 .createAt(issue.getCreatedAt())
                 .comments(commentPreviewDTOList)
                 .build();

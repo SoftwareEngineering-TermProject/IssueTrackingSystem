@@ -43,6 +43,7 @@ public class IssueResponseDTO {
         IssueStatus issueStatus;
         String assignee;
         String fixer;
+        IssuePriority issuePriority;
         LocalDateTime createAt;
     }
 
@@ -63,8 +64,10 @@ public class IssueResponseDTO {
         Long issueId;
         String title;
         String description;
+        IssueStatus issueStatus;
         String assignee;
         String fixer;
+        IssuePriority issuePriority;
         LocalDateTime createAt;
         List<CommentResponseDTO.CommentPreviewDTO> comments;
     }
