@@ -35,8 +35,8 @@ function openDetail(event, blinkLast = false) {
       
       detail_comment.innerHTML = "";
       issue.comments.forEach((e) => {addComment(e)});
-      if(blinkLast) { detail_comment.childNodes[detail_comment.childElementCount-1].classList.add("new"); }
-      detail_comment.scrollTop = detail_comment.scrollHeight;
+      if(blinkLast) { detail_comment.childNodes[0].classList.add("new"); }
+      detail_comment.scrollTop = 0;
       detail.style.display = "flex";
     } else {
       alert("이슈를 불러오지 못했습니다.");
@@ -58,7 +58,7 @@ function addComment(comment) {
   user.classList.add("comment-user");
   time.classList.add("comment-time");
   user.innerText = comment.user.userName;
-  time.innerText = "00-00-00T00:00"
+  time.innerText = comment.createdAt.substr(0,16)
   content.innerText = comment.content;
 
   top.appendChild(user);
