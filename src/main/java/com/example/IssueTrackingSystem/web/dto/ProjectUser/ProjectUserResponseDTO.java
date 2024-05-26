@@ -27,4 +27,24 @@ public class ProjectUserResponseDTO {
     public static class ProjectUserResultListDTO {
         List<ProjectUserResultDTO> users;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserProjectResultDTO {
+        Long projectId;
+        String title;
+        UserRole userRole;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserProjectResultListDTO {
+        List<UserProjectResultDTO> projects;
+    }
+
+
 }

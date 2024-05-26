@@ -18,6 +18,7 @@ public class ProjectUserConverter {
                 .build();
     }
 
+
     public static ProjectUserResponseDTO.ProjectUserResultListDTO toProjectUserResultListDTO(List<ProjectUser> projectUserList){
         List<ProjectUserResponseDTO.ProjectUserResultDTO> projectUserResultDTOList = IntStream.range(0, projectUserList.size())
                 .mapToObj(i -> toProjectUserResultDTO(projectUserList.get(i)))
@@ -33,5 +34,24 @@ public class ProjectUserConverter {
                 .userRole(request.getUserRole())
                 .build();
     }
+
+
+    public static ProjectUserResponseDTO.UserProjectResultDTO toUserProjectResultDTO(ProjectUser projectUser) {
+        return ProjectUserResponseDTO.UserProjectResultDTO.builder()
+                .projectId(projectUser.getProject().getProjectId())
+                .title(projectUser.getProject().getTitle())
+                .userRole(projectUser.getUserRole())
+                .build();
+    }
+
+    public static ProjectUserResponseDTO.UserProjectResultListDTO toUserProjectResultListDTO(List<ProjectUser> projectUserList) {
+        List<ProjectUserResponseDTO.UserProjectResultDTO> userProjectResultDTOList = IntStream.range(0, projectUserList.size())
+                .mapToObj(i -> toUserProjectResultDTO(projectUserList.get(i)))
+                .collect(Collectors.toList());
+        return ProjectUserResponseDTO.UserProjectResultListDTO.builder()
+                .projects(userProjectResultDTOList)
+                .build();
+    }
+
 
 }

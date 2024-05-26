@@ -27,23 +27,31 @@ public class ProjectUser {
     @Column(nullable = false, length = 20)
     private String userName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id")
-    private Project project;
-
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'DEFAULT'")
     private UserRole userRole;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+//    @Column(nullable = false, length = 30)
+//    private String title;
+
+
     public void setUser(User user){
         this.user = user;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 
     public void setProject(Project project){
         this.project = project;
     }
 
-    public void setUserName(String userName){
-        this.userName = userName;
-    }
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
 }
