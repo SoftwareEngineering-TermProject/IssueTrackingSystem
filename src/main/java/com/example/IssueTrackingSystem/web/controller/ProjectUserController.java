@@ -45,4 +45,22 @@ public class ProjectUserController {
         );
     }
 
+    // 유저가 참여중인 프로젝트 조회
+    @GetMapping("/projectList/{userId}")
+    @Operation(
+            summary = "유저가 참여중인 프로젝트 조회 API"
+            , description = "로그인된 유저가 참여중인 프로젝트를 조회할 수 있습니다."
+    )
+    public ApiResponse<ProjectUserResponseDTO.UserProjectResultListDTO> findUserProject(
+            @PathVariable Long userId
+    ) {
+        List<ProjectUser> userProjectList = projectUserQueryService.getUserProject(userId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                ProjectUserConverter.toUserProjectResultListDTO(userProjectList)
+        );
+    }
+
+
+
 }

@@ -9,4 +9,5 @@ public interface ProjectUserQueryService {
 
     //ProjectUser getProjectUser(Long projectId);
     List<ProjectUser> getProjectUser(Long projectId);
+    List<ProjectUser> getUserProject(Long userId);
 }
