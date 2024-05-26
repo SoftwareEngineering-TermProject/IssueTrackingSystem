@@ -1,0 +1,52 @@
+#detail-comment {
+    height: 140px;
+    overflow-y: auto;
+}
+
+#detail-comment-create {
+    height: 40px;
+    display: flex;
+}
+
+#detail-comment-create textarea {
+    width: 80%;
+    height: 40px;
+    resize: none;
+}
+
+#detail-comment-create button {
+    width: 20%;
+    height: 45.33px;
+    padding : 2px;
+}
+
+@keyframes colorFade {
+    from {
+        background-color: #007bff;
+    }
+    to {
+        background-color: #ccc;
+    }
+}
+
+.comment-box{
+    background-color: #ccc;
+    border-radius: 5px;
+    margin : 4px 0px 0px 0px;
+    padding : 4px;
+}
+
+.new {
+    animation: colorFade 2s ease-out;
+}
+
+
+.comment-user {
+    font-weight: bold;
+    padding: 0px 8px 0px 4px; 
+}
+
+.comment-time {
+    font-size: 10px;
+    color: #777;
+}

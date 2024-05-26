@@ -12,7 +12,7 @@ projectRequest.onload = () => {
         const title = result.title;
         project_title.innerText = title;
     } else {
-        alert("프로젝트 목록을 받아오지 못했습니다.");
+        alert("프로젝트 정보를 받아오지 못했습니다.");
         console.error("Error", projectRequest.status, projectRequest.statusText);
     }
 };

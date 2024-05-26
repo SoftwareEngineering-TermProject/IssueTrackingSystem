@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="style/issue_radio.css">
         <link rel="stylesheet" href="style/issue_member.css">
         <link rel="stylesheet" href="style/issue_user.css">
+        <link rel="stylesheet" href="style/issue_detail_comment.css">
         <link rel="stylesheet" href="style/modal.css">
         <title>SE term project - All Issues</title>
     </head>
@@ -52,9 +53,7 @@
             <div class="user-content">
                 <span id="user-close" class="close">&times;</span>
                 <h2>Add User</h2>
-                <select class="user-list">
-
-                </select>
+                <select class="user-list"></select>
                 <select id="role-list">
                     <option value="PL">PL</option>
                     <option value="DEV">DEV</option>
@@ -66,26 +65,14 @@
         <div id="detail-wrapper" class="detail">
             <div class="detail-content">
                 <div id="header">
-                    <div id="detail-title">Issue title</div>
+                    <h2 id="detail-title">Issue title</h2>
                     <div class="close-detail">X</div>
                 </div>
-                
-                <div id="detail-date">00-00-00</div>
-                <div id="detail-description">
-                    Lorem ipsum dolor sit amet,
+                <div class="detail-info">
+                    <label id="detail-reporter"> Reporter</label>
+                    <label id="detail-date">00-00-00</label>
                 </div>
-                <form>
-                    <div id="detail-reporter">
-                        Reporter
-                    </div>
-                    <div id="detail-fixer">
-                        Fixer
-                    </div>
-                    <div>
-                        Assignee
-                        <select id="detail-assignee"></select>
-                        <button id="assign-btn">Assign</button>
-                    </div>
+                <div>
                     <div id="info-wrapper">
                         Priority
                         <select id="detail-priority">
@@ -101,11 +88,28 @@
                             <option value="ASSIGNED">ASSIGNED</option>
                             <option value="RESOLVED">RESOLVED</option>
                             <option value="CLOSED">CLOSED</option>
-                            <option value="REOPEND">REOPEND</option>
+                            <option value="REOPENED">REOPENED</option>
                         </select>
                         <button id="save-btn">Save</button>
                     </div>
-                </form>
+                    <div>
+                        <label id="detail-fixer">Fixer</label>
+                        <button id="fix-btn">Fixed</button>
+                    </div>
+                    <div>
+                        <label>Assignee</label>
+                        <select id="detail-assignee"></select>
+                        <button id="assign-btn">Assign</button>
+                    </div>
+                    <div id="detail-description">
+                        Lorem ipsum dolor sit amet,
+                    </div>
+                    <div id="detail-comment"></div>
+                    <div id="detail-comment-create">
+                        <textarea id="comment-content"></textarea>
+                        <button id="comment-btn">💬</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="upper-bar">

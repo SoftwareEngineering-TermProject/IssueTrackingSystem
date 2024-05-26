@@ -18,35 +18,39 @@ window.onclick = function (event) {
 
 var all_users;
 //load all project participants
-const user_list = document.getElementsByClassName("user-list")[0];
-const allUserRequest = new XMLHttpRequest();
-allUserRequest.open('GET', url + `users`);
-allUserRequest.setRequestHeader("Content-Type", "application/json");
+function loadAllUsers() {
+    const user_list = document.getElementsByClassName("user-list")[0];
+    const allUserRequest = new XMLHttpRequest();
+    allUserRequest.open('GET', url + `users`);
+    allUserRequest.setRequestHeader("Content-Type", "application/json");
 
-allUserRequest.send();
-allUserRequest.onload = () => {
-    if( allUserRequest.status === 200 ) {
-        const result = JSON.parse(allUserRequest.response).result;
-        all_users = result.users
-        console.log("ALL USERS");
-        console.log(all_users);
-
-        
-        all_users.forEach((user) => {
-            const user_opt = document.createElement("option");
-            user_opt.innerText = user.userName;
-            user_opt.value = user.userId;
-            user_opt.classList.add("user-list-elem");
-            user_opt.addEventListener("click", ()=>{
-                user_opt.classList.toggle("user-selected")
-            })
-            user_list.appendChild(user_opt);
-        });
-    } else {
-        alert("전체 유저 목록을 받아오지 못했습니다.");
-        console.error("Error", allUserRequest.status, allUserRequest.statusText);
-    }
-};
+    allUserRequest.send();
+    allUserRequest.onload = () => {
+        if( allUserRequest.status === 200 ) {
+            const result = JSON.parse(allUserRequest.response).result;
+            all_users = result.users
+            console.log("ALL USERS");
+            console.log(all_users);
+            
+            all_users.forEach((user) => {
+                const user_opt = document.createElement("option");
+                user_opt.innerText = user.userName;
+                user_opt.value = user.userId;
+                user_opt.classList.add("user-list-elem");
+                user_opt.addEventListener("click", ()=>{
+                    user_opt.classList.toggle("user-selected")
+                })
+                if (project_users.some(item => item.userName === user.userName)){
+                    user_opt.disabled = true;
+                }
+                user_list.appendChild(user_opt);
+            });
+        } else {
+            alert("전체 유저 목록을 받아오지 못했습니다.");
+            console.error("Error", allUserRequest.status, allUserRequest.statusText);
+        }
+    };
+}
 
 //add user
 const add_user_btn = document.getElementById("add-user-btn");
