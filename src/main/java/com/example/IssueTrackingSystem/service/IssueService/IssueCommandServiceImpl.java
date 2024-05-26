@@ -89,27 +89,43 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         }
     }
 
-    public Issue addAssignee(Long userId, Long issueId, IssueRequestDTO.AssigneeRequestDTO request){
+    public Issue addAssignee(Long userId, Long issueId, IssueRequestDTO.AssigneeRequestDTO request) {
         User getUser = userRepository.findById(userId).get();
-        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
-        if(getProjectUser.getUserRole() != UserRole.PL){
-            throw new IssueHandler(ErrorStatus.ISSUE_ASSIGNEE_UNAUTHORIZED);
+        if (getUser.getAdmin() == Admin.TRUE) {
+            // assignee에 추가할 user가 존재하지 않을 때 예외처리
+            if(userRepository.findByUserName(request.getUserName()) == null){
+                throw new UserHandler(ErrorStatus.ISSUE_ASSIGNEE_NOT_FOUND);
+            }
+
+            Issue getIssue = issueRepository.findById(issueId).get();
+            getIssue.setAssignee(request.getUserName());
+
+            return issueRepository.save(getIssue);
         }
+        else{
+            ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
 
+            if (getProjectUser.getUserRole() != UserRole.PL) {
+                throw new IssueHandler(ErrorStatus.ISSUE_ASSIGNEE_UNAUTHORIZED);
+            }
 
-        // assignee에 추가할 user가 존재하지 않을 때 예외처리
-        if(userRepository.findByUserName(request.getUserName()) == null){
-            throw new UserHandler(ErrorStatus.ISSUE_ASSIGNEE_NOT_FOUND);
+            // assignee에 추가할 user가 존재하지 않을 때 예외처리
+            if(userRepository.findByUserName(request.getUserName()) == null){
+                throw new UserHandler(ErrorStatus.ISSUE_ASSIGNEE_NOT_FOUND);
+            }
+
+            Issue getIssue = issueRepository.findById(issueId).get();
+            getIssue.setAssignee(request.getUserName());
+
+            return issueRepository.save(getIssue);
         }
-
-        Issue getIssue = issueRepository.findById(issueId).get();
-        getIssue.setAssignee(request.getUserName());
-
-        return issueRepository.save(getIssue);
     }
 
     public Issue addFixer(Long userId, Long issueId){
         User getUser = userRepository.findById(userId).get();
+        if(getUser.getAdmin() == Admin.TRUE){
+            throw new IssueHandler(ErrorStatus.ISSUE_FIXER_UNAUTHORIZED);
+        }
         ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
         if(getProjectUser.getUserRole() != UserRole.DEV){
             throw new IssueHandler(ErrorStatus.ISSUE_FIXER_UNAUTHORIZED);
@@ -133,19 +149,29 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         return getIssue;
     }
 
-    public void deleteIssueAssignee(Long issueId, Long userId){
+    public void deleteIssueAssignee(Long issueId, Long userId) {
         User getUser = userRepository.findById(userId).get();
-        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
-        if(getProjectUser.getUserRole() != UserRole.PL){
-            throw new IssueHandler(ErrorStatus.ISSUE_DELETE_ASSIGNEE_UNAUTHORIZED);
+        if (getUser.getAdmin() == Admin.TRUE) {
+            Issue getIssue = issueRepository.findById(issueId).get();
+            getIssue.deleteAssignee();
+            return;
         }
+        else {
+            ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
+            if (getProjectUser.getUserRole() != UserRole.PL) {
+                throw new IssueHandler(ErrorStatus.ISSUE_DELETE_ASSIGNEE_UNAUTHORIZED);
+            }
 
-        Issue getIssue = issueRepository.findById(issueId).get();
-        getIssue.deleteAssignee();
+            Issue getIssue = issueRepository.findById(issueId).get();
+            getIssue.deleteAssignee();
+        }
     }
 
     public void deleteIssueFixer(Long issueId, Long userId){
         User getUser = userRepository.findById(userId).get();
+        if(getUser.getAdmin() == Admin.TRUE){
+            throw new IssueHandler(ErrorStatus.ISSUE_DELETE_FIXER_UNAUTHORIZED);
+        }
         ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
         if(getProjectUser.getUserRole() != UserRole.DEV){
             throw new IssueHandler(ErrorStatus.ISSUE_DELETE_FIXER_UNAUTHORIZED);

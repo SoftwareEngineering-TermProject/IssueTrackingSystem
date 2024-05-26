@@ -21,6 +21,7 @@ public enum ErrorStatus implements BaseErrorCode {
     NAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "USER_1002", "이름입력은 필수 입니다."),
     USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER_1003", "이미 존재하는 유저입니다."),
     USER_ID_NULL(HttpStatus.BAD_REQUEST, "USER_1004", "사용자 아이디는 필수 입니다."),
+    USER_ADMIN_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "USER_1004", "관리자 권한이 없습니다."),
 
     // 프로젝트 관려 에러 2000
     PROJECT_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2001", "프로젝트 생성 권한이 없습니다."),
