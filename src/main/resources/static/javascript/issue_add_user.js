@@ -69,6 +69,7 @@ function addUser() {
             console.log(result);
             alert("유저를 프로젝트에 추가하였습니다.");
             add_user_btn.disabled = false;
+            location.reload(true);
         } else {
             alert("유저를 프로젝트에 추가하지 못했습니다.");
             console.error("Error", addUserRequest.status, addUserRequest.statusText);

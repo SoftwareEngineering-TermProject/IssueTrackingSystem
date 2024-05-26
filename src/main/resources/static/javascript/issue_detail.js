@@ -7,9 +7,13 @@ const detail_date = document.getElementById("detail-date");
 const detail_priority = document.getElementById("detail-priority");
 const detail_status = document.getElementById("detail-status");
 const detail_reporter = document.getElementById("detail-reporter");
+const detail_assignee = document.getElementById("detail-assignee");
+const detail_fixer = document.getElementById("detail-fixer");
+
+var issue_id;
 
 function openDetail(event) {
-  const issue_id = localStorage.getItem("issueId");
+  issue_id = localStorage.getItem("issueId");
   console.log(issue_id);
   var issue;
   issueRequest.open('GET', url + `issues/${issue_id}`);
@@ -22,9 +26,11 @@ function openDetail(event) {
       detail_title.innerText = issue.title;
       detail_description.innerText = issue.description;
       detail_date.innerText = issue.createAt;
-      detail_priority.value = issue.priority;
-      detail_status.value = issue.status;
+      detail_priority.value = issue.issuePriority;
+      detail_status.value = issue.issueStatus;
       detail_reporter.innerText = "Reporter : " + issue.user.userName;
+      detail_assignee.value = issue.assignee;
+      detail_fixer.innerText = ((issue.fixer === null) ? "Not fixed" : "Fixer :" + issue.fixer);
 
       detail.style.display = "flex";
     } else {
@@ -41,6 +47,35 @@ closeBtn.onclick = function () {
 
 window.addEventListener("click", (event) => {
   if (event.target == detail) {
-      detail.style.display = "none";
-    }
+    detail.style.display = "none";
+  }
 });
+
+const assign_btn = document.getElementById("assign-btn");
+
+assign_btn.addEventListener("click", (event) => {
+  assign(event);
+});
+
+function assign(event) {
+  event.preventDefault();
+  const assignRequest = new XMLHttpRequest();
+  assignRequest.open('POST', url + `issues/assignee/${issue_id}?userId=${localStorage.getItem("userId")}`);
+  assignRequest.setRequestHeader("Content-Type", "application/json");
+
+  var body = JSON.stringify({
+    userName : detail_assignee.value
+  });
+  assignRequest.send(body);
+  assignRequest.onload = () => {
+    if (assignRequest.status === 200) {
+      const result = JSON.parse(assignRequest.response).result;
+      console.log(result);
+      alert("담당자를 할당하였습니다.");
+      location.reload(true);
+    } else {
+      alert("담당자를 할당하지 못했습니다.");
+      console.error("Error", assignRequest.status, assignRequest.statusText);
+    }
+  };
+}

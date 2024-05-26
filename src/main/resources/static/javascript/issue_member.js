@@ -20,7 +20,7 @@ var project_users;
 //load all project participants
 function loadAllMembers(){
     const userRequest = new XMLHttpRequest();
-    userRequest.open('GET', url + `projects/participants/{projectId}?projectId=${project_id}`);
+    userRequest.open('GET', url + `projects/participants/${project_id}`);
     userRequest.setRequestHeader("Content-Type", "application/json");
 
     userRequest.send();
@@ -34,6 +34,11 @@ function loadAllMembers(){
             const pl_list = document.getElementById("pl-list");
             const dev_list = document.getElementById("dev-list");
             const tester_list = document.getElementById("tester-list");
+            const assignee = document.getElementById("detail-assignee");
+            const option = document.createElement("option");
+            option.innerText = "";
+            option.value = null;
+            assignee.appendChild(option);
             project_users.forEach((element) => {
                 const div = document.createElement("div");
                 div.innerText = element.userName;
@@ -45,7 +50,13 @@ function loadAllMembers(){
                 } else if (element.userRole == "TESTER") {
                     tester_list.appendChild(div);
                 }
+
+                const option = document.createElement("option");
+                option.innerText = element.userName;
+                option.value = element.userName;
+                assignee.appendChild(option);
             })
+            
         } else {
             alert("프로젝트의 유저 목록을 받아오지 못했습니다.");
             console.error("Error", userRequest.status, userRequest.statusText);
