@@ -77,6 +77,7 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
         Project getProject = projectRepository.findById(request.getProjectId()).get();
         newProjectUser.setUser(getUser);
         newProjectUser.setProject(getProject);
+        newProjectUser.setUserName(getUser.getUserName());
 
         ProjectUser savedProjectUser = projectUserRepository.save(newProjectUser);
         return savedProjectUser;

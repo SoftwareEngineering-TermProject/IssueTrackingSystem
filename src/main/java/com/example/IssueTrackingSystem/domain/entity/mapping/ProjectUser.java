@@ -24,9 +24,8 @@ public class ProjectUser {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_name")
-    private User userName;
+    @Column(nullable = false, length = 20)
+    private String userName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
@@ -42,5 +41,9 @@ public class ProjectUser {
 
     public void setProject(Project project){
         this.project = project;
+    }
+
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 }
