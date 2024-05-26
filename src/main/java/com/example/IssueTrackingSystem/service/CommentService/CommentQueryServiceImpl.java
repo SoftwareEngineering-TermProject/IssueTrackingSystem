@@ -22,6 +22,6 @@ public class CommentQueryServiceImpl implements CommentQueryService{
 
     @Override
     public List<Comment> getCommentsList(Issue issue){
-        return commentRepository.findAllByIssue(issue);
+        return commentRepository.findAllByIssueOrderByCreatedAtDesc(issue);
     }
 }

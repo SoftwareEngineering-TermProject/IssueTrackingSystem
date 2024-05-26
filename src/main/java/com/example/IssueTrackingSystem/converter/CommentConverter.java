@@ -49,6 +49,7 @@ public class CommentConverter {
                 .user(UserConverter.toUserPreviewInCommentDTO(comment.getUser()))
                 .commentId(comment.getCommentId())
                 .content(comment.getComment())
+                .createdAt(comment.getCreatedAt())
                 .build();
     }
 }
