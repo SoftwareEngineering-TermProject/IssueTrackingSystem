@@ -25,7 +25,7 @@ public class ProjectUserQueryServiceImpl implements ProjectUserQueryService {
 
     public List<ProjectUser> getProjectUser(Long projectId) {
         Project getProject = projectRepository.findById(projectId).get();
-        List<ProjectUser> ProjectUserList = projectUserRepository.findByProject(getProject);
+        List<ProjectUser> ProjectUserList = projectUserRepository.findAllByProject(getProject);
 
         return ProjectUserList;
     }
