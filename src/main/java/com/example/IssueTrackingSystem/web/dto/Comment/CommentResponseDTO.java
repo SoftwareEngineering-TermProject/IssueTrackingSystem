@@ -58,6 +58,7 @@ public class CommentResponseDTO {
         UserResponseDTO.UserPreviewInCommentDTO user;
         Long commentId;
         String content;
+        LocalDateTime createdAt;
     }
 
 }
