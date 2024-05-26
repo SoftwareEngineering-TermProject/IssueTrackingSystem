@@ -57,7 +57,7 @@ function addIssue(issue,index,length){
     td_reporter.innerText = issue.user.userName;
     td_fixer.innerText = issue.fixer;
     td_assignee.innerText = issue.assignee;
-    td_priority.innerText = issue.priority;
+    td_priority.innerText = issue.issuePriority;
     td_status.innerText = issue.issueStatus;
     td_date.innerText = issue.createAt.substr(0,16);
 

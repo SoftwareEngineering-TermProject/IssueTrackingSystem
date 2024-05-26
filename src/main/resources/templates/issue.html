@@ -66,10 +66,10 @@
         <div id="detail-wrapper" class="detail">
             <div class="detail-content">
                 <div id="header">
-                    <h2 id="detail-title">Issue title</h2>
+                    <div id="detail-title">Issue title</div>
                     <div class="close-detail">X</div>
                 </div>
-                <button>Edit</button>
+                
                 <div id="detail-date">00-00-00</div>
                 <div id="detail-description">
                     Lorem ipsum dolor sit amet,
@@ -78,15 +78,15 @@
                     <div id="detail-reporter">
                         Reporter
                     </div>
-                    <div>
+                    <div id="detail-fixer">
                         Fixer
-                        <select></select>
                     </div>
                     <div>
                         Assignee
-                        <select></select>
+                        <select id="detail-assignee"></select>
+                        <button id="assign-btn">Assign</button>
                     </div>
-                    <div>
+                    <div id="info-wrapper">
                         Priority
                         <select id="detail-priority">
                             <option value="BLOCKER">BLOCKER</option>
@@ -95,8 +95,6 @@
                             <option vlaue="MINOR">MINOR</option>
                             <option vlaue="TIRIVIAL">TRIVIAL</option>
                         </select>
-                    </div>
-                    <div>
                         Status
                         <select id="detail-status">
                             <option value="NEW">NEW</option>
@@ -105,6 +103,7 @@
                             <option value="CLOSED">CLOSED</option>
                             <option value="REOPEND">REOPEND</option>
                         </select>
+                        <button id="save-btn">Save</button>
                     </div>
                 </form>
             </div>
