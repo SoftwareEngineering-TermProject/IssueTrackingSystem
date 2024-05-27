@@ -8,6 +8,7 @@ import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectUser;
 import com.example.IssueTrackingSystem.domain.enums.Admin;
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import com.example.IssueTrackingSystem.repository.ProjectUserRepository;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
 import com.example.IssueTrackingSystem.repository.UserRepository;
@@ -40,6 +41,15 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
 
         // Project entity db에 저장
         Project savedProject = projectRepository.save(newProject);
+
+        // ProjectUser생성 및 DB에 저장
+        ProjectUser newProjectUser = ProjectUser.builder()
+                .user(getUser)
+                .userName(getUser.getUserName())
+                .userRole(UserRole.ADMIN)
+                .project(savedProject)
+                .build();
+        projectUserRepository.save(newProjectUser);
 
         return savedProject;
     }
