@@ -1,10 +1,12 @@
 package com.example.IssueTrackingSystem.domain.entity;
 
 import com.example.IssueTrackingSystem.domain.common.BaseEntity;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectUser;
 import com.example.IssueTrackingSystem.domain.enums.Admin;
 import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -39,6 +41,14 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @Builder.Default
-    private List<Issue> questionList = new ArrayList<>();
+    private List<Issue> issueList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Project> projectList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<ProjectUser> projectUserList = new ArrayList<>();
 
 }

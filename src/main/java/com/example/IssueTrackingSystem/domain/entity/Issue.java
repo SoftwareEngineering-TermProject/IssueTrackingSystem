@@ -10,6 +10,9 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -50,6 +53,10 @@ public class Issue extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Comment> commentList = new ArrayList<>();
 
     public void setUser(User user) {
 //        // 기존에 이미 등록되어 있던 관계를 제거
