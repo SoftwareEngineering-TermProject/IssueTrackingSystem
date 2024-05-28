@@ -32,6 +32,9 @@ function loadAllUsers() {
             console.log("ALL USERS");
             console.log(all_users);
             
+            const enabled_options = [];
+            const disabled_options = [];
+            
             all_users.forEach((user) => {
                 const user_opt = document.createElement("option");
                 user_opt.innerText = user.userName;
@@ -42,9 +45,15 @@ function loadAllUsers() {
                 })
                 if (project_users.some(item => item.userName === user.userName)){
                     user_opt.disabled = true;
+                    disabled_options.push(user_opt);
+                } else {
+                    enabled_options.push(user_opt);
                 }
                 user_list.appendChild(user_opt);
             });
+            enabled_options.forEach((e) => {user_list.appendChild(e)});
+            user_list.appendChild(document.createElement("hr"));
+            disabled_options.forEach((e) => {user_list.appendChild(e)});
         } else {
             alert("전체 유저 목록을 받아오지 못했습니다.");
             console.error("Error", allUserRequest.status, allUserRequest.statusText);

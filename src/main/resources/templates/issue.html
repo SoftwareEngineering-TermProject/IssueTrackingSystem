@@ -115,28 +115,34 @@
         <div id="upper-bar">
             <div id="upper-bar-title">
                 <h1 id="project-title">PROJECT TITLE</h1>
+                <div class="nav-wrapper">
+                    <div id="nav-projects" class="upper-link">ALL PROJECTS</div>
+                    <div> | </div>
+                    <div id="nav-log-out" class="upper-link">LOG OUT</div>
+                </div>
             </div>
             <div id="upper-bar-info">
                 <button id="modal-btn">+ new issue</button>
                 <button id="user-open">+ add member</button>
                 <button id="member-open">Open Member List</button>
-                <form>
-                    <input>
+                <form id="search-form">
+                    <input id="search-input" type="search">
                     <button>search</button>
+                    <div id="search-result"></div>
                 </form>
             </div>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>#</th>
                     <th>Issue title</th>
                     <th>Reporter</th>
                     <th>Fixer</th>
                     <th>Assignee</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Date</th>
+                    <th>Priority<button id="sort-priority-btn">▼</button></th>
+                    <th>Status<button id="sort-status-btn">▼</button></th>
+                    <th>Date<button id="sort-date-btn">▼</button></th>
                 </tr>
             </thead>
             <tbody id="tbody"></tbody>
