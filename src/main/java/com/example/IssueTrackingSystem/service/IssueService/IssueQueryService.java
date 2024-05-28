@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface IssueQueryService {
     List<Issue> findAllBySearch(Optional<String> optSearch, Long projectId);
     Issue getIssue(Long issueId);
+
+    Integer getCountOfIssueByProjectAndMonth(Long projectId, int year);
 }

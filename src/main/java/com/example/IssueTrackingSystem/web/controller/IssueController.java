@@ -204,4 +204,24 @@ public class IssueController {
                 null
         );
     }
+
+    // 이슈 통계 조회
+    @GetMapping("/statistic/{projectId}")
+    @Operation(
+            summary = "이슈 통계 조회 API"
+    )
+    public ApiResponse<?> getIssueCountByYear(
+            @PathVariable Long projectId,
+            @RequestParam int year
+    ) {
+        issueQueryService.getCountOfIssueByProjectAndMonth(projectId, year);
+
+        //Issue getIssue = issueQueryService.getIssue(issueId);
+        //List<Comment> commentsList = commentQueryService.getCommentsList(getIssue);
+
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK, null
+                //IssueConverter.toGetIssueResultWithCommentPreviewListDTO(getIssue, commentsList)
+        );
+    }
 }

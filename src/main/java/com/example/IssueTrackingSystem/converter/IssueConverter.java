@@ -105,4 +105,23 @@ public class IssueConverter {
                 .issuePriority(issue.getIssuePriority())
                 .build();
     }
+
+//    public static IssueResponseDTO.GetIssueStatisticPreviewDTO toGetIssueStatisticPreviewDTO(Issue issue) {
+//        return IssueResponseDTO.GetIssueStatisticPreviewDTO.builder()
+//                .month()
+//                .build();
+//    }
+//
+//    public static IssueResponseDTO.IssuePreviewListDTO toIssuePreviewListDTO(
+//            List<Issue> issueList
+//    ) {
+//
+//        List<IssueResponseDTO.IssuePreviewDTO> issuePreviewDTOList = IntStream.range(0, issueList.size())
+//                .mapToObj(i -> toIssuePreviewDTO(issueList.get(i)))
+//                .collect(Collectors.toList());
+//
+//        return IssueResponseDTO.IssuePreviewListDTO.builder()
+//                .issues(issuePreviewDTOList)
+//                .build();
+//    }
 }

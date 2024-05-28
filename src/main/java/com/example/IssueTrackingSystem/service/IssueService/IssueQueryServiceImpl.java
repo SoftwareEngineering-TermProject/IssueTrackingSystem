@@ -2,14 +2,17 @@ package com.example.IssueTrackingSystem.service.IssueService;
 
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import com.example.IssueTrackingSystem.repository.IssueRepository;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
-import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +42,14 @@ public class IssueQueryServiceImpl implements  IssueQueryService{
 
     public Issue getIssue(Long issueId){
         return issueRepository.findById(issueId).get();
+    }
+
+    public Integer getCountOfIssueByProjectAndMonth(Long projectId, int year){
+        Project getProject = projectRepository.findById(projectId).get();
+        LocalDateTime start = LocalDateTime.of(LocalDate.now().minusDays(2), LocalTime.of(0, 0, 0));
+        LocalDateTime end = LocalDateTime.now();
+        Integer issueCount = issueRepository.countByProjectAndIssuePriorityAndCreatedAtBetween(getProject, IssuePriority.MINOR, start, end);
+        System.out.println("issueCount : " + issueCount);
+        return issueCount;
     }
 }

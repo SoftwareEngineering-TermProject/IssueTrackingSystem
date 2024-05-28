@@ -99,4 +99,30 @@ public class IssueResponseDTO {
         private IssueStatus issueStatus;
         private IssuePriority issuePriority;
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class GetIssueStatisticPreviewDTO {
+        private int month;
+        private int blocker;
+        private int critical;
+        private int major;
+        private int minor;
+        private int trivial;
+        private int total;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class GetIssueStatisticPreviewListDTO {
+        private Long projectId;
+        private String title;
+        private int year;
+        private int total;
+        private List<IssueResponseDTO.GetIssueStatisticPreviewDTO> issue_count;
+    }
 }
