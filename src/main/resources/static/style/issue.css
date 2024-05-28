@@ -11,12 +11,31 @@ h1 {
 #upper-bar {
     height: 120px;
 
-    display :flex;
+    display : flex;
     flex-direction: column;
 }
 
 #upper-bar-title {
   padding : 10px;
+
+  display : flex;
+  justify-content: space-between;
+}
+
+.nav-wrapper {
+  display: flex;
+}
+
+.upper-link {
+  color : #777;
+  padding : 0px 8px;
+}
+
+.upper-link:hover {
+  cursor : pointer;
+  color : #000;
+  text-decoration: underline;
+  transition : 0.5s;
 }
 
 #upper-bar-info {
