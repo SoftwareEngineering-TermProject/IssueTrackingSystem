@@ -92,4 +92,38 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
         ProjectUser savedProjectUser = projectUserRepository.save(newProjectUser);
         return savedProjectUser;
     }
+
+//    @Override
+//    public void deleteUserInProject(ProjectRequestDTO.deleteUserInProjectDTO request, Long projectId, Long adminId){
+//        User getUser1 = userRepository.findById(adminId).get();
+//        if(getUser1.getAdmin() == Admin.FALSE){
+//            throw new ProjectHandler(ErrorStatus.PROJECT_USER_DELETE_UNAUTHORIZED);
+//        }
+//
+//        //Project getProject = projectUserRepository.findByProjectId(projectId).getProject();
+//        Project getProject = projectRepository.findById(projectId).get();
+//        User getUser2 = userRepository.findById(request.getUserId()).get();
+//
+//        System.out.println("!!!!!!!!!!!"+ getProject.getProjectId());
+//        System.out.println("!!!!!!!!!!!"+ getUser2.getUserName());
+//
+//        projectUserRepository.deleteByUserAndProject(getUser2, getProject);
+//
+//        System.out.println("@@@@@@@@@@@@@@2"+ getUser2.getUserName());
+//    }
+
+    @Override
+    public void deleteUserInProject(Long userId, Long projectId, Long adminId){  //ProjectRequestDTO.deleteUserInProjectDTO request
+        User getUser = userRepository.findById(adminId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        // admin만 프로젝트 삭제 가능
+        if(getUser.getAdmin() == Admin.FALSE){
+            throw new ProjectHandler(ErrorStatus.PROJECT_DELETE_UNAUTHORIZED);
+        }
+
+        Project getProject = projectRepository.findById(projectId).orElseThrow(() -> new RuntimeException("Project not found"));
+        User userToDelete = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        projectUserRepository.deleteByUserAndProject(userToDelete, getProject);
+    }
 }

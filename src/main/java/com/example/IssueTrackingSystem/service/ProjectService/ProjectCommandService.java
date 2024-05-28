@@ -13,4 +13,7 @@ public interface ProjectCommandService {
     void deleteProject(Long userId, Long projectId);
 
     ProjectUser addUser(Long userId, ProjectUserRequestDTO.AddUserDTO request);
+
+    void deleteUserInProject(Long userId, Long projectId, Long adminId);  //ProjectRequestDTO.deleteUserInProjectDTO request
+
 }
