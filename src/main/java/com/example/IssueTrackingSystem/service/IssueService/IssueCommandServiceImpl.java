@@ -34,6 +34,8 @@ public class IssueCommandServiceImpl implements IssueCommandService{
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
     private final ProjectUserRepository projectUserRepository;
+
+    @Override
     public Issue createIssue(Long userId, IssueRequestDTO.CreateIssueRequestDTO request){
         User getUser = userRepository.findById(userId).get();
         Project getProject = projectRepository.findById(request.getProjectId()).get();
@@ -53,6 +55,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         return savedIssue;
     }
 
+    @Override
     public Issue updateIssue(Long issueId, Long userId, IssueRequestDTO.UpdateIssueDTO request){
         Issue updateIssue = issueRepository.findById(issueId).get();
 
@@ -71,6 +74,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         }
     }
 
+    @Override
     public void deleteIssue(Long issueId, Long userId){
         Issue deleteIssue = issueRepository.findById(issueId).get();
 
@@ -89,6 +93,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         }
     }
 
+    @Override
     public Issue addAssignee(Long userId, Long issueId, IssueRequestDTO.AssigneeRequestDTO request) {
         User getUser = userRepository.findById(userId).get();
         if (getUser.getAdmin() == Admin.TRUE) {
@@ -121,6 +126,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         }
     }
 
+    @Override
     public Issue addFixer(Long userId, Long issueId){
         User getUser = userRepository.findById(userId).get();
         if(getUser.getAdmin() == Admin.TRUE){
@@ -137,6 +143,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         return issueRepository.save(getIssue);
     }
 
+    @Override
     public Issue updateIssueStatusPriority(Long issueId, IssueRequestDTO.IssueStatusPriorityRequestDTO request){
         Issue getIssue = issueRepository.findById(issueId).get();
         if(request.getIssueStatus() != null){
@@ -149,6 +156,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         return getIssue;
     }
 
+    @Override
     public void deleteIssueAssignee(Long issueId, Long userId) {
         User getUser = userRepository.findById(userId).get();
         if (getUser.getAdmin() == Admin.TRUE) {
@@ -167,6 +175,7 @@ public class IssueCommandServiceImpl implements IssueCommandService{
         }
     }
 
+    @Override
     public void deleteIssueFixer(Long issueId, Long userId){
         User getUser = userRepository.findById(userId).get();
         if(getUser.getAdmin() == Admin.TRUE){

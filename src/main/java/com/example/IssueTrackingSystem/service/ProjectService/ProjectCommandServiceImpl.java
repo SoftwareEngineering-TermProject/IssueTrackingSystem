@@ -28,6 +28,8 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private final ProjectUserRepository projectUserRepository;
+
+    @Override
     public Project createProject(Long userId, ProjectRequestDTO.CreateProjectRequestDTO request){
         // 프론트에서 받은 json으로 Project entity 생성
         Project newProject = ProjectConverter.toProject(request);

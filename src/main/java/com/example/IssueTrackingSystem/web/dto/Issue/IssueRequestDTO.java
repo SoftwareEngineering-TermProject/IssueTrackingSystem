@@ -44,4 +44,14 @@ public class IssueRequestDTO {
         private IssueStatus issueStatus;
         private IssuePriority issuePriority;
     }
+
+//    @Getter
+//    @Builder
+//    @AllArgsConstructor
+//    @NoArgsConstructor
+//    public static class GetIssueStatisticRequestDTO {
+//        private int year;
+//        private int month;
+//        private int day;
+//    }
 }

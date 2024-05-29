@@ -18,6 +18,8 @@ import java.util.Optional;
 public class UserQueryServiceImpl implements UserQueryService{
 
     private final UserRepository userRepository;
+
+    @Override
     public User signIn(UserRequestDTO.SignInRequestDTO request){
         User findUser = userRepository.findByUserName(request.getUserName());
         if(findUser != null){
@@ -26,6 +28,7 @@ public class UserQueryServiceImpl implements UserQueryService{
         return null;
     }
 
+    @Override
     public List<User> findAllBySearch(Optional<String> optSearch) {
         // 만약 검색어가 존재한다면
         if (optSearch.isPresent()) {
