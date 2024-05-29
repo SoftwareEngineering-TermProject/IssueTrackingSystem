@@ -13,6 +13,7 @@ import java.util.List;
 public interface IssueRepository extends JpaRepository<Issue, Long> {
     List<Issue> findAllByProjectAndTitleContainingIgnoreCaseOrderByCreatedAtDesc(Project project, String title);
     List<Issue> findAllByProjectOrderByCreatedAtDesc(Project project);
+    List<Issue> findAllByProjectAndAssigneeOrderByCreatedAtDesc(Project project, String assignee);
 
     Integer countByProjectAndIssuePriorityAndCreatedAtBetween(Project project, IssuePriority issuePriority, LocalDateTime start, LocalDateTime end);
     Integer countByProjectAndCreatedAtBetween(Project project, LocalDateTime start, LocalDateTime end);

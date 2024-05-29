@@ -1,10 +1,17 @@
 package com.example.IssueTrackingSystem.service.IssueService;
 
+import com.example.IssueTrackingSystem.apiPayload.code.status.ErrorStatus;
+import com.example.IssueTrackingSystem.apiPayload.exception.handler.IssueHandler;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.entity.User;
+import com.example.IssueTrackingSystem.domain.entity.mapping.ProjectUser;
 import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
+import com.example.IssueTrackingSystem.domain.enums.UserRole;
 import com.example.IssueTrackingSystem.repository.IssueRepository;
 import com.example.IssueTrackingSystem.repository.ProjectRepository;
+import com.example.IssueTrackingSystem.repository.ProjectUserRepository;
+import com.example.IssueTrackingSystem.repository.UserRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +33,8 @@ public class IssueQueryServiceImpl implements  IssueQueryService{
 
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
+    private final ProjectUserRepository projectUserRepository;
     private List<Integer> issueCount_total = new ArrayList<>();
 
     @Override
@@ -194,5 +203,18 @@ public class IssueQueryServiceImpl implements  IssueQueryService{
     public List<Integer> getMonth(){
         List <Integer> month = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
         return month;
+    }
+
+    @Override
+    public List<Issue> findIssueByAssignee(Long userId, Long projectId) {
+        User getUser = userRepository.findById(userId).get();
+        Project getProject = projectRepository.findById(projectId).get();
+        ProjectUser getProjectUser = projectUserRepository.findByUser_UserIdAndProject_ProjectId(userId, projectId);
+
+        if(getProjectUser.getUserRole() != UserRole.DEV){
+            throw new IssueHandler(ErrorStatus.USER_DEV_UNAUTHORIZED);
+        }
+
+        return issueRepository.findAllByProjectAndAssigneeOrderByCreatedAtDesc(getProject, getUser.getUserName());
     }
 }

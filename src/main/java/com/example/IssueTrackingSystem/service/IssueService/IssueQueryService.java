@@ -18,5 +18,7 @@ public interface IssueQueryService {
     List<Integer> getCountOfTotalIssue(Long projectId, int year);
     Integer getTotalIssueCountForYear(int year, Long projectId);
 
+    List<Issue> findIssueByAssignee(Long userId, Long projectId);
+
     List<Integer> getMonth();
 }
