@@ -105,7 +105,8 @@ search_form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const keyword = search_input.value;
-
+    
+    const issueRequest = new XMLHttpRequest();
     issueRequest.open('GET', url + `issues/list/${project_id}?search=${keyword}`);
     issueRequest.setRequestHeader("Content-Type", "application/json");
     issueRequest.send();
