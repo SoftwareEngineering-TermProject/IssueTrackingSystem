@@ -21,7 +21,7 @@ public enum ErrorStatus implements BaseErrorCode {
     NAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "USER_1002", "이름입력은 필수 입니다."),
     USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER_1003", "이미 존재하는 유저입니다."),
     USER_ID_NULL(HttpStatus.BAD_REQUEST, "USER_1004", "사용자 아이디는 필수 입니다."),
-    USER_ADMIN_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "USER_1004", "관리자 권한이 없습니다."),
+    USER_ADMIN_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "USER_1005", "관리자 권한이 없습니다."),
 
     // 프로젝트 관려 에러 2000
     PROJECT_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2001", "프로젝트 생성 권한이 없습니다."),
@@ -40,7 +40,7 @@ public enum ErrorStatus implements BaseErrorCode {
     ISSUE_FIXER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3006", "수정자 지정 권한이 없습니다."),
     ISSUE_DELETE_ASSIGNEE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3007", "담당자 삭제 권한이 없습니다."),
     ISSUE_DELETE_FIXER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3008", "수정자 삭제 권한이 없습니다."),
-    ISSUE_ID_NULL(HttpStatus.BAD_REQUEST, "USER_3002", "답변 아이디는 필수 입니다.");
+    USER_DEV_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3009", "사용자가 DEV역할이 아닙니다");
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;

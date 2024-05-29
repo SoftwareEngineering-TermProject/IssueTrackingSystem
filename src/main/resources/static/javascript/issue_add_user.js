@@ -1,6 +1,7 @@
-var user = document.getElementById("add-user");
-var user_open = document.getElementById("user-open");
-var user_close = document.getElementById("user-close");
+const user = document.getElementById("add-user");
+const user_open = document.getElementById("user-open");
+const user_close = document.getElementById("user-close");
+const user_list = document.getElementsByClassName("user-list")[0];
 
 user_open.onclick = function () {
     user.style.display = "block";
@@ -19,7 +20,7 @@ window.onclick = function (event) {
 var all_users;
 //load all project participants
 function loadAllUsers() {
-    const user_list = document.getElementsByClassName("user-list")[0];
+    
     const allUserRequest = new XMLHttpRequest();
     allUserRequest.open('GET', url + `users`);
     allUserRequest.setRequestHeader("Content-Type", "application/json");
@@ -32,6 +33,9 @@ function loadAllUsers() {
             console.log("ALL USERS");
             console.log(all_users);
             
+            const enabled_options = [];
+            const disabled_options = [];
+            
             all_users.forEach((user) => {
                 const user_opt = document.createElement("option");
                 user_opt.innerText = user.userName;
@@ -42,9 +46,15 @@ function loadAllUsers() {
                 })
                 if (project_users.some(item => item.userName === user.userName)){
                     user_opt.disabled = true;
+                    disabled_options.push(user_opt);
+                } else {
+                    enabled_options.push(user_opt);
                 }
                 user_list.appendChild(user_opt);
             });
+            enabled_options.forEach((e) => {user_list.appendChild(e)});
+            user_list.appendChild(document.createElement("hr"));
+            disabled_options.forEach((e) => {user_list.appendChild(e)});
         } else {
             alert("전체 유저 목록을 받아오지 못했습니다.");
             console.error("Error", allUserRequest.status, allUserRequest.statusText);
@@ -63,6 +73,7 @@ function addUser() {
     addUserRequest.open('POST', url + `projects/add/${user_list.value}`);
     addUserRequest.setRequestHeader("Content-Type", "application/json");
     var body = JSON.stringify({
+        adminId: localStorage.getItem("userId"),
         projectId: project_id,
         userRole: role_list.value
     });
@@ -75,7 +86,9 @@ function addUser() {
             add_user_btn.disabled = false;
             location.reload(true);
         } else {
-            alert("유저를 프로젝트에 추가하지 못했습니다.");
+            const err_msg = JSON.parse(addUserRequest.response).message
+            alert(err_msg);
+            console.log(err_msg);
             console.error("Error", addUserRequest.status, addUserRequest.statusText);
             add_user_btn.disabled = false;
         }

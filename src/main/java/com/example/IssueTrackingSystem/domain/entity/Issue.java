@@ -36,10 +36,10 @@ public class Issue extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'NEW'")
     private IssueStatus issueStatus;
 
-    @Column(name = "assignee_user_id")
+    @Column(name = "assignee")
     private String assignee;
 
-    @Column(name = "fixer_user_id")
+    @Column(name = "fixer")
     private String fixer;
 
     @Enumerated(EnumType.STRING)

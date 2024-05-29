@@ -13,7 +13,7 @@ public interface ProjectQueryService {
 
     List<Project> findAllBySearch(Optional<String> optSearch);
 
-
+    Project getProject(Long projectId);
 
     // Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch);
 
