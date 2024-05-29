@@ -1,3 +1,16 @@
+const select_year = document.getElementById("select-year");
+
+for(var i=2024;i>=2000;i--){
+    const opt = document.createElement("option");
+    opt.innerText = i;
+    opt.value = i;
+    select_year.appendChild(opt);
+}
+
+select_year.addEventListener("change", () => {
+    loadStatistics();
+})
+
 const project_id = localStorage.getItem("projectId");
 const project_title = document.getElementById("project-title");
 project_title.addEventListener("click", (event) => {
@@ -7,33 +20,38 @@ project_title.addEventListener("click", (event) => {
 const user_info_div = document.getElementById("user-info");
 user_info_div.innerText = `${localStorage.getItem("name")}(${localStorage.getItem("role")})`
 //load statistics info
-const statisticsRequest = new XMLHttpRequest();
-statisticsRequest.open('GET', url + `issues/statistic/${project_id}?year=2024`);
-statisticsRequest.setRequestHeader("Content-Type", "application/json");
+function loadStatistics() {
+    const statisticsRequest = new XMLHttpRequest();
+    statisticsRequest.open('GET', url + `issues/statistic/${project_id}?year=${select_year.value}`);
+    statisticsRequest.setRequestHeader("Content-Type", "application/json");
+    
+    statisticsRequest.send();
+    statisticsRequest.onload = () => {
+        if (statisticsRequest.status === 200) {
+            const result = JSON.parse(statisticsRequest.response).result;
+            const issue_count = result.issue_count;
+            console.log(result);
+            project_title.innerText = result.title;
+            // parse data
+            data.datasets.forEach(e => e.data = []);
+            issue_count.forEach((e) => {
+                data.datasets[0].data.push(e.total);
+                data.datasets[1].data.push(e.blocker);
+                data.datasets[2].data.push(e.critical);
+                data.datasets[3].data.push(e.major);
+                data.datasets[4].data.push(e.minor);
+                data.datasets[5].data.push(e.trivial);
+            });
+            console.log(data)
+            myChart.update();
+        } else {
+            alert("통계를 받아오지 못했습니다.");
+            console.error("Error", statisticsRequest.status, statisticsRequest.statusText);
+        }
+    };
+}
+loadStatistics();
 
-statisticsRequest.send();
-statisticsRequest.onload = () => {
-    if (statisticsRequest.status === 200) {
-        const result = JSON.parse(statisticsRequest.response).result;
-        const issue_count = result.issue_count;
-        console.log(result);
-        project_title.innerText = result.title;
-        // parse data
-        issue_count.forEach((e) => {
-            data.datasets[0].data.push(e.total);
-            data.datasets[1].data.push(e.blocker);
-            data.datasets[2].data.push(e.critical);
-            data.datasets[3].data.push(e.major);
-            data.datasets[4].data.push(e.minor);
-            data.datasets[5].data.push(e.trivial);
-        });
-        console.log(data)
-        myChart.update();
-    } else {
-        alert("통계를 받아오지 못했습니다.");
-        console.error("Error", statisticsRequest.status, statisticsRequest.statusText);
-    }
-};
 // chart.js
 const ctx = document.getElementById('myChart').getContext('2d');
 
