@@ -126,7 +126,7 @@ public class IssueController {
     // 이슈 담당자 지정
     @PostMapping("/assignee/{issueId}")
     @Operation(summary = "이슈 담당자 지정 API", description =
-            "Issue에 담당자를 지정합니다."
+            "Issue에 담당자를 지정합니다.\n userId에 Assignee를 지정하는 유저(PL)의 userId를 입력하세요\n userName에 지정당하는 유저(DEV)의 userName을 입력하세요. PL과 admin만 Assignee지정이 가능합니다."
     )
     public ApiResponse<IssueResponseDTO.AssigneeResultDTO> addAssignee(
             @PathVariable Long issueId,
@@ -143,7 +143,7 @@ public class IssueController {
     // 이슈 수정자 지정
     @PostMapping("/fixer/{issueId}")
     @Operation(summary = "이슈 수정자 지정 API", description =
-            "Issue에 수정자를 지정합니다."
+            "Issue에 수정자를 지정합니다.\n userId에 이슈 수정자로 지정될 assignee의 userId를 입력하세요. Assignee와 admin만 지정 가능합니다."
     )
     public ApiResponse<IssueResponseDTO.FixerResultDTO> addFixer(
             @PathVariable Long issueId,
@@ -177,7 +177,7 @@ public class IssueController {
     // 이슈 담당자 삭제
     @DeleteMapping("/issues/assignee/{issueId}")
     @Operation(
-            summary = "이슈 담당자 삭제 API"
+            summary = "이슈 담당자 삭제 API\n Assignee삭제를 시도하려는 유저를 userId에 입력하세요. PL과 admin만 삭제 가능합니다."
     )
     public ApiResponse<?> deleteIssueAssignee(
             @PathVariable Long issueId,
@@ -194,7 +194,7 @@ public class IssueController {
     // 이슈 수정자 삭제
     @DeleteMapping("/issues/fixer/{issueId}")
     @Operation(
-            summary = "이슈 수정자 삭제 API"
+            summary = "이슈 수정자 삭제 API\n userId에 Fixer를 삭제를 시도하려는 userId를 입력하세요. Fixer본인과 admin만 삭제 가능합니다."
     )
     public ApiResponse<?> deleteIssueFixer(
             @PathVariable Long issueId,

@@ -130,14 +130,17 @@ public class IssueCommandServiceImpl implements IssueCommandService{
     public Issue addFixer(Long userId, Long issueId){
         User getUser = userRepository.findById(userId).get();
         if(getUser.getAdmin() == Admin.TRUE){
-            throw new IssueHandler(ErrorStatus.ISSUE_FIXER_UNAUTHORIZED);
-        }
-        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
-        if(getProjectUser.getUserRole() != UserRole.DEV){
-            throw new IssueHandler(ErrorStatus.ISSUE_FIXER_UNAUTHORIZED);
+            Issue getIssue = issueRepository.findById(issueId).get();
+            getIssue.setFixer(getIssue.getAssignee());
+
+            return issueRepository.save(getIssue);
         }
 
         Issue getIssue = issueRepository.findById(issueId).get();
+        if(!getUser.getUserName().equals(getIssue.getAssignee())){
+            throw new IssueHandler(ErrorStatus.ISSUE_FIXER_UNAUTHORIZED);
+        }
+
         getIssue.setFixer(getUser.getUserName());
 
         return issueRepository.save(getIssue);
@@ -179,14 +182,15 @@ public class IssueCommandServiceImpl implements IssueCommandService{
     public void deleteIssueFixer(Long issueId, Long userId){
         User getUser = userRepository.findById(userId).get();
         if(getUser.getAdmin() == Admin.TRUE){
-            throw new IssueHandler(ErrorStatus.ISSUE_DELETE_FIXER_UNAUTHORIZED);
+            Issue getIssue = issueRepository.findById(issueId).get();
+            getIssue.deleteFixer();
+            return;
         }
-        ProjectUser getProjectUser = projectUserRepository.findByUser(getUser);
-        if(getProjectUser.getUserRole() != UserRole.DEV){
+        Issue getIssue = issueRepository.findById(issueId).get();
+        if(!getUser.getUserName().equals(getIssue.getFixer())){
             throw new IssueHandler(ErrorStatus.ISSUE_DELETE_FIXER_UNAUTHORIZED);
         }
 
-        Issue getIssue = issueRepository.findById(issueId).get();
         getIssue.deleteFixer();
     }
 }

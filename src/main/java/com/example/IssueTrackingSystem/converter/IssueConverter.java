@@ -96,7 +96,7 @@ public class IssueConverter {
     public static IssueResponseDTO.FixerResultDTO toFixerResultDTO(Issue issue){
         return IssueResponseDTO.FixerResultDTO.builder()
                 .issueId(issue.getIssueId())
-                .userName(issue.getUser().getUserName())
+                .userName(issue.getFixer())
                 .build();
     }
 
