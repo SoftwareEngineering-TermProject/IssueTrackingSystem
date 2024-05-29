@@ -36,6 +36,9 @@
     padding: 0px 20px 0px 20px;
     width: 40%;
     height: 100%;
+
+    display:flex;
+    flex-direction:column;
 }
 
 .detail_info {
@@ -50,6 +53,7 @@
 
 #detail-description{
     border : 1px solid #888;
-    height : 180px;
+    min-height : 180px;
+    max-height : 180px;
     overflow-y: auto;
 }

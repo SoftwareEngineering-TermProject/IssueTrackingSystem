@@ -118,7 +118,7 @@ search_form.addEventListener("submit", (event) => {
             issues = result.issues;
             console.log(issues);
             var length = issues.length;
-            search_result.innerText = `Found ${length} issue for keyword "${keyword}"`;
+            search_result.innerText = (issues.length == 0) ? "Found nothing" : `Found ${length} issue`;
             clearIssue();
             issues.forEach((element,index) => {
                 addIssue(element,index,length);
@@ -131,18 +131,22 @@ search_form.addEventListener("submit", (event) => {
 })
 
 //toggle assigned to me
-var showOnlyAssignToMe = false;
-function toggleAssignToMe() {
-    showOnlyAssignToMe = !showOnlyAssignToMe;
-    if (showOnlyAssignToMe) {
+const filter_btn = document.getElementById("filter");
+filter_btn.addEventListener("click", toggleFilter);
+var filter_all = true;
+function toggleFilter() {
+    /*
+    filter_all = !filter_all;
+    if (filter_all) {
+        
+    } else {
         tbody.childNodes.forEach(e => {
             if(e.childNodes[4].innerText == "") {
 
             } 
         })
-    } else {
-
     }   
+    */
 }
 
 //sort by 
