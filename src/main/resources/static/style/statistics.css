@@ -3,3 +3,7 @@ body, html {
     padding : 0px 10px 0px 10px;
     height: 100%;
 }
+
+#chart {
+    margin :8px;
+}
