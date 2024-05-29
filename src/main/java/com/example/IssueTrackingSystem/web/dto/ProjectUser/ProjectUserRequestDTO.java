@@ -12,6 +12,7 @@ public class ProjectUserRequestDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class AddUserDTO {
+        private Long adminId;
         private Long projectId;
         private UserRole userRole;
     }
