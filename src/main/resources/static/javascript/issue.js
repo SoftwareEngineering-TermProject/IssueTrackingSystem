@@ -85,20 +85,6 @@ function addIssue(issue,index,length){
     });
 }
 
-const nav_projects = document.getElementById("nav-projects");
-const nav_log_out = document.getElementById("nav-log-out");
-
-nav_projects.addEventListener("click", (event) => {
-    console.log("click nav project");
-    window.location.href = './project';
-});
-
-nav_log_out.addEventListener("click", (event) => {
-    console.log("click log out");
-    localStorage.clear();
-    window.location.href = './';
-});
-
 //search
 const search_form = document.getElementById("search-form");
 const search_input = document.getElementById("search-input");
@@ -277,4 +263,11 @@ sort_date_btn.addEventListener("click", () => {
     issues.forEach((element,index) => {
         addIssue(element,index,length);
     });
+});
+
+//jump to statistics
+const statistics = document.getElementById("statistics");
+
+statistics.addEventListener("click", ()=>{
+    window.location.href = './statistics';
 });

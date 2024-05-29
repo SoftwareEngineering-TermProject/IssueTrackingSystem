@@ -3,13 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style/statistics.css">
         <link rel="stylesheet" href="style/navbar.css">
         <title>SE term project - Statistic</title>
     </head>
     <body>
         <div id="upper-bar">
             <div id="upper-bar-title">
-                <h1 id="project-title">PROJECT TITLE</h1>
+                <h1 id="project-title">LOADING STATISTICS...</h1>
                 <div id="upper-bar-info">
                     <div class="nav-wrapper">
                         <div id="nav-projects" class="nav-link">ALL PROJECTS</div>
@@ -34,47 +35,17 @@
             </div>
             <div id="upper-foot">
                 <div id="action-btns">
-                    <button id="modal-btn">+ new issue</button>
-                    <button id="user-open">+ add member</button>
-                    <button id="member-open">Open Member List</button>
-                    <button id="filter">filter : all</button>
+                    <button id="filter">Filter : all</button>
                 </div>
-                <form id="search-form">
-                    <input id="search-input" type="search">
-                    <button>search</button>
-                    <div id="search-result"></div>
-                </form>
             </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Issue title</th>
-                    <th>Reporter</th>
-                    <th>Fixer</th>
-                    <th>Assignee</th>
-                    <th>
-                        Priority
-                        <button class="sort-btn" id="sort-priority-btn">▼</button>
-                    </th>
-                    <th>
-                        Status
-                        <button class="sort-btn" id="sort-status-btn">▼</button>
-                    </th>
-                    <th>
-                        Date
-                        <button class="sort-btn" id="sort-date-btn">▼</button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-        </table>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
     </body>
     <script src="javascript/config.js"></script>
-    <script src="javascript/issue.js"></script>
-    <script src="javascript/issue_detail.js"></script>
-    <script src="javascript/issue_create.js"></script>
-    <script src="javascript/issue_member.js"></script>
-    <script src="javascript/issue_add_user.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="javascript/statistics.js"></script>
+    <script src="javascript/nav.js"></script>
+    
 </html>
