@@ -1,6 +1,4 @@
 #upper-bar {
-    height: 120px;
-
     display : flex;
     flex-direction: column;
 }

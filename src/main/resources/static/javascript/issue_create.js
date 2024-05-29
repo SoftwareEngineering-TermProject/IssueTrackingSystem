@@ -53,7 +53,9 @@ form.addEventListener('submit', (event) => {
             console.log(response);   
             location.reload(true);
         } else {
-            alert("이슈 생성에 실패하였습니다.");
+            const err_msg = JSON.parse(createProjectRequest.response).message
+            alert(err_msg);
+            console.log(err_msg);
             console.error("Error", createProjectRequest.status, createProjectRequest.statusText);
         }
     };

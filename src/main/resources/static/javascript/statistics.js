@@ -1,5 +1,8 @@
 const project_id = localStorage.getItem("projectId");
 const project_title = document.getElementById("project-title");
+project_title.addEventListener("click", (event) => {
+    window.location.href = './issue';
+})
 
 const user_info_div = document.getElementById("user-info");
 user_info_div.innerText = `${localStorage.getItem("name")}(${localStorage.getItem("role")})`

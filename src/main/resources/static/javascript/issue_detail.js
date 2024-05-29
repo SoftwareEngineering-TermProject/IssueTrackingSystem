@@ -14,6 +14,7 @@ const detail_comment = document.getElementById("detail-comment");
 var issue_id;
 
 function openDetail(event, blinkLast = false) {
+  const issueRequest = new XMLHttpRequest();
   issue_id = localStorage.getItem("issueId");
   console.log(issue_id);
   var issue;
@@ -39,7 +40,9 @@ function openDetail(event, blinkLast = false) {
       detail_comment.scrollTop = 0;
       detail.style.display = "flex";
     } else {
-      alert("이슈를 불러오지 못했습니다.");
+      const err_msg = JSON.parse(issueRequest.response).message
+      alert(err_msg);
+      console.log(err_msg);
       console.error("Error", issueRequest.status, issueRequest.statusText);
     }
   };
@@ -90,7 +93,9 @@ function createComment(event) {
       comment_content.value = "";
       openDetail(event, true);
     } else {
-      alert("댓글을 생성하지 못했습니다.");
+      const err_msg = JSON.parse(issueRequest.response).message
+      alert(err_msg);
+      console.log(err_msg);
       console.error("Error", commentRequest.status, commentRequest.statusText);
     }
   };
@@ -131,7 +136,9 @@ function assign(event) {
       alert("담당자를 할당하였습니다.");
       location.reload(true);
     } else {
-      alert("담당자를 할당하지 못했습니다.");
+      const err_msg = JSON.parse(assignRequest.response).message
+      alert(err_msg);
+      console.log(err_msg);
       console.error("Error", assignRequest.status, assignRequest.statusText);
     }
   };
@@ -161,7 +168,9 @@ function changeState(event, status, priority) {
       alert("이슈를 수정하였습니다.");
       location.reload(true);
     } else {
-      alert("이슈를 수정하지 못했습니다.");
+      const err_msg = JSON.parse(changeRequest.response).message
+      alert(err_msg);
+      console.log(err_msg);
       console.error("Error", changeRequest.status, changeRequest.statusText);
     }
   };
@@ -187,7 +196,9 @@ function fixIssue(event) {
       alert("이슈를 fix하였습니다.");
       location.reload(true);
     } else {
-      alert("이슈를 fix하지 못했습니다.");
+      const err_msg = JSON.parse(fixRequest.response).message
+      alert(err_msg);
+      console.log(err_msg);
       console.error("Error", fixRequest.status, fixRequest.statusText);
     }
   };

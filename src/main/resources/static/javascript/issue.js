@@ -1,4 +1,5 @@
-var project_id = localStorage.getItem("projectId");
+const project_id = localStorage.getItem("projectId");
+const user_id = localStorage.getItem("userId");
 const project_title = document.getElementById("project-title");
 
 // load project info
@@ -13,7 +14,9 @@ projectRequest.onload = () => {
         const title = result.title;
         project_title.innerText = title;
     } else {
-        alert("프로젝트 정보를 받아오지 못했습니다.");
+        const err_msg = JSON.parse(projectRequest.response).message
+        alert(err_msg);
+        console.log(err_msg);
         console.error("Error", projectRequest.status, projectRequest.statusText);
     }
 };
@@ -21,27 +24,7 @@ projectRequest.onload = () => {
 const tbody = document.getElementById('tbody');
 const all_issues = document.getElementById("");
 
-// load all issues
-const issueRequest = new XMLHttpRequest();
-issueRequest.open('GET', url + `issues/list/${project_id}`);
-issueRequest.setRequestHeader("Content-Type", "application/json");
-
-issueRequest.send();
-issueRequest.onload = () => {
-    if( issueRequest.status === 200 ) {
-        const result = JSON.parse(issueRequest.response).result;
-        issues = result.issues;
-        console.log(issues);
-        var length = issues.length;
-        issues.forEach((element,index) => {
-            addIssue(element,index,length);
-        });
-    } else {
-        alert("이슈 목록을 받아오지 못했습니다.");
-        console.error("Error", issueRequest.status, issueRequest.statusText);
-    }
-};
-
+//functions for show issues
 function clearIssue() {
     while(tbody.firstChild) {
 	    tbody.removeChild(tbody.firstChild);
@@ -85,6 +68,34 @@ function addIssue(issue,index,length){
     });
 }
 
+// load all issues
+function loadAllIssues(mode = 0) {
+    const issueRequest = new XMLHttpRequest();
+    if (mode == 0) { issueRequest.open('GET', url + `issues/list/${project_id}`); }
+    else { issueRequest.open('GET', url + `issues/list/assignee/${project_id}?userId=${user_id}`); }
+    issueRequest.setRequestHeader("Content-Type", "application/json");
+
+    issueRequest.send();
+    issueRequest.onload = () => {
+        if( issueRequest.status === 200 ) {
+            const result = JSON.parse(issueRequest.response).result;
+            issues = result.issues;
+            console.log(issues);
+            var length = issues.length;
+            clearIssue();
+            issues.forEach((element,index) => {
+                addIssue(element,index,length);
+            });
+        } else {
+            const err_msg = JSON.parse(issueRequest.response).message
+            alert(err_msg);
+            console.log(err_msg);
+            console.error("Error", issueRequest.status, issueRequest.statusText);
+        }
+    };    
+}
+loadAllIssues(0);
+
 //search
 const search_form = document.getElementById("search-form");
 const search_input = document.getElementById("search-input");
@@ -119,20 +130,12 @@ search_form.addEventListener("submit", (event) => {
 //toggle assigned to me
 const filter_btn = document.getElementById("filter");
 filter_btn.addEventListener("click", toggleFilter);
-var filter_all = true;
+var filter_mode = 0;
 function toggleFilter() {
-    /*
-    filter_all = !filter_all;
-    if (filter_all) {
-        
-    } else {
-        tbody.childNodes.forEach(e => {
-            if(e.childNodes[4].innerText == "") {
-
-            } 
-        })
-    }   
-    */
+    filter_mode = (filter_mode + 1) % 2;
+    loadAllIssues(filter_mode);
+    if (filter_mode == 0) { filter_btn.innerText = "Filter : all" }
+    else { filter_btn.innerText = "Filter : assigned to me" }
 }
 
 //sort by 
