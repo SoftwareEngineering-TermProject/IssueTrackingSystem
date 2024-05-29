@@ -1,0 +1,9 @@
+body, html {
+    margin : 0px;
+    padding : 0px 10px 0px 10px;
+    height: 100%;
+}
+
+#chart {
+    margin :8px;
+}

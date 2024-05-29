@@ -28,6 +28,8 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private final ProjectUserRepository projectUserRepository;
+
+    @Override
     public Project createProject(Long userId, ProjectRequestDTO.CreateProjectRequestDTO request){
         // 프론트에서 받은 json으로 Project entity 생성
         Project newProject = ProjectConverter.toProject(request);
@@ -85,6 +87,13 @@ public class ProjectCommandServiceImpl implements ProjectCommandService{
         ProjectUser newProjectUser = ProjectUserConverter.toProjectUser(request);
         User getUser = userRepository.findById(userId).get();
         Project getProject = projectRepository.findById(request.getProjectId()).get();
+        User adminUser = userRepository.findById(request.getAdminId()).get();
+
+        // 계정 추가를 시행하는 유저가 admin인지 확인
+        if(adminUser.getAdmin() == Admin.FALSE){
+            throw new ProjectHandler(ErrorStatus.PROJECT_ADDUSER_UNAUTHORIZED);
+        }
+
         newProjectUser.setUser(getUser);
         newProjectUser.setProject(getProject);
         newProjectUser.setUserName(getUser.getUserName());

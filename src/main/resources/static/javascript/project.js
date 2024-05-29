@@ -2,7 +2,8 @@ const all_project = document.getElementById("all-projects");
 
 //load project list
 const projectRequest = new XMLHttpRequest();
-projectRequest.open('GET', url + `projects`);
+const user_id = localStorage.getItem("userId");
+projectRequest.open('GET', url + `projects/projectList/${user_id}`);
 projectRequest.setRequestHeader("Content-Type", "application/json");
 
 projectRequest.send();
@@ -40,6 +41,10 @@ function addProject(project) {
   title.className = "project-title";
   title.innerText = project.title;
 
+  const role = document.createElement("div");
+  role.className = "project-role";
+  role.innerText = project.userRole;
+
   //link box
   box.onclick = function() { 
     console.log("clicked" + project.projectId)
@@ -48,5 +53,6 @@ function addProject(project) {
   };
 
   box.appendChild(title);
+  box.appendChild(role);
   all_project.appendChild(box);
 }

@@ -8,21 +8,11 @@ h1 {
     margin : 0px;
 }
 
-#upper-bar {
-    height: 120px;
-
-    display :flex;
-    flex-direction: column;
-}
-
-#upper-bar-title {
-  padding : 10px;
-}
-
-#upper-bar-info {
-  margin : 10px;
-  display: flex;
-
+#upper-foot{
+  margin : 4px 10px;
+  display : flex;
+  align-items : flex-start;
+  justify-content: space-between;
 }
 
 table {
@@ -60,4 +50,13 @@ tr:last-child td:first-child {
 }
 tr:last-child td:last-child {
   border-bottom-right-radius: 6px;
+}
+
+#search-result {
+  text-align: right;
+}
+
+#sort-status-btn {
+  margin : 0px;
+  padding : 4px 8px;
 }

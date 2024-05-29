@@ -17,6 +17,7 @@ public class ProjectUserResponseDTO {
     public static class ProjectUserResultDTO {
         Long userId;
         String userName;
+        String name;
         UserRole userRole;
     }
 

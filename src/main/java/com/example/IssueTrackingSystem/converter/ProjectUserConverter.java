@@ -14,6 +14,7 @@ public class ProjectUserConverter {
         return ProjectUserResponseDTO.ProjectUserResultDTO.builder()
                 .userId(projectUser.getUser().getUserId())
                 .userName(projectUser.getUser().getUserName())
+                .name(projectUser.getUser().getName())
                 .userRole(projectUser.getUserRole())
                 .build();
     }

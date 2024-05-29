@@ -36,6 +36,8 @@ public class UserConverter {
     public static UserResponseDTO.SignInResultDTO toSignInResultDTO(User user){
         return UserResponseDTO.SignInResultDTO.builder()
                 .userId(user.getUserId())
+                .userName(user.getUserName())
+                .name(user.getName())
                 .build();
     }
 
