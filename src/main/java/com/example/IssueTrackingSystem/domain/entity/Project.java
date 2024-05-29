@@ -60,6 +60,9 @@ public class Project extends BaseEntity {
 //        }
     }
 
+    public void deleteUser() {
+        this.user = null;
+    }
     public void update(ProjectRequestDTO.UpdateProjectDTO request) {
         this.title = request.getTitle();
         this.description = request.getDescription();

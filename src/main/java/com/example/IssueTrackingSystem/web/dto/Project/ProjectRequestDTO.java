@@ -22,7 +22,7 @@ public class ProjectRequestDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class GetProjectRequestDTO {
-        private long projectId;
+        private Long projectId;
     }
 
     @Getter
@@ -34,14 +34,13 @@ public class ProjectRequestDTO {
         private String description;
     }
 
-//    @Getter
-//    @Builder
-//    @AllArgsConstructor
-//    @NoArgsConstructor
-//    public static class deleteProjectDTO {
-//        private String title;
-//        private String description;
-//    }
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class deleteUserInProjectDTO {
+        private Long userId;
+    }
 
 }
 

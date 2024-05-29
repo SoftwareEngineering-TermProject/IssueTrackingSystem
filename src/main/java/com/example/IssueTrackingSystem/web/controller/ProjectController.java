@@ -109,30 +109,6 @@ public class ProjectController {
         );
     }
 
-//    // 전체 프로젝트 페이징 조회 (검색 가능)
-//    @GetMapping
-//    @Operation(
-//            summary = "전체 프로젝트 페이징 조회 API"
-//            , description = "전체 프로젝트를 조회합니다. RequestParam으로 페이징 조회를 위한 page와 size를 입력하세요. 검색을 원할 경우에는 search를 입력하세요."
-//    )
-//    public ApiResponse<ProjectResponseDTO.ProjectPreviewListDTO> findProjectByPaging(
-//            @RequestParam @Min(0) Integer page,
-//            @RequestParam @Min(1) @Max(10) Integer size,
-//            // Search
-//            @RequestParam(required = false) Optional<String> search
-//    ) {
-//        Page<Project> projects = projectQueryService.findAllBySearch(page, size, search);
-//
-//        //List<Integer> userCounts = projectQueryService.fin
-//
-//        return ApiResponse.onSuccess(
-//                SuccessStatus.Project_OK,
-//                ProjectConverter.toProjectPreviewDTOList(
-//                        projects
-//                )
-//        );
-//    }
-
 
     // 프로젝트 리스트 검색
     @GetMapping
@@ -166,5 +142,37 @@ public class ProjectController {
         );
     }
 
+//    // admin이 프로젝트 내에서 계정 삭제
+//    @DeleteMapping("/delete/{adminId}")
+//    @Operation(summary = "프로젝트 내의 계정 삭제", description =
+//            "Project에 참여중인 계정을 삭제합니다. adminId는 삭제를 진행하는 유저가 admin인지 확인하고, userId는 삭제 대상 유저를 나타냄"
+//    )
+//    public ApiResponse<?> deleteUser(
+//            @PathVariable Long adminId,  // 삭제를 진행하는 유저가 admin인지 확인
+//            @RequestParam Long projectId,
+//            @RequestBody ProjectRequestDTO.deleteUserInProjectDTO request
+//    ) {
+//        projectCommandService.deleteUserInProject(request, projectId, adminId);
+//        return ApiResponse.onSuccess(
+//                SuccessStatus.Project_OK,
+//                null
+//        );
+//    }
+
+    @DeleteMapping("/delete")
+    @Operation(summary = "프로젝트 내의 계정 삭제", description =
+            "Project에 참여중인 계정을 삭제합니다. adminId는 삭제를 진행하는 유저가 admin인지 확인하고, userId는 삭제 대상 유저를 나타냄"
+    )
+    public ApiResponse<?> deleteUser(
+            @RequestParam Long adminId,  // 삭제를 진행하는 유저가 admin인지 확인
+            @RequestParam Long projectId,
+            @RequestParam Long userId
+    ) {
+        projectCommandService.deleteUserInProject(userId, projectId, adminId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Project_OK,
+                null
+        );
+    }
 
 }

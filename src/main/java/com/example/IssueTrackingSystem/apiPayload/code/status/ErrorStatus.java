@@ -27,7 +27,8 @@ public enum ErrorStatus implements BaseErrorCode {
     PROJECT_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2001", "프로젝트 생성 권한이 없습니다."),
     PROJECT_UPDATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2002", "프로젝트 수정 권한이 없습니다."),
     PROJECT_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2003", "프로젝트 삭제 권한이 없습니다."),
-    PROJECT_ADDUSER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2003", "프로젝트에 사용자를 추가할 권한이 없습니다."),
+    PROJECT_ADDUSER_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2004", "프로젝트에 사용자를 추가할 권한이 없습니다."),
+    PROJECT_USER_DELETE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "PROJECT_2005", "프로젝트 참여자 삭제 권한이 없습니다."),
 
     // 이슈 관련 에러 3000
     ISSUE_CREATE_UNAUTHORIZED(HttpStatus.BAD_REQUEST, "ISSUE_3001", "이슈 생성 권한이 없습니다."),
