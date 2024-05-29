@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserCommandServiceImpl implements UserCommandService{
 
     private final UserRepository userRepository;
+
+    @Override
     public User createUser(UserRequestDTO.CreateUserRequestDTO request){
         User getUser = userRepository.findByUserName(request.getUserName());
         if(getUser != null){

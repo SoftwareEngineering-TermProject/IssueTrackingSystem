@@ -5,9 +5,11 @@ import com.example.IssueTrackingSystem.apiPayload.code.status.SuccessStatus;
 import com.example.IssueTrackingSystem.converter.IssueConverter;
 import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
+import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.service.CommentService.CommentQueryService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueCommandService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueQueryService;
+import com.example.IssueTrackingSystem.service.ProjectService.ProjectQueryService;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +32,7 @@ public class IssueController {
     private final IssueCommandService issueCommandService;
     private final IssueQueryService issueQueryService;
     private final CommentQueryService commentQueryService;
+    private final ProjectQueryService projectQueryService;
 
     // 이슈 생성
     @PostMapping("/")
@@ -214,14 +217,19 @@ public class IssueController {
             @PathVariable Long projectId,
             @RequestParam int year
     ) {
-        issueQueryService.getCountOfIssueByProjectAndMonth(projectId, year);
-
-        //Issue getIssue = issueQueryService.getIssue(issueId);
-        //List<Comment> commentsList = commentQueryService.getCommentsList(getIssue);
+        Project getProject = projectQueryService.getProject(projectId);
+        int totalIssueCountForYear = issueQueryService.getTotalIssueCountForYear(year, projectId);
+        List<Integer> issueCountByBlocker = issueQueryService.getCountOfBlockerIssueByProjectAndMonth(projectId, year);
+        List<Integer> issueCountByCritical = issueQueryService.getCountOfCriticalIssueByProjectAndMonth(projectId, year);
+        List<Integer> issueCountByMajor = issueQueryService.getCountOfMajorIssueByProjectAndMonth(projectId, year);
+        List<Integer> issueCountByMinor = issueQueryService.getCountOfMinorIssueByProjectAndMonth(projectId, year);
+        List<Integer> issueCountByTrivial = issueQueryService.getCountOfTrivialIssueByProjectAndMonth(projectId, year);
+        List<Integer> issueTotalCount = issueQueryService.getCountOfTotalIssue(projectId, year);
+        List<Integer> month = issueQueryService.getMonth();
 
         return ApiResponse.onSuccess(
-                SuccessStatus.Issue_OK, null
-                //IssueConverter.toGetIssueResultWithCommentPreviewListDTO(getIssue, commentsList)
+                SuccessStatus.Issue_OK,
+                IssueConverter.toGetIssueStatisticPreviewListDTO(getProject, year, totalIssueCountForYear, issueCountByBlocker, issueCountByCritical, issueCountByMajor, issueCountByMinor, issueCountByTrivial, issueTotalCount, month)
         );
     }
 }

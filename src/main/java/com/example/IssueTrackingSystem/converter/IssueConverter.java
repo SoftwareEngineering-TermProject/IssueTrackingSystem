@@ -2,10 +2,12 @@ package com.example.IssueTrackingSystem.converter;
 
 import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
+import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.web.dto.Comment.CommentResponseDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueRequestDTO;
 import com.example.IssueTrackingSystem.web.dto.Issue.IssueResponseDTO;
+import com.sun.jdi.IntegerValue;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -106,22 +108,41 @@ public class IssueConverter {
                 .build();
     }
 
-//    public static IssueResponseDTO.GetIssueStatisticPreviewDTO toGetIssueStatisticPreviewDTO(Issue issue) {
-//        return IssueResponseDTO.GetIssueStatisticPreviewDTO.builder()
-//                .month()
-//                .build();
-//    }
-//
-//    public static IssueResponseDTO.IssuePreviewListDTO toIssuePreviewListDTO(
-//            List<Issue> issueList
-//    ) {
-//
-//        List<IssueResponseDTO.IssuePreviewDTO> issuePreviewDTOList = IntStream.range(0, issueList.size())
-//                .mapToObj(i -> toIssuePreviewDTO(issueList.get(i)))
-//                .collect(Collectors.toList());
-//
-//        return IssueResponseDTO.IssuePreviewListDTO.builder()
-//                .issues(issuePreviewDTOList)
-//                .build();
-//    }
+    public static IssueResponseDTO.GetIssueStatisticPreviewDTO toGetIssueStatisticPreviewDTO(Integer blocker, Integer critical, Integer major, Integer minor, Integer trivial, Integer total, Integer month) {
+        return IssueResponseDTO.GetIssueStatisticPreviewDTO.builder()
+                .month(month)
+                .blocker(blocker)
+                .critical(critical)
+                .major(major)
+                .minor(minor)
+                .trivial(trivial)
+                .total(total)
+                .build();
+    }
+
+    public static IssueResponseDTO.GetIssueStatisticPreviewListDTO toGetIssueStatisticPreviewListDTO(
+            Project project,
+            int year,
+            int totalIssueCountForYear,
+            List<Integer> blocker,
+            List<Integer> critical,
+            List<Integer> major,
+            List<Integer> minor,
+            List<Integer> trivial,
+            List<Integer> totals,
+            List<Integer> month
+    ) {
+
+        List<IssueResponseDTO.GetIssueStatisticPreviewDTO> GetIssueStatisticPreviewDTOList = IntStream.range(0, month.size())
+                .mapToObj(i -> toGetIssueStatisticPreviewDTO(blocker.get(i), critical.get(i), major.get(i), minor.get(i), trivial.get(i), totals.get(i), month.get(i)))
+                .collect(Collectors.toList());
+
+        return IssueResponseDTO.GetIssueStatisticPreviewListDTO.builder()
+                .projectId(project.getProjectId())
+                .title(project.getTitle())
+                .year(year)
+                .total(totalIssueCountForYear)
+                .issue_count(GetIssueStatisticPreviewDTOList)
+                .build();
+    }
 }

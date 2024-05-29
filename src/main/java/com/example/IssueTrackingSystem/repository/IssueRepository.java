@@ -15,4 +15,5 @@ public interface IssueRepository extends JpaRepository<Issue, Long> {
     List<Issue> findAllByProjectOrderByCreatedAtDesc(Project project);
 
     Integer countByProjectAndIssuePriorityAndCreatedAtBetween(Project project, IssuePriority issuePriority, LocalDateTime start, LocalDateTime end);
+    Integer countByProjectAndCreatedAtBetween(Project project, LocalDateTime start, LocalDateTime end);
 }

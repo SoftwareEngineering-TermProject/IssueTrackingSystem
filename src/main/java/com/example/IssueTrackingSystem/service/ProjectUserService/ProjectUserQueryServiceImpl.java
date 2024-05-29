@@ -23,6 +23,7 @@ public class ProjectUserQueryServiceImpl implements ProjectUserQueryService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
 
+    @Override
     public List<ProjectUser> getProjectUser(Long projectId) {
         Project getProject = projectRepository.findById(projectId).get();
         List<ProjectUser> ProjectUserList = projectUserRepository.findAllByProject(getProject);
@@ -30,6 +31,7 @@ public class ProjectUserQueryServiceImpl implements ProjectUserQueryService {
         return ProjectUserList;
     }
 
+    @Override
     public List<ProjectUser> getUserProject(Long userId) {
         User getUser = userRepository.findById(userId).get();
         List<ProjectUser> UserProjectList = projectUserRepository.findAllByUser(getUser);

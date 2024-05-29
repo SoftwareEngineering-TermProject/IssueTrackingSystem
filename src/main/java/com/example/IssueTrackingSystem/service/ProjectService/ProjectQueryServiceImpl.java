@@ -24,18 +24,21 @@ public class ProjectQueryServiceImpl implements ProjectQueryService{
 
     private final ProjectRepository projectRepository;
     //private final CommentRepository commentRepository;
+
+    @Override
     public Project projectFind(ProjectRequestDTO.GetProjectRequestDTO request) {
         //Project projectId = ProjectConverter.toProject(request);
         Optional<Project> findProject = projectRepository.findById(request.getProjectId());
         return null;
     }
 
+    @Override
     public Project findById(Long projectId) {
         Project project = projectRepository.findById(projectId).get();
         return projectRepository.save(project);
     }
 
-
+    @Override
     public List<Project> findAllBySearch(Optional<String> optSearch) {
         // 만약 검색어가 존재한다면
         if (optSearch.isPresent()) {
@@ -45,6 +48,12 @@ public class ProjectQueryServiceImpl implements ProjectQueryService{
         }
         // 검색어 존재 X
         return projectRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    public Project getProject(Long projectId) {
+        Project project = projectRepository.findById(projectId).get();
+        return project;
     }
 
 //    @Override
