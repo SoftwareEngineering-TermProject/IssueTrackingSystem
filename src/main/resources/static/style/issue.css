@@ -8,40 +8,11 @@ h1 {
     margin : 0px;
 }
 
-#upper-bar {
-    height: 120px;
-
-    display : flex;
-    flex-direction: column;
-}
-
-#upper-bar-title {
-  padding : 10px;
-
+#upper-foot{
+  margin : 4px 10px;
   display : flex;
+  align-items : flex-start;
   justify-content: space-between;
-}
-
-.nav-wrapper {
-  display: flex;
-}
-
-.upper-link {
-  color : #777;
-  padding : 0px 8px;
-}
-
-.upper-link:hover {
-  cursor : pointer;
-  color : #000;
-  text-decoration: underline;
-  transition : 0.5s;
-}
-
-#upper-bar-info {
-  margin : 10px;
-  display: flex;
-
 }
 
 table {
@@ -79,4 +50,34 @@ tr:last-child td:first-child {
 }
 tr:last-child td:last-child {
   border-bottom-right-radius: 6px;
+}
+
+
+button {
+  background-color: #42444e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin: 0px 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:focus {
+  outline: none; 
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+#search-result {
+  text-align: right;
+}
+
+#sort-status-btn {
+  margin : 0px;
+  padding : 4px 8px;
 }
