@@ -21,4 +21,9 @@ public class PageController {
     public String issue() {
         return "issue";
     }
+
+    @RequestMapping("/statistics")
+    public String statistics() {
+        return "statistics";
+    }
 }

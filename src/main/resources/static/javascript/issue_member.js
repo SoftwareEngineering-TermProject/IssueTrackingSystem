@@ -47,6 +47,8 @@ function loadAllMembers(){
                     div.classList.add("self");
                     const user_info_div = document.getElementById("user-info");
                     user_info_div.innerText = `${element.name}(${element.userRole})`
+                    localStorage.setItem("name", element.name);
+                    localStorage.setItem("role", element.userRole);
                 }
                 if (element.userRole == "PL") {
                     pl_list.appendChild(div);
