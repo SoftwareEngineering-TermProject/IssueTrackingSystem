@@ -232,4 +232,22 @@ public class IssueController {
                 IssueConverter.toGetIssueStatisticPreviewListDTO(getProject, year, totalIssueCountForYear, issueCountByBlocker, issueCountByCritical, issueCountByMajor, issueCountByMinor, issueCountByTrivial, issueTotalCount, month)
         );
     }
+
+    // 유저 본인이 assigned되어 있는 이슈 리스트 조회
+    @GetMapping("/list/assignee/{projectId}")
+    @Operation(
+            summary = "유저 본인이 assigned되어 있는 이슈 리스트 조회 API"
+            , description = "유저 본인이 assigned되어 있는 이슈 리스트를 조회합니다."
+    )
+    public ApiResponse<IssueResponseDTO.IssuePreviewListDTO> getIssueAssigneeList(
+            @PathVariable Long projectId,
+            @RequestParam Long userId
+    ) {
+
+        List<Issue> Issues = issueQueryService.findIssueByAssignee(userId, projectId);
+        return ApiResponse.onSuccess(
+                SuccessStatus.Issue_OK,
+                IssueConverter.toIssuePreviewListDTO(Issues)
+        );
+    }
 }
