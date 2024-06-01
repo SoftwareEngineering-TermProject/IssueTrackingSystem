@@ -6,6 +6,7 @@ import com.example.IssueTrackingSystem.converter.IssueConverter;
 import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
 import com.example.IssueTrackingSystem.domain.entity.Project;
+import com.example.IssueTrackingSystem.domain.enums.IssuePriority;
 import com.example.IssueTrackingSystem.service.CommentService.CommentQueryService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueCommandService;
 import com.example.IssueTrackingSystem.service.IssueService.IssueQueryService;
@@ -219,11 +220,11 @@ public class IssueController {
     ) {
         Project getProject = projectQueryService.getProject(projectId);
         int totalIssueCountForYear = issueQueryService.getTotalIssueCountForYear(year, projectId);
-        List<Integer> issueCountByBlocker = issueQueryService.getCountOfBlockerIssueByProjectAndMonth(projectId, year);
-        List<Integer> issueCountByCritical = issueQueryService.getCountOfCriticalIssueByProjectAndMonth(projectId, year);
-        List<Integer> issueCountByMajor = issueQueryService.getCountOfMajorIssueByProjectAndMonth(projectId, year);
-        List<Integer> issueCountByMinor = issueQueryService.getCountOfMinorIssueByProjectAndMonth(projectId, year);
-        List<Integer> issueCountByTrivial = issueQueryService.getCountOfTrivialIssueByProjectAndMonth(projectId, year);
+        List<Integer> issueCountByBlocker = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.BLOCKER);
+        List<Integer> issueCountByCritical = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.CRITICAL);
+        List<Integer> issueCountByMajor = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.MAJOR);
+        List<Integer> issueCountByMinor = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.MINOR);
+        List<Integer> issueCountByTrivial = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.CRITICAL);
         List<Integer> issueTotalCount = issueQueryService.getCountOfTotalIssue(projectId, year);
         List<Integer> month = issueQueryService.getMonth();
 
