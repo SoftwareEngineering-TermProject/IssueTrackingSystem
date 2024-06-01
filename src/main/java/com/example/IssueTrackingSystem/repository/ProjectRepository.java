@@ -20,6 +20,4 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findAllByTitleContainingIgnoreCaseOrderByCreatedAtDesc(String title);
     List<Project> findAllByOrderByCreatedAtDesc();
 
-    // Page<Project> findAllByOrderByCreatedAtDescProjectIdDesc(Pageable pageable);
-    // Page<Project> findAllByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrderByCreatedAtDescProjectIdDesc(String title, String description, Pageable pageable);
 }

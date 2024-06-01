@@ -67,4 +67,7 @@ public class Project extends BaseEntity {
         this.title = request.getTitle();
         this.description = request.getDescription();
     }
+
+    public void setId(Long projectId) {
+    }
 }

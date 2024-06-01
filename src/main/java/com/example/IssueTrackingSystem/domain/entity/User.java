@@ -51,4 +51,6 @@ public class User extends BaseEntity {
     @Builder.Default
     private List<ProjectUser> projectUserList = new ArrayList<>();
 
+    public void setId(Long userId) {
+    }
 }
