@@ -163,7 +163,7 @@ public class ProjectCommandServiceImplTest {
                 .admin(Admin.TRUE)
                 .build();
 
-        Project expectProject = Project.builder()
+        Project existingProject = Project.builder()
                 .projectId(projectId)
                 .title(title)
                 .description(description)
@@ -171,13 +171,13 @@ public class ProjectCommandServiceImplTest {
 
         // Mocking the repositories
         when(userRepository.findById(userId)).thenReturn(Optional.of(testUser));
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(expectProject));
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(existingProject));
 
         // when
         projectCommandService.deleteProject(userId, projectId);
 
         // then
-        verify(projectRepository).delete(expectProject);
+        verify(projectRepository).delete(existingProject);
     }
 
     @Test
