@@ -2,6 +2,7 @@ package com.example.IssueTrackingSystem.service.CommentService;
 
 import com.example.IssueTrackingSystem.domain.entity.Comment;
 import com.example.IssueTrackingSystem.domain.entity.Issue;
+import com.example.IssueTrackingSystem.domain.entity.Project;
 import com.example.IssueTrackingSystem.domain.entity.User;
 import com.example.IssueTrackingSystem.repository.CommentRepository;
 import com.example.IssueTrackingSystem.repository.IssueRepository;
@@ -11,13 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CommentCommandServiceImplTest {
@@ -75,7 +77,64 @@ public class CommentCommandServiceImplTest {
         assertEquals(comment.getCommentId(), commentId);
         assertEquals(comment.getComment(), content); // 코멘트 내용 비교 수정
 
-// 연관관계 검증
+        // 연관관계 검증
         assertEquals(comment.getUser().getUserId(), userId);
+    }
+
+    // 코멘트 수정 TEST
+    @Test
+    void updateComment() {
+        // given
+        Long commentId = 1L;
+        Long userId = 1L;
+        String updateContent = "Updated Content";
+
+        CommentRequestDTO.UpdateCommentDTO request = CommentRequestDTO.UpdateCommentDTO.builder()
+                .content(updateContent)
+                .build();
+
+        User testUser = User.builder()
+                .userId(userId)
+                .build();
+
+        Comment existingComment = Comment.builder()
+                .commentId(commentId)
+                .comment("Original Content")
+                .build();
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(testUser));
+        when(commentRepository.findById(commentId)).thenReturn(Optional.of(existingComment));
+
+        // when
+        Comment updatedComment = commentCommandService.updateComment(userId, commentId, request);
+
+        // then
+        assertEquals(updatedComment.getCommentId(), commentId);
+        assertEquals(updatedComment.getComment(), updateContent);
+    }
+
+    // 코멘트 삭제 TEST
+    @Test
+    void deleteComment() {
+        // given
+        Long commentId = 1L;
+        Long userId = 1L;
+
+        User testUser = User.builder()
+                .userId(userId)
+                .build();
+
+        Comment existingComment = Comment.builder()
+                .commentId(commentId)
+                .build();
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(testUser));
+        when(commentRepository.findById(commentId)).thenReturn(Optional.of(existingComment));
+
+        // when
+        commentCommandService.deleteComment(userId, commentId);
+
+        // then
+        verify(commentRepository).delete(existingComment);
     }
 }
