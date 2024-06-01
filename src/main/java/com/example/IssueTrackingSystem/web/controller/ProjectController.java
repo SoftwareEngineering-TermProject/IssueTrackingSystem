@@ -72,6 +72,7 @@ public class ProjectController {
         );
     }
 
+
     // 프로젝트 삭제
     @DeleteMapping("/{projectId}")
     @Operation(
@@ -89,6 +90,7 @@ public class ProjectController {
         );
     }
 
+
     // 특정 프로젝트 조회
     @GetMapping("/{projectId}")
     @Operation(
@@ -104,7 +106,6 @@ public class ProjectController {
                 SuccessStatus.Project_OK,
                 ProjectConverter.toProjectDTO(
                         findProject
-                        //projectQueryService. //countExpertCountByQuestion ???
                 )
         );
     }
@@ -126,6 +127,7 @@ public class ProjectController {
         );
     }
 
+
     // admin이 프로젝트에 계정 추가
     @PostMapping("/add/{userId}")
     @Operation(summary = "프로젝트에 계정 추가", description =
@@ -142,23 +144,8 @@ public class ProjectController {
         );
     }
 
-//    // admin이 프로젝트 내에서 계정 삭제
-//    @DeleteMapping("/delete/{adminId}")
-//    @Operation(summary = "프로젝트 내의 계정 삭제", description =
-//            "Project에 참여중인 계정을 삭제합니다. adminId는 삭제를 진행하는 유저가 admin인지 확인하고, userId는 삭제 대상 유저를 나타냄"
-//    )
-//    public ApiResponse<?> deleteUser(
-//            @PathVariable Long adminId,  // 삭제를 진행하는 유저가 admin인지 확인
-//            @RequestParam Long projectId,
-//            @RequestBody ProjectRequestDTO.deleteUserInProjectDTO request
-//    ) {
-//        projectCommandService.deleteUserInProject(request, projectId, adminId);
-//        return ApiResponse.onSuccess(
-//                SuccessStatus.Project_OK,
-//                null
-//        );
-//    }
 
+    // admin이 프로젝트 내에서 계정 삭제
     @DeleteMapping("/delete")
     @Operation(summary = "프로젝트 내의 계정 삭제", description =
             "Project에 참여중인 계정을 삭제합니다. adminId는 삭제를 진행하는 유저가 admin인지 확인하고, userId는 삭제 대상 유저를 나타냄"

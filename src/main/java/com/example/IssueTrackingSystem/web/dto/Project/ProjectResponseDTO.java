@@ -28,8 +28,6 @@ public class ProjectResponseDTO {
         Long projectId;
         String title;
         String description;
-        // 이슈 상태?
-        // 코멘트?
     }
 
     @Getter
@@ -37,15 +35,10 @@ public class ProjectResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProjectPreviewDTO {  // 특정 프로젝트 조회
-        //UserResponseDTO.UserPreviewInProjectDTO user;
         Long projectId;
         String title;
         String description;
-        //Integer projectCount;
-        //List<HashtagResponseDTO.HashtagReturnDTO> hashtags;
-        // 이슈 상태?
-        // 코멘트?
-        // UserResponseDTO.UserPreviewInQuestionDTO user; ?
+
     }
 
     @Builder
@@ -54,11 +47,6 @@ public class ProjectResponseDTO {
     @AllArgsConstructor
     public static class ProjectPreviewListDTO {  // 전체 프로젝트 리스트 조회
         List<ProjectPreviewDTO> projects;
-        //Integer listSize;
-        //Integer totalPage;
-        //Long totalElements;
-        //boolean isFirst;
-        //boolean isLast;    // projectId : Title
     }
 
     @Getter
