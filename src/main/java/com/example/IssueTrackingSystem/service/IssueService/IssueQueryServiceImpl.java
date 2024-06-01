@@ -57,90 +57,18 @@ public class IssueQueryServiceImpl implements  IssueQueryService{
     }
 
     @Override
-    public List<Integer> getCountOfBlockerIssueByProjectAndMonth(Long projectId, int year){
+    public List<Integer> getCountOfIssuePriorityIssueByProjectAndMonth(Long projectId, int year, IssuePriority issuePriority){
         List<Integer> issueCount = new ArrayList<Integer>();
         Project getProject = projectRepository.findById(projectId).get();
         for(int i = 1; i <= 12; i++){
             if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
-                issueCount.add(getIssueCountForDay31(year, i, IssuePriority.BLOCKER, projectId));
+                issueCount.add(getIssueCountForDay31(year, i, issuePriority, projectId));
             }
             else if(i == 2){
-                issueCount.add(getIssueCountForDay28(year, i, IssuePriority.BLOCKER, projectId));
+                issueCount.add(getIssueCountForDay28(year, i, issuePriority, projectId));
             }
             else{
-                issueCount.add(getIssueCountForDay30(year, i, IssuePriority.BLOCKER, projectId));
-            }
-        }
-        return issueCount;
-    }
-
-    @Override
-    public List<Integer> getCountOfCriticalIssueByProjectAndMonth(Long projectId, int year){
-        List<Integer> issueCount = new ArrayList<Integer>();
-        Project getProject = projectRepository.findById(projectId).get();
-        for(int i = 1; i <= 12; i++){
-            if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
-                issueCount.add(getIssueCountForDay31(year, i, IssuePriority.CRITICAL, projectId));
-            }
-            else if(i == 2){
-                issueCount.add(getIssueCountForDay28(year, i, IssuePriority.CRITICAL, projectId));
-            }
-            else{
-                issueCount.add(getIssueCountForDay30(year, i, IssuePriority.CRITICAL, projectId));
-            }
-        }
-        return issueCount;
-    }
-
-    @Override
-    public List<Integer> getCountOfMajorIssueByProjectAndMonth(Long projectId, int year){
-        List<Integer> issueCount = new ArrayList<Integer>();
-        Project getProject = projectRepository.findById(projectId).get();
-        for(int i = 1; i <= 12; i++){
-            if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
-                issueCount.add(getIssueCountForDay31(year, i, IssuePriority.MAJOR, projectId));
-            }
-            else if(i == 2){
-                issueCount.add(getIssueCountForDay28(year, i, IssuePriority.MAJOR, projectId));
-            }
-            else{
-                issueCount.add(getIssueCountForDay30(year, i, IssuePriority.MAJOR, projectId));
-            }
-        }
-        return issueCount;
-    }
-
-    @Override
-    public List<Integer> getCountOfMinorIssueByProjectAndMonth(Long projectId, int year){
-        List<Integer> issueCount = new ArrayList<Integer>();
-        Project getProject = projectRepository.findById(projectId).get();
-        for(int i = 1; i <= 12; i++){
-            if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
-                issueCount.add(getIssueCountForDay31(year, i, IssuePriority.MINOR, projectId));
-            }
-            else if(i == 2){
-                issueCount.add(getIssueCountForDay28(year, i, IssuePriority.MINOR, projectId));
-            }
-            else{
-                issueCount.add(getIssueCountForDay30(year, i, IssuePriority.MINOR, projectId));
-            }
-        }
-        return issueCount;
-    }
-
-    @Override
-    public List<Integer> getCountOfTrivialIssueByProjectAndMonth(Long projectId, int year){
-        List<Integer> issueCount = new ArrayList<Integer>();
-        Project getProject = projectRepository.findById(projectId).get();
-        for(int i = 1; i <= 12; i++){
-            if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
-                issueCount.add(getIssueCountForDay31(year, i, IssuePriority.TRIVIAL, projectId));
-            }
-            else if(i == 2){
-                issueCount.add(getIssueCountForDay28(year, i, IssuePriority.TRIVIAL, projectId));
-            }
-            else{
-                issueCount.add(getIssueCountForDay30(year, i, IssuePriority.TRIVIAL, projectId));
+                issueCount.add(getIssueCountForDay30(year, i, issuePriority, projectId));
             }
         }
         return issueCount;
