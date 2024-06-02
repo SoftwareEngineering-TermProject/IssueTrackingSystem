@@ -224,7 +224,7 @@ public class IssueController {
         List<Integer> issueCountByCritical = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.CRITICAL);
         List<Integer> issueCountByMajor = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.MAJOR);
         List<Integer> issueCountByMinor = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.MINOR);
-        List<Integer> issueCountByTrivial = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.CRITICAL);
+        List<Integer> issueCountByTrivial = issueQueryService.getCountOfIssuePriorityIssueByProjectAndMonth(projectId, year, IssuePriority.TRIVIAL);
         List<Integer> issueTotalCount = issueQueryService.getCountOfTotalIssue(projectId, year);
         List<Integer> month = issueQueryService.getMonth();
 
