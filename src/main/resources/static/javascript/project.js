@@ -37,6 +37,13 @@ function addProject(project) {
   box.className = "project-box";
   box.id = "project-" +  project.projectId;
   
+  const color = document.createElement("div");
+  color.className = "color-div";
+  color.style.backgroundColor = stringToColorCode(project.title);
+
+  const info = document.createElement("div");
+  info.className = "info-div";
+
   const title = document.createElement("div");
   title.className = "project-title";
   title.innerText = project.title;
@@ -52,7 +59,30 @@ function addProject(project) {
     window.location.href = './issue';
   };
 
-  box.appendChild(title);
-  box.appendChild(role);
+  info.appendChild(title);
+  info.appendChild(role);
+  box.appendChild(color);
+  box.appendChild(info);
   all_project.appendChild(box);
+}
+
+function stringToColorCode(str) {
+  // 문자열을 숫자로 변환
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  // 해시 값을 16진수 색 코드로 변환
+  let color = "#";
+  for (let i = 0; i < 3; i++) {
+      // 해시에서 색상 값을 가져오고, 밝기를 조정
+      let value = (hash >> (i * 8)) & 0xFF;
+      // 밝기 조정을 위해 중간 값 (128)과의 평균을 취함
+      value = Math.floor((value + 128) / 2);
+      // 16진수로 변환하고, 두 자리 수를 맞춤
+      color += ('00' + value.toString(16)).slice(-2);
+  }
+  
+  return color;
 }

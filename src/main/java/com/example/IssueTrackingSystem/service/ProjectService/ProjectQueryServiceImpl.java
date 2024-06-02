@@ -23,11 +23,9 @@ import java.util.Optional;
 public class ProjectQueryServiceImpl implements ProjectQueryService{
 
     private final ProjectRepository projectRepository;
-    //private final CommentRepository commentRepository;
 
     @Override
     public Project projectFind(ProjectRequestDTO.GetProjectRequestDTO request) {
-        //Project projectId = ProjectConverter.toProject(request);
         Optional<Project> findProject = projectRepository.findById(request.getProjectId());
         return null;
     }
@@ -56,22 +54,6 @@ public class ProjectQueryServiceImpl implements ProjectQueryService{
         return project;
     }
 
-//    @Override
-//    public Page<Project> findAllBySearch(int page, int size, Optional<String> optSearch) {
-//        PageRequest request = PageRequest.of(page, size);
-//
-//        // if 검색어 존재
-//        if (optSearch.isPresent()) {
-//            String search = optSearch.get();
-//            // title, description 검색어를 포함하는 (대소문자 상관없이) 질문들을 최신순으로 페이징 조회
-//            return projectRepository
-//                    .findAllByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrderByCreatedAtDescProjectIdDesc(
-//                            search, search, request
-//                    );
-//        }
-//        // else 검색어 존재 X
-//        // 최신순으로 페이징 조회
-//        return projectRepository.findAllByOrderByCreatedAtDescProjectIdDesc(request);
-//    }
+
 
 }
